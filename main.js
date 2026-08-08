@@ -98,3 +98,44 @@
             parent.classList.toggle('active');
         });
     });
+
+// Handle Form Submission for Custom Redirect
+const form = document.querySelector('form[data-netlify="true"]');
+if (form) {
+    form.addEventListener('submit', (e) => {
+        // We don't preventDefault here because we want Netlify to process it first.
+        // Instead, we use a timeout to redirect after the submission starts.
+        
+        // Note: This is a "best effort" redirect. 
+        // If you want a 100% guaranteed redirect, you must use the data-netlify-success attribute correctly.
+        
+        // However, a better approach for Netlify Forms is to use the 'action' attribute 
+        // to point to a custom handler, but that requires a bit more setup.
+        
+        // Let's try the simplest reliable JS method:
+        // We will intercept the submit, send the data via fetch, then redirect.
+        
+        e.preventDefault(); // Stop default submission
+        
+        const formData = new FormData(form);
+        
+        fetch(form.action, {
+            method: 'POST',
+            body: formData,
+            headers: { 'Accept': 'application/json' }
+        })
+        .then(response => {
+            if (response.ok) {
+                // Success! Redirect to our custom page
+                window.location.href = "/success.html";
+            } else {
+                // Handle error
+                alert("Oops! Something went wrong. Please try again or call us.");
+            }
+        })
+        .catch(error => {
+            console.error("Error:", error);
+            alert("Network error. Please try again.");
+        });
+    });
+}
