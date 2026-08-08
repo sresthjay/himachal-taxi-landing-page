@@ -4,16 +4,16 @@ fleetButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
         const carName = btn.getAttribute('data-car');
         const formSection = document.getElementById('booking-form');
-        
+
         if (formSection) {
             formSection.scrollIntoView({ behavior: 'smooth' });
-            
+
             const calcCar = document.getElementById('calc-car');
             if (calcCar) {
-                if(carName.includes('Swift')) calcCar.value = "14";
-                else if(carName.includes('Etios')) calcCar.value = "18";
-                else if(carName.includes('Bolero')) calcCar.value = "24";
-                else if(carName.includes('Innova')) calcCar.value = "28";
+                if (carName.includes('Swift')) calcCar.value = "14";
+                else if (carName.includes('Etios')) calcCar.value = "18";
+                else if (carName.includes('Bolero')) calcCar.value = "24";
+                else if (carName.includes('Innova')) calcCar.value = "28";
             }
         }
     });
@@ -48,9 +48,9 @@ if (calcBtn) {
             return;
         }
 
-        const driverAllowance = 300;
+        const driverAllowance = 500;
         const total = (carRate * km) + (driverAllowance * days);
-        
+
         const formattedTotal = new Intl.NumberFormat('en-IN', {
             style: 'currency',
             currency: 'INR',
@@ -60,7 +60,7 @@ if (calcBtn) {
         resultDiv.style.display = 'block';
         resultDiv.style.background = '#e8f5e9';
         resultDiv.style.color = '#2e7d32';
-        
+
         resultDiv.innerHTML = `
             <div style="font-size: 1.2rem; margin-bottom: 5px;">Estimated Cost:</div>
             <div style="font-size: 2rem; font-weight: 800; margin-bottom: 5px;">${formattedTotal}</div>
@@ -71,15 +71,19 @@ if (calcBtn) {
             </div>
             
             <div class="form-group" style="text-align: left; margin-bottom: 15px;">
-                <label for="calc-phone" style="font-size: 0.9rem; font-weight: 600; color: #333; display: block; margin-bottom: 5px;">Enter Phone Number to Book:</label>
-                <input type="tel" id="calc-phone" placeholder="+91 98765 43210" style="width: 50%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" required>
+                 <label for="calc-phone" style="font-size: 0.9rem; font-weight: 600; color: #333; display: block; margin-bottom: 5px; text-align: center;">Enter Phone Number to Book:</label>
+                 <!-- Centered Input: Added text-align:center to the container or flex center -->
+           <div style="width: 50%; margin: 0 auto; text-align: center;"> 
+                <input type="tel" id="calc-phone" placeholder="+91 98765 43210" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" required>
+            </div>
             </div>
 
-            <button id="bookEstimateBtn" class="cta-btn" style="background:#1a1a1a; color:white; border:none; padding:12px 20px; border-radius:4px; cursor:pointer; width: 100%; opacity: 0.5;" disabled>
-                Book This Price
+            <!-- Button: Width set to 70% -->
+            <button id="bookEstimateBtn" class="cta-btn" style="background:#1a1a1a; color:white; border:none; padding:12px 20px; border-radius:4px; cursor:pointer; width: 70%; margin: 0 auto; opacity: 0.5;" disabled>
+            Book This Price
             </button>
         `;
-        
+
         const calcPhoneInput = document.getElementById('calc-phone');
         const bookBtn = document.getElementById('bookEstimateBtn');
 
@@ -118,7 +122,7 @@ if (calcBtn) {
                 try {
                     const response = await fetch("/", {
                         method: "POST",
-                        headers: { 
+                        headers: {
                             "Content-Type": "application/x-www-form-urlencoded"
                         },
                         body: formData.toString()
@@ -164,8 +168,8 @@ faqQuestions.forEach(item => {
 const form = document.getElementById('taxiForm');
 if (form) {
     form.addEventListener('submit', async (e) => {
-        e.preventDefault(); 
-        
+        e.preventDefault();
+
         // SAFETY CHECK: Ensure button exists
         const submitBtn = document.getElementById('submitBtn');
         if (!submitBtn) {
@@ -184,7 +188,7 @@ if (form) {
         try {
             const response = await fetch("/", {
                 method: "POST",
-                headers: { 
+                headers: {
                     "Content-Type": "application/x-www-form-urlencoded",
                     "X-Netlify-Form-Name": formName
                 },
