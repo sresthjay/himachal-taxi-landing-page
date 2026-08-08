@@ -1,8 +1,16 @@
-// 1. Car Selection Logic
+// 1. Car Selection Logic (Fleet Cards)
 const fleetButtons = document.querySelectorAll('.fleet-cta');
 fleetButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
-        const carName = btn.getAttribute('data-car');
+        e.preventDefault(); 
+        const carName = btn.getAttribute('data-car'); // Get value
+        
+        // SAFETY CHECK: If data-car is missing, stop
+        if (!carName) {
+            console.error("Missing data-car attribute on fleet button");
+            return;
+        }
+
         const formSection = document.getElementById('booking-form');
         
         if (formSection) {
@@ -10,6 +18,7 @@ fleetButtons.forEach(btn => {
             
             const calcCar = document.getElementById('calc-car');
             if (calcCar) {
+                // Use includes safely
                 if(carName.includes('Swift')) calcCar.value = "14";
                 else if(carName.includes('Etios')) calcCar.value = "18";
                 else if(carName.includes('Bolero')) calcCar.value = "24";
@@ -49,17 +58,25 @@ if (calcBtn) {
         resultDiv.style.background = '#e8f5e9';
         resultDiv.style.color = '#2e7d32';
         
+        // Generate the button WITHOUT inline onclick
         resultDiv.innerHTML = `
             <div style="font-size: 1.2rem; margin-bottom: 5px;">Estimated Cost:</div>
             <div style="font-size: 2rem; font-weight: 800;">${formattedTotal}</div>
             <div style="font-size: 0.85rem; margin-top: 5px; color: #555;">
                 *Includes driver allowance. Tolls & Parking extra.
             </div>
-            <button onclick="document.getElementById('booking-form').scrollIntoView({behavior:'smooth'})" 
-                    style="margin-top:10px; background:#2e7d32; color:white; border:none; padding:8px 16px; border-radius:4px; cursor:pointer;">
+            <button id="bookEstimateBtn" style="margin-top:10px; background:#2e7d32; color:white; border:none; padding:8px 16px; border-radius:4px; cursor:pointer;">
                 Book This Price
             </button>
         `;
+        
+        // Add event listener to the NEWLY created button
+        const bookBtn = document.getElementById('bookEstimateBtn');
+        if (bookBtn) {
+            bookBtn.addEventListener('click', () => {
+                document.getElementById('booking-form').scrollIntoView({behavior:'smooth'});
+            });
+        }
     });
 }
 
@@ -75,49 +92,49 @@ faqQuestions.forEach(item => {
     });
 });
 
-// 4. FORM SUBMISSION (The Critical Fix)
+// 4. FORM SUBMISSION (With Safety Check)
 const form = document.getElementById('taxiForm');
 if (form) {
     form.addEventListener('submit', async (e) => {
-        e.preventDefault(); // Stop standard reload
+        e.preventDefault(); 
         
+        // SAFETY CHECK: Ensure button exists
         const submitBtn = document.getElementById('submitBtn');
+        if (!submitBtn) {
+            console.error("Submit button not found!");
+            alert("Error: Form button missing. Please refresh.");
+            return;
+        }
+
         const originalText = submitBtn.innerText;
         submitBtn.innerText = "Sending...";
         submitBtn.disabled = true;
 
-        // Get form data
         const formData = new FormData(form);
-        // CRITICAL: Netlify needs this hidden field to know which form it is
         const formName = form.querySelector('input[name="form-name"]').value;
 
         try {
-            // CRITICAL: The URL must be exactly "/" for Netlify Forms to work
             const response = await fetch("/", {
                 method: "POST",
                 headers: { 
                     "Content-Type": "application/x-www-form-urlencoded",
-                    "X-Netlify-Form-Name": formName // Optional but helps debugging
+                    "X-Netlify-Form-Name": formName
                 },
                 body: new URLSearchParams(formData).toString()
             });
 
-            // Check if response is OK (200-299)
             if (response.ok) {
-                // SUCCESS: Redirect to success page
                 console.log("Form submitted successfully!");
                 window.location.href = "/success.html";
             } else {
-                // Error: Show alert but don't redirect
                 console.error("Error submitting form:", response.status);
-                alert("Oops! Something went wrong. Please call us directly: +91 00000 00000");
+                alert("Oops! Something went wrong. Please call us directly.");
                 submitBtn.innerText = originalText;
                 submitBtn.disabled = false;
             }
         } catch (error) {
-            // Network error
             console.error("Network error:", error);
-            alert("Network error. Please try again or call us.");
+            alert("Network error. Please try again.");
             submitBtn.innerText = originalText;
             submitBtn.disabled = false;
         }

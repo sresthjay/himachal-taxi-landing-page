@@ -60,7 +60,7 @@
                     </select>
                 </div>
 
-                <button type="submit" class="cta-btn">Get Free Quote Now</button>
+                <button type="submit" class="cta-btn" id="submitBtn">Get Free Quote Now</button>
             </form>
         </div>
     </header>
@@ -138,7 +138,7 @@
                     <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Perfect for Shimla, Kullu, and city
                         tours.</p>
                 </div>
-                <a href="#booking-form" class="fleet-cta" onclick="selectCar('Swift Dzire')">Book This Car</a>
+                <a href="#booking-form" class="fleet-cta" data-car="Swift Dzire">Book This Car</a>
             </div>
 
             <!-- Car 2: Sedan -->
@@ -158,7 +158,7 @@
                     <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Smooth ride for long highways to
                         Manali.</p>
                 </div>
-                <a href="#booking-form" class="fleet-cta" onclick="selectCar('Toyota Etios')">Book This Car</a>
+                <a href="#booking-form" class="fleet-cta" data-car="Toyota Etios">Book This Car</a>
             </div>
 
             <!-- Car 3: SUV -->
@@ -178,7 +178,7 @@
                     <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Must for Spiti Valley, Kinnaur, and
                         snow roads.</p>
                 </div>
-                <a href="#booking-form" class="fleet-cta" onclick="selectCar('Bolero')">Book This Car</a>
+                <a href="#booking-form" class="fleet-cta" data-car="Bolero">Book This Car</a>>
             </div>
 
             <!-- Car 4: Luxury -->
@@ -198,7 +198,7 @@
                     <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Premium comfort for families and VIPs.
                     </p>
                 </div>
-                <a href="#booking-form" class="fleet-cta" onclick="selectCar('Innova Crysta')">Book This Car</a>
+                <a href="#booking-form" class="fleet-cta" data-car="Innova Crysta">Book This Car</a>
             </div>
         </div>
     </section>
@@ -227,7 +227,7 @@
                 <label for="calc-days">Number of Days</label>
                 <input type="number" id="calc-days" placeholder="e.g. 5" value="1">
             </div>
-            <button class="cta-btn" onclick="calculatePrice()">Calculate Estimate</button>
+            <button class="cta-btn" id="calcBtn">Calculate Estimate</button>
 
             <div id="calc-result" class="calc-result">
                 <!-- Result will appear here -->
