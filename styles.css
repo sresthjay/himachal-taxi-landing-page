@@ -32,9 +32,23 @@ body {
     display: flex;
     align-items: center;
     justify-content: center;
-    padding: 20px;
+    padding: 50px 20px;
     text-align: center;
     color: white;
+}
+
+@media (max-width: 768px) {
+  .header-contact {
+    display: none !important;
+  }
+
+  .header-container {
+    justify-content: center; /* Centers the logo */
+  }
+  
+  .logo a span:last-child {
+    font-size: 1.4rem; /* Slightly larger text for mobile readability */
+  }
 }
 
 .hero-content {
@@ -378,9 +392,9 @@ button.cta-btn:hover {
 
 /* TOP SITE HEADER */
 .site-header {
-    background: white;
+    background: rgba(221, 221, 221, 0.25);
     box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-    position: sticky;
+    position: relative;
     top: 0;
     z-index: 1000;
     padding: 15px 0;
