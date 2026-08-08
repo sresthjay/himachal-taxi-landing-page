@@ -1,49 +1,43 @@
-    // 1. Select a car from the fleet grid and scroll to the form
-    function selectCar(carName) {
-        // Find the destination dropdown in the hero form
-        // Note: We are using the ID 'destination' from the hero form
-        const destinationSelect = document.getElementById('destination');
-        
-        // If the user selected "Other", we might want to change it, 
-        // but since 'carName' is a vehicle, we should probably add a hidden field 
-        // or just scroll down and let them type it in the 'type' or a new field.
-        
-        // BETTER APPROACH: Since this is a "Taxi" site, selecting a car 
-        // should ideally populate a "Preferred Vehicle" field. 
-        // But for now, let's just scroll to the form and alert them.
-        
-        // Scroll smoothly to the calculator/form section
+// 1. Car Selection Logic (Fleet Cards)
+const fleetButtons = document.querySelectorAll('.fleet-cta');
+fleetButtons.forEach(btn => {
+    btn.addEventListener('click', (e) => {
+        e.preventDefault(); // Prevent default anchor jump
+        const carName = btn.getAttribute('data-car'); // Get car name from data attribute
+
+        // Scroll to form
         const formSection = document.getElementById('booking-form');
         if (formSection) {
             formSection.scrollIntoView({ behavior: 'smooth' });
-            
-            // Optional: Pre-fill the car selection in the calculator if it exists
+
+            // Pre-select in calculator
             const calcCar = document.getElementById('calc-car');
             if (calcCar) {
-                // Map car names to values (simplified)
-                if(carName.includes('Swift')) calcCar.value = "14";
-                else if(carName.includes('Etios')) calcCar.value = "18";
-                else if(carName.includes('Bolero')) calcCar.value = "24";
-                else if(carName.includes('Innova')) calcCar.value = "28";
+                if (carName.includes('Swift')) calcCar.value = "14";
+                else if (carName.includes('Etios')) calcCar.value = "18";
+                else if (carName.includes('Bolero')) calcCar.value = "24";
+                else if (carName.includes('Innova')) calcCar.value = "28";
             }
-            
-            // Highlight the "Get Quote" button to draw attention
-            const ctaBtn = document.querySelector('.calc-wrapper .cta-btn');
-            if(ctaBtn) {
-                ctaBtn.style.transform = "scale(1.05)";
-                setTimeout(() => ctaBtn.style.transform = "scale(1)", 300);
+
+            // Highlight the "Calculate" button to draw attention
+            const calcBtn = document.getElementById('calcBtn');
+            if (calcBtn) {
+                calcBtn.style.transform = "scale(1.05)";
+                setTimeout(() => calcBtn.style.transform = "scale(1)", 300);
             }
         }
-    }
+    });
+});
 
-    // 2. Price Calculator Logic
-    function calculatePrice() {
+// 2. Price Calculator Logic
+const calcBtn = document.getElementById('calcBtn');
+if (calcBtn) {
+    calcBtn.addEventListener('click', () => {
         const carRate = parseFloat(document.getElementById('calc-car').value);
         const km = parseFloat(document.getElementById('calc-km').value);
         const days = parseFloat(document.getElementById('calc-days').value);
         const resultDiv = document.getElementById('calc-result');
 
-        // Validation
         if (!km || km <= 0) {
             resultDiv.style.display = 'block';
             resultDiv.style.background = '#ffebee';
@@ -52,90 +46,19 @@
             return;
         }
 
-        // Logic: (Rate * KM) + (Driver Allowance * Days) + Buffer
-        // Driver allowance assumed ₹300/day
         const driverAllowance = 300;
         const total = (carRate * km) + (driverAllowance * days);
-        
-        // Format currency
+
         const formattedTotal = new Intl.NumberFormat('en-IN', {
             style: 'currency',
             currency: 'INR',
             maximumFractionDigits: 0
         }).format(total);
 
-        // Display Result
         resultDiv.style.display = 'block';
         resultDiv.style.background = '#e8f5e9';
         resultDiv.style.color = '#2e7d32';
-        
+
         resultDiv.innerHTML = `
             <div style="font-size: 1.2rem; margin-bottom: 5px;">Estimated Cost:</div>
-            <div style="font-size: 2rem; font-weight: 800;">${formattedTotal}</div>
-            <div style="font-size: 0.85rem; margin-top: 5px; color: #555;">
-                *Includes driver allowance. Tolls & Parking extra.
-            </div>
-            <button onclick="document.getElementById('booking-form').scrollIntoView({behavior:'smooth'})" 
-                    style="margin-top:10px; background:#2e7d32; color:white; border:none; padding:8px 16px; border-radius:4px; cursor:pointer;">
-                Book This Price
-            </button>
-        `;
-    }
-
-    // 3. FAQ Accordion Logic
-    document.querySelectorAll('.faq-question').forEach(item => {
-        item.addEventListener('click', event => {
-            const parent = item.parentElement;
-            
-            // Close other open items
-            document.querySelectorAll('.faq-item').forEach(child => {
-                if (child !== parent) {
-                    child.classList.remove('active');
-                }
-            });
-
-            // Toggle current
-            parent.classList.toggle('active');
-        });
-    });
-
-// Handle Form Submission for Custom Redirect
-const form = document.querySelector('form[data-netlify="true"]');
-if (form) {
-    form.addEventListener('submit', (e) => {
-        // We don't preventDefault here because we want Netlify to process it first.
-        // Instead, we use a timeout to redirect after the submission starts.
-        
-        // Note: This is a "best effort" redirect. 
-        // If you want a 100% guaranteed redirect, you must use the data-netlify-success attribute correctly.
-        
-        // However, a better approach for Netlify Forms is to use the 'action' attribute 
-        // to point to a custom handler, but that requires a bit more setup.
-        
-        // Let's try the simplest reliable JS method:
-        // We will intercept the submit, send the data via fetch, then redirect.
-        
-        e.preventDefault(); // Stop default submission
-        
-        const formData = new FormData(form);
-        
-        fetch(form.action, {
-            method: 'POST',
-            body: formData,
-            headers: { 'Accept': 'application/json' }
-        })
-        .then(response => {
-            if (response.ok) {
-                // Success! Redirect to our custom page
-                window.location.href = "/success.html";
-            } else {
-                // Handle error
-                alert("Oops! Something went wrong. Please try again or call us.");
-            }
-        })
-        .catch(error => {
-            console.error("Error:", error);
-            alert("Network error. Please try again.");
-        });
-    });
-}
+            <div style

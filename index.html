@@ -1,33 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reliable Taxi Services in Himachal | Manali, Shimla, Dharamshala Tours</title>
-    <meta name="description" content="Book trusted, local taxi drivers for Himachal tours. One-way cabs, round trips, and airport transfers. Safe, AC cars, and no hidden charges.">
-    
+    <meta name="description"
+        content="Book trusted, local taxi drivers for Himachal tours. One-way cabs, round trips, and airport transfers. Safe, AC cars, and no hidden charges.">
+
     <!-- Google Fonts for a professional look -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
 
     <link rel="stylesheet" href="styles.css">
 </head>
+
 <body>
 
     <!-- HERO SECTION -->
     <header class="hero">
         <div class="hero-content">
             <h1>Explore Himachal with Trusted Local Drivers</h1>
-            <p class="subhead">Safe, AC Cabs for Manali, Shimla, Dharamshala & More. <br>Instant Quotes. No Hidden Fees.</p>
+            <p class="subhead">Safe, AC Cabs for Manali, Shimla, Dharamshala & More. <br>Instant Quotes. No Hidden Fees.
+            </p>
 
             <!-- FORM: Netlify handles the submission automatically -->
-            <form name="taxi-booking" method="POST" data-netlify="true" class="booking-form">
+            <form id="taxiForm" class="booking-form">
+                <!-- Netlify requires a hidden input to identify the form if we use fetch -->
+                <input type="hidden" name="form-name" value="taxi-booking">
+
                 <div class="form-group">
                     <label for="name">Your Name</label>
                     <input type="text" id="name" name="name" placeholder="John Doe" required>
                 </div>
-                
+
                 <div class="form-group">
-                    <label for="phone">Phone Number (WhatsApp preferred)</label>
+                    <label for="phone">Phone Number</label>
                     <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required>
                 </div>
 
@@ -78,169 +85,181 @@
     </section>
 
     <!-- WHY CHOOSE US -->
-<section class="trust-section">
-    <div class="section-title">
-        <h2>Why Travelers Trust Us in Himachal</h2>
-        <p>We don't just drive; we guide you through the mountains safely.</p>
-    </div>
-    <div class="why-us-grid">
-        <div class="why-card">
-            <div class="why-icon">🏔️</div>
-            <h3>Mountain Experts</h3>
-            <p>Our drivers have 10+ years of experience on Himachal's tricky ghats and narrow roads.</p>
+    <section class="trust-section">
+        <div class="section-title">
+            <h2>Why Travelers Trust Us in Himachal</h2>
+            <p>We don't just drive; we guide you through the mountains safely.</p>
         </div>
-        <div class="why-card">
-            <div class="why-icon">🛡️</div>
-            <h3>Safety First</h3>
-            <p>All cars are sanitized, AC-tested, and equipped with first-aid kits and phone chargers.</p>
-        </div>
-        <div class="why-card">
-            <div class="why-icon">💰</div>
-            <h3>No Hidden Costs</h3>
-            <p>What we quote is what you pay. No surprise tolls, parking, or driver allowance fees.</p>
-        </div>
-        <div class="why-card">
-            <div class="why-icon">🌙</div>
-            <h3>24/7 Support</h3>
-            <p>Breakdown at 2 AM? We have local mechanics in every major town. We never leave you stranded.</p>
-        </div>
-    </div>
-</section>
-
-<!-- FLEET & PRICING -->
-<section class="fleet-section">
-    <div class="section-title">
-        <h2>Our Fleet & Transparent Pricing</h2>
-        <p>Choose the perfect car for your Himachal adventure. Prices are per day (approx 300km).</p>
-    </div>
-    <div class="fleet-grid">
-        <!-- Car 1: Hatchback -->
-        <div class="fleet-card">
-            <div class="fleet-img" style="background-image: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=600&q=80');">
-                <span class="fleet-badge">Budget Friendly</span>
+        <div class="why-us-grid">
+            <div class="why-card">
+                <div class="why-icon">🏔️</div>
+                <h3>Mountain Experts</h3>
+                <p>Our drivers have 10+ years of experience on Himachal's tricky ghats and narrow roads.</p>
             </div>
-            <div class="fleet-details">
-                <div class="fleet-name">Maruti Swift Dzire</div>
-                <div class="fleet-specs">
-                    <span>👥 4+1 Seats</span>
-                    <span>❄️ AC</span>
-                    <span>⛽ Petrol</span>
+            <div class="why-card">
+                <div class="why-icon">🛡️</div>
+                <h3>Safety First</h3>
+                <p>All cars are sanitized, AC-tested, and equipped with first-aid kits and phone chargers.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">💰</div>
+                <h3>No Hidden Costs</h3>
+                <p>What we quote is what you pay. No surprise tolls, parking, or driver allowance fees.</p>
+            </div>
+            <div class="why-card">
+                <div class="why-icon">🌙</div>
+                <h3>24/7 Support</h3>
+                <p>Breakdown at 2 AM? We have local mechanics in every major town. We never leave you stranded.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- FLEET & PRICING -->
+    <section class="fleet-section">
+        <div class="section-title">
+            <h2>Our Fleet & Transparent Pricing</h2>
+            <p>Choose the perfect car for your Himachal adventure. Prices are per day (approx 300km).</p>
+        </div>
+        <div class="fleet-grid">
+            <!-- Car 1: Hatchback -->
+            <div class="fleet-card">
+                <div class="fleet-img"
+                    style="background-image: url('https://images.unsplash.com/photo-1549317661-bd32c8ce0db2?auto=format&fit=crop&w=600&q=80');">
+                    <span class="fleet-badge">Budget Friendly</span>
                 </div>
-                <div class="fleet-price">₹14/km <small>or ₹1800/day</small></div>
-                <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Perfect for Shimla, Kullu, and city tours.</p>
-            </div>
-            <a href="#booking-form" class="fleet-cta" onclick="selectCar('Swift Dzire')">Book This Car</a>
-        </div>
-
-        <!-- Car 2: Sedan -->
-        <div class="fleet-card">
-            <div class="fleet-img" style="background-image: url('https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=600&q=80');">
-                <span class="fleet-badge">Comfort</span>
-            </div>
-            <div class="fleet-details">
-                <div class="fleet-name">Toyota Etios / Verna</div>
-                <div class="fleet-specs">
-                    <span>👥 4+1 Seats</span>
-                    <span>❄️ AC</span>
-                    <span>⛽ Diesel</span>
+                <div class="fleet-details">
+                    <div class="fleet-name">Maruti Swift Dzire</div>
+                    <div class="fleet-specs">
+                        <span>👥 4+1 Seats</span>
+                        <span>❄️ AC</span>
+                        <span>⛽ Petrol</span>
+                    </div>
+                    <div class="fleet-price">₹14/km <small>or ₹1800/day</small></div>
+                    <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Perfect for Shimla, Kullu, and city
+                        tours.</p>
                 </div>
-                <div class="fleet-price">₹18/km <small>or ₹2200/day</small></div>
-                <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Smooth ride for long highways to Manali.</p>
+                <a href="#booking-form" class="fleet-cta" onclick="selectCar('Swift Dzire')">Book This Car</a>
             </div>
-            <a href="#booking-form" class="fleet-cta" onclick="selectCar('Toyota Etios')">Book This Car</a>
-        </div>
 
-        <!-- Car 3: SUV -->
-        <div class="fleet-card">
-            <div class="fleet-img" style="background-image: url('https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=600&q=80');">
-                <span class="fleet-badge">Best for Spiti</span>
-            </div>
-            <div class="fleet-details">
-                <div class="fleet-name">Mahindra Bolero</div>
-                <div class="fleet-specs">
-                    <span>👥 6+1 Seats</span>
-                    <span>❄️ AC</span>
-                    <span>⛽ Diesel 4x4</span>
+            <!-- Car 2: Sedan -->
+            <div class="fleet-card">
+                <div class="fleet-img"
+                    style="background-image: url('https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=600&q=80');">
+                    <span class="fleet-badge">Comfort</span>
                 </div>
-                <div class="fleet-price">₹24/km <small>or ₹3000/day</small></div>
-                <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Must for Spiti Valley, Kinnaur, and snow roads.</p>
-            </div>
-            <a href="#booking-form" class="fleet-cta" onclick="selectCar('Bolero')">Book This Car</a>
-        </div>
-
-        <!-- Car 4: Luxury -->
-        <div class="fleet-card">
-            <div class="fleet-img" style="background-image: url('https://images.unsplash.com/photo-1616422285623-13ff0162193c?auto=format&fit=crop&w=600&q=80');">
-                <span class="fleet-badge">Luxury</span>
-            </div>
-            <div class="fleet-details">
-                <div class="fleet-name">Innova Crysta</div>
-                <div class="fleet-specs">
-                    <span>👥 6+1 Seats</span>
-                    <span>❄️ Dual AC</span>
-                    <span>⛽ Diesel</span>
+                <div class="fleet-details">
+                    <div class="fleet-name">Toyota Etios / Verna</div>
+                    <div class="fleet-specs">
+                        <span>👥 4+1 Seats</span>
+                        <span>❄️ AC</span>
+                        <span>⛽ Diesel</span>
+                    </div>
+                    <div class="fleet-price">₹18/km <small>or ₹2200/day</small></div>
+                    <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Smooth ride for long highways to
+                        Manali.</p>
                 </div>
-                <div class="fleet-price">₹28/km <small>or ₹3500/day</small></div>
-                <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Premium comfort for families and VIPs.</p>
+                <a href="#booking-form" class="fleet-cta" onclick="selectCar('Toyota Etios')">Book This Car</a>
             </div>
-            <a href="#booking-form" class="fleet-cta" onclick="selectCar('Innova Crysta')">Book This Car</a>
-        </div>
-    </div>
-</section>
 
-<!-- PRICE CALCULATOR -->
-<section class="calculator-section" id="booking-form">
-    <div class="section-title">
-        <h2>Estimate Your Trip Cost</h2>
-        <p>Get a rough idea of your journey cost instantly.</p>
-    </div>
-    <div class="calc-wrapper">
-        <div class="form-group">
-            <label for="calc-car">Select Car</label>
-            <select id="calc-car">
-                <option value="14">Swift Dzire (₹14/km)</option>
-                <option value="18">Toyota Etios (₹18/km)</option>
-                <option value="24">Bolero (₹24/km)</option>
-                <option value="28">Innova Crysta (₹28/km)</option>
-            </select>
-        </div>
-        <div class="form-group">
-            <label for="calc-km">Approx Distance (km)</label>
-            <input type="number" id="calc-km" placeholder="e.g. 250">
-        </div>
-        <div class="form-group">
-            <label for="calc-days">Number of Days</label>
-            <input type="number" id="calc-days" placeholder="e.g. 5" value="1">
-        </div>
-        <button class="cta-btn" onclick="calculatePrice()">Calculate Estimate</button>
-        
-        <div id="calc-result" class="calc-result">
-            <!-- Result will appear here -->
-        </div>
-    </div>
-</section>
+            <!-- Car 3: SUV -->
+            <div class="fleet-card">
+                <div class="fleet-img"
+                    style="background-image: url('https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=600&q=80');">
+                    <span class="fleet-badge">Best for Spiti</span>
+                </div>
+                <div class="fleet-details">
+                    <div class="fleet-name">Mahindra Bolero</div>
+                    <div class="fleet-specs">
+                        <span>👥 6+1 Seats</span>
+                        <span>❄️ AC</span>
+                        <span>⛽ Diesel 4x4</span>
+                    </div>
+                    <div class="fleet-price">₹24/km <small>or ₹3000/day</small></div>
+                    <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Must for Spiti Valley, Kinnaur, and
+                        snow roads.</p>
+                </div>
+                <a href="#booking-form" class="fleet-cta" onclick="selectCar('Bolero')">Book This Car</a>
+            </div>
 
-<!-- FAQ SECTION -->
-<section class="faq-section">
-    <div class="section-title">
-        <h2>Frequently Asked Questions</h2>
-    </div>
-    <div class="faq-container">
-        <div class="faq-item">
-            <div class="faq-question">Is the driver allowance included in the price?</div>
-            <div class="faq-answer">No, the driver allowance is usually ₹300/day, paid directly to the driver. However, for long tours (5+ days), we often negotiate this into the package. Ask us for details!</div>
+            <!-- Car 4: Luxury -->
+            <div class="fleet-card">
+                <div class="fleet-img"
+                    style="background-image: url('https://images.unsplash.com/photo-1616422285623-13ff0162193c?auto=format&fit=crop&w=600&q=80');">
+                    <span class="fleet-badge">Luxury</span>
+                </div>
+                <div class="fleet-details">
+                    <div class="fleet-name">Innova Crysta</div>
+                    <div class="fleet-specs">
+                        <span>👥 6+1 Seats</span>
+                        <span>❄️ Dual AC</span>
+                        <span>⛽ Diesel</span>
+                    </div>
+                    <div class="fleet-price">₹28/km <small>or ₹3500/day</small></div>
+                    <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Premium comfort for families and VIPs.
+                    </p>
+                </div>
+                <a href="#booking-form" class="fleet-cta" onclick="selectCar('Innova Crysta')">Book This Car</a>
+            </div>
         </div>
-        <div class="faq-item">
-            <div class="faq-question">Do you provide AC in all cars?</div>
-            <div class="faq-answer">Yes, all our vehicles are fully AC. However, in extreme cold (Spiti/January), we recommend keeping windows slightly open for fresh air if the AC feels too strong.</div>
-        </div>
-        <div class="faq-item">
-           
-    <!-- STICKY CALL BUTTON (Visible only on mobile usually, but good for all) -->
-    <a href="tel:+919805753890" class="sticky-call">
-        📞 Call Now: +91 98057 53890
-    </a>
+    </section>
 
-    <script src="main.js"></script>
+    <!-- PRICE CALCULATOR -->
+    <section class="calculator-section" id="booking-form">
+        <div class="section-title">
+            <h2>Estimate Your Trip Cost</h2>
+            <p>Get a rough idea of your journey cost instantly.</p>
+        </div>
+        <div class="calc-wrapper">
+            <div class="form-group">
+                <label for="calc-car">Select Car</label>
+                <select id="calc-car">
+                    <option value="14">Swift Dzire (₹14/km)</option>
+                    <option value="18">Toyota Etios (₹18/km)</option>
+                    <option value="24">Bolero (₹24/km)</option>
+                    <option value="28">Innova Crysta (₹28/km)</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="calc-km">Approx Distance (km)</label>
+                <input type="number" id="calc-km" placeholder="e.g. 250">
+            </div>
+            <div class="form-group">
+                <label for="calc-days">Number of Days</label>
+                <input type="number" id="calc-days" placeholder="e.g. 5" value="1">
+            </div>
+            <button class="cta-btn" onclick="calculatePrice()">Calculate Estimate</button>
+
+            <div id="calc-result" class="calc-result">
+                <!-- Result will appear here -->
+            </div>
+        </div>
+    </section>
+
+    <!-- FAQ SECTION -->
+    <section class="faq-section">
+        <div class="section-title">
+            <h2>Frequently Asked Questions</h2>
+        </div>
+        <div class="faq-container">
+            <div class="faq-item">
+                <div class="faq-question">Is the driver allowance included in the price?</div>
+                <div class="faq-answer">No, the driver allowance is usually ₹300/day, paid directly to the driver.
+                    However, for long tours (5+ days), we often negotiate this into the package. Ask us for details!
+                </div>
+            </div>
+            <div class="faq-item">
+                <div class="faq-question">Do you provide AC in all cars?</div>
+                <div class="faq-answer">Yes, all our vehicles are fully AC. However, in extreme cold (Spiti/January), we
+                    recommend keeping windows slightly open for fresh air if the AC feels too strong.</div>
+            </div>
+            <div class="faq-item">
+
+                <!-- STICKY CALL BUTTON (Visible only on mobile usually, but good for all) -->
+                <a href="tel:+919805753890" class="sticky-call">
+                    📞 Call Now: +91 98057 53890
+                </a>
+
+                <script src="main.js"></script>
 </body>
+
 </html>
