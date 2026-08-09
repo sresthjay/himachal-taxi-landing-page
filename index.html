@@ -23,14 +23,16 @@
     <header class="site-header">
         <div class="header-container">
             <div class="logo">
-                <a href="#" style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 8px;">
+                <a href="#"
+                    style="text-decoration: none; color: inherit; display: flex; align-items: center; gap: 8px;">
                     <span style="font-size: 1.8rem;">🚖</span>
                     <span style="font-weight: 700; font-size: 1.2rem; color: #2E7D32;">Himachal Taxi Service</span>
                 </a>
             </div>
             <div class="header-contact">
                 <a href="tel:+919805753890"><i class="fa-solid fa-phone"></i> +91 98057 53890</a>
-                <a href="mailto:shimlamanalitaxiservice01@gmail.com"><i class="fa-solid fa-envelope"></i> shimlamanalitaxiservice01@gmail.com</a>
+                <a href="mailto:shimlamanalitaxiservice01@gmail.com"><i class="fa-solid fa-envelope"></i>
+                    shimlamanalitaxiservice01@gmail.com</a>
             </div>
         </div>
     </header>
@@ -49,12 +51,12 @@
 
                 <div class="form-group">
                     <label for="name">Your Name</label>
-                    <input type="text" id="name" name="name" placeholder="John Doe" required>
+                    <input type="text" id="name" name="name" placeholder="Your Name" required>
                 </div>
 
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="+91 98765 43210" required>
+                    <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" required>
                 </div>
 
                 <div class="form-group">
@@ -75,7 +77,7 @@
                     <select id="type" name="trip_type">
                         <option value="One Way">One Way Drop</option>
                         <option value="Round Trip">Round Trip (Tour Package)</option>
-                        <option value="Airport Transfer">Airport/Station Pickup</option>
+                        <!-- <option value="Airport Transfer">Airport/Station Pickup</option> -->
                     </select>
                 </div>
 
@@ -128,17 +130,20 @@
                     <span class="fleet-badge">Budget Friendly</span>
                 </div>
                 <div class="fleet-details">
-                    <div class="fleet-name">Maruti Swift Dzire</div>
+                    <div class="fleet-name">Maruti Alto</div>
                     <div class="fleet-specs">
                         <span>👥 4+1 Seats</span>
                         <span>❄️ AC</span>
                         <span>⛽ Petrol</span>
                     </div>
-                    <div class="fleet-price">₹14/km <small>or ₹1800/day</small></div>
-                    <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Perfect for Shimla, Kullu, and city
-                        tours.</p>
+                    <div class="fleet-price">₹15/km <small>or ₹2500/day</small></div>
+                    <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">
+                        <i class="fa fa-info-circle" style="font-size:13px;color:#333"></i> Perfect for Shimla, Kullu,
+                        and city
+                        tours.
+                    </p>
                 </div>
-                <a href="#booking-form" class="fleet-cta" data-car="Swift Dzire">Book This Car</a>
+                <a href="#booking-form" class="fleet-cta" data-car="Maruti Alto">Book This Car</a>
             </div>
 
             <!-- Car 2: Sedan -->
@@ -148,7 +153,26 @@
                     <span class="fleet-badge">Comfort</span>
                 </div>
                 <div class="fleet-details">
-                    <div class="fleet-name">Toyota Etios / Verna</div>
+                    <div class="fleet-name">Swift Dzire</div>
+                    <div class="fleet-specs">
+                        <span>👥 4+1 Seats</span>
+                        <span>❄️ AC</span>
+                        <span>⛽ Petrol/Diesel</span>
+                    </div>
+                    <div class="fleet-price">₹17/km <small>or ₹3000/day</small></div>
+                    <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Smooth ride for long highways to
+                        Manali.</p>
+                </div>
+                <a href="#booking-form" class="fleet-cta" data-car="Swift Dzire">Book This Car</a>
+            </div>
+
+            <div class="fleet-card">
+                <div class="fleet-img"
+                    style="background-image: url('https://images.unsplash.com/photo-1550355291-bbee04a92027?auto=format&fit=crop&w=600&q=80');">
+                    <span class="fleet-badge">Comfort</span>
+                </div>
+                <div class="fleet-details">
+                    <div class="fleet-name">Toyota Etios</div>
                     <div class="fleet-specs">
                         <span>👥 4+1 Seats</span>
                         <span>❄️ AC</span>
@@ -168,21 +192,44 @@
                     <span class="fleet-badge">Best for Spiti</span>
                 </div>
                 <div class="fleet-details">
-                    <div class="fleet-name">Mahindra Bolero</div>
+                    <div class="fleet-name">Suzuki Ertiga</div>
+                    <div class="fleet-specs">
+                        <span>👥 6+1 Seats</span>
+                        <span>❄️ AC</span>
+                        <span>⛽ Diesel</span>
+                    </div>
+                    <div class="fleet-price">₹24/km <small>or ₹4000/day</small></div>
+                    <ul style="font-size:0.85rem; color:#777; margin-bottom:1rem;">
+                        <li style="list-style-type: none;">Must for Spiti Valley, Kinnaur, and
+                            snow roads.</li>
+                        <li style="list-style-type: none;">Must for Spiti Valley, Kinnaur, and
+                            snow roads. </li>
+                    </ul>
+                </div>
+                <a href="#booking-form" class="fleet-cta" data-car="Suzuki Ertiga">Book This Car</a>
+            </div>
+
+            <div class="fleet-card">
+                <div class="fleet-img"
+                    style="background-image: url('https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=600&q=80');">
+                    <span class="fleet-badge">Best for Spiti</span>
+                </div>
+                <div class="fleet-details">
+                    <div class="fleet-name">Toyota Innova</div>
                     <div class="fleet-specs">
                         <span>👥 6+1 Seats</span>
                         <span>❄️ AC</span>
                         <span>⛽ Diesel 4x4</span>
                     </div>
-                    <div class="fleet-price">₹24/km <small>or ₹3000/day</small></div>
+                    <div class="fleet-price">₹26/km <small>or ₹4500/day</small></div>
                     <ul style="font-size:0.85rem; color:#777; margin-bottom:1rem;">
-                    <li style="list-style-type: none;">Must for Spiti Valley, Kinnaur, and
-                        snow roads.</li>
                         <li style="list-style-type: none;">Must for Spiti Valley, Kinnaur, and
-                        snow roads. </li>
+                            snow roads.</li>
+                        <li style="list-style-type: none;">Must for Spiti Valley, Kinnaur, and
+                            snow roads. </li>
                     </ul>
                 </div>
-                <a href="#booking-form" class="fleet-cta" data-car="Bolero">Book This Car</a>
+                <a href="#booking-form" class="fleet-cta" data-car="Toyota Innova">Book This Car</a>
             </div>
 
             <!-- Car 4: Luxury -->
@@ -204,6 +251,64 @@
                 </div>
                 <a href="#booking-form" class="fleet-cta" data-car="Innova Crysta">Book This Car</a>
             </div>
+
+            <!-- Car 5: Mini-Bus -->
+            <div class="fleet-card">
+                <div class="fleet-img"
+                    style="background-image: url('https://images.unsplash.com/photo-1616422285623-13ff0162193c?auto=format&fit=crop&w=600&q=80');">
+                    <span class="fleet-badge">Group</span>
+                </div>
+                <div class="fleet-details">
+                    <div class="fleet-name">Traveller 12-Seater</div>
+                    <div class="fleet-specs">
+                        <span>👥 12+1 Seats</span>
+                        <span>❄️ Dual AC</span>
+                        <span>⛽ Diesel</span>
+                    </div>
+                    <div class="fleet-price">₹32/km <small>or ₹6500/day</small></div>
+                    <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Premium comfort for families and VIPs.
+                    </p>
+                </div>
+                <a href="#booking-form" class="fleet-cta" data-car="Traveller 12-Seater">Book This Car</a>
+            </div>
+
+            <div class="fleet-card">
+                <div class="fleet-img"
+                    style="background-image: url('https://images.unsplash.com/photo-1616422285623-13ff0162193c?auto=format&fit=crop&w=600&q=80');">
+                    <span class="fleet-badge">Group</span>
+                </div>
+                <div class="fleet-details">
+                    <div class="fleet-name">Traveller 17-Seater</div>
+                    <div class="fleet-specs">
+                        <span>👥 17+1 Seats</span>
+                        <span>❄️ Dual AC</span>
+                        <span>⛽ Diesel</span>
+                    </div>
+                    <div class="fleet-price">₹38/km <small>or ₹8000/day</small></div>
+                    <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Premium comfort for families and VIPs.
+                    </p>
+                </div>
+                <a href="#booking-form" class="fleet-cta" data-car="Traveller 17-Seater">Book This Car</a>
+            </div>
+
+            <div class="fleet-card">
+                <div class="fleet-img"
+                    style="background-image: url('https://images.unsplash.com/photo-1616422285623-13ff0162193c?auto=format&fit=crop&w=600&q=80');">
+                    <span class="fleet-badge">Luxury</span>
+                </div>
+                <div class="fleet-details">
+                    <div class="fleet-name">Urbania 17-Seater</div>
+                    <div class="fleet-specs">
+                        <span>👥 17+1 Seats</span>
+                        <span>❄️ Dual AC</span>
+                        <span>⛽ Diesel</span>
+                    </div>
+                    <div class="fleet-price">₹70/km <small>or ₹12000/day</small></div>
+                    <p style="font-size:0.85rem; color:#777; margin-bottom:1rem;">Premium comfort for families and VIPs.
+                    </p>
+                </div>
+                <a href="#booking-form" class="fleet-cta" data-car="Urbania 17-Seater">Book This Car</a>
+            </div>
         </div>
     </section>
 
@@ -217,10 +322,15 @@
             <div class="form-group">
                 <label for="calc-car">Select Car</label>
                 <select id="calc-car">
-                    <option value="14">Swift Dzire (₹14/km)</option>
+                    <option value="14">Maruti Alto (₹14/km)</option>
+                    <option value="17">Swift Dzire (₹17/km)</option>
                     <option value="18">Toyota Etios (₹18/km)</option>
-                    <option value="24">Bolero (₹24/km)</option>
-                    <option value="28">Innova Crysta (₹28/km)</option>
+                    <option value="24">Suzuki Ertiga (₹24/km)</option>
+                    <option value="26">Toyota Innova (₹26/km)</option>
+                    <option value="29">Innova Crysta (₹29/km)</option>
+                    <option value="40">Traveller 12-Seater (₹40/km)</option>
+                    <option value="50">Traveller 17-Seater (₹50/km)</option>
+                    <option value="70">Urbania 17-Seater (₹70/km)</option>
                 </select>
             </div>
             <div class="form-group">
@@ -250,17 +360,22 @@
     <!-- TESTIMONIAL SECTION -->
     <section class="testimonial-section">
         <div class="section-title">
-            <p style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-bottom: 5px;">Testimonial</p>
+            <p
+                style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-bottom: 5px;">
+                Testimonial</p>
             <h2>What The People Think About Us</h2>
             <p>Read real experiences from travelers who explored Himachal with our trusted local drivers.</p>
         </div>
         <div class="testimonial-grid">
             <!-- Testimonial 1 -->
             <div class="testimonial-card">
-                <div class="testimonial-avatar" style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80');"></div>
+                <div class="testimonial-avatar"
+                    style="background-image: url('https://images.unsplash.com/photo-1534528741775-53994a69daeb?auto=format&fit=crop&w=200&q=80');">
+                </div>
                 <div class="testimonial-content">
                     <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">"Amazing experience! Our driver was extremely polite and knew every turn on the Shimla-Manali highway. Safe and comfortable ride."</p>
+                    <p class="testimonial-text">"Amazing experience! Our driver was extremely polite and knew every turn
+                        on the Shimla-Manali highway. Safe and comfortable ride."</p>
                     <h4 class="testimonial-name">Priya Sharma</h4>
                     <span class="testimonial-role">Traveler from Delhi</span>
                 </div>
@@ -268,10 +383,13 @@
 
             <!-- Testimonial 2 -->
             <div class="testimonial-card">
-                <div class="testimonial-avatar" style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80');"></div>
+                <div class="testimonial-avatar"
+                    style="background-image: url('https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?auto=format&fit=crop&w=200&q=80');">
+                </div>
                 <div class="testimonial-content">
                     <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">"Booked an Innova for our Spiti Valley trip. The 4x4 Bolero suggestion and expert driver made all the tough mountain passes feel effortless."</p>
+                    <p class="testimonial-text">"Booked an Innova for our Spiti Valley trip. The 4x4 Bolero suggestion
+                        and expert driver made all the tough mountain passes feel effortless."</p>
                     <h4 class="testimonial-name">Rahul Verma</h4>
                     <span class="testimonial-role">Family Trip</span>
                 </div>
@@ -279,10 +397,13 @@
 
             <!-- Testimonial 3 -->
             <div class="testimonial-card">
-                <div class="testimonial-avatar" style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80');"></div>
+                <div class="testimonial-avatar"
+                    style="background-image: url('https://images.unsplash.com/photo-1517841905240-472988babdf9?auto=format&fit=crop&w=200&q=80');">
+                </div>
                 <div class="testimonial-content">
                     <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                    <p class="testimonial-text">"Transparent pricing with no hidden charges. Picked us up right on time from Chandigarh airport. Highly recommended!"</p>
+                    <p class="testimonial-text">"Transparent pricing with no hidden charges. Picked us up right on time
+                        from Chandigarh airport. Highly recommended!"</p>
                     <h4 class="testimonial-name">Ananya Gupta</h4>
                     <span class="testimonial-role">Solo Traveler</span>
                 </div>
@@ -298,7 +419,7 @@
         <div class="faq-container">
             <div class="faq-item">
                 <div class="faq-question">Is the driver allowance included in the price?</div>
-                <div class="faq-answer">No, the driver allowance is usually ₹300/day, paid directly to the driver.
+                <div class="faq-answer">No, the driver allowance is usually ₹500/day, paid directly to the driver.
                     However, for long tours (5+ days), we often negotiate this into the package. Ask us for details!
                 </div>
             </div>
@@ -309,24 +430,34 @@
             </div>
             <div class="faq-item">
                 <div class="faq-question">What is the advance booking payment policy?</div>
-                <div class="faq-answer">We generally require a 20-30% advance deposit to confirm your booking, with the remaining balance payable directly to the driver during the trip.</div>
+                <div class="faq-answer">We generally require a 20-30% advance deposit to confirm your booking, with the
+                    remaining balance payable directly to the driver during the trip.</div>
             </div>
             <div class="faq-item">
                 <div class="faq-question">Can we customize our Himachal tour itinerary?</div>
-                <div class="faq-answer">Yes! All our tours are fully customizable. You can add or remove destinations, sightseeing spots, and stopovers according to your preference.</div>
+                <div class="faq-answer">Yes! All our tours are fully customizable. You can add or remove destinations,
+                    sightseeing spots, and stopovers according to your preference.</div>
             </div>
         </div>
     </section>
 
     <!-- Floating Left Contact Buttons -->
     <div class="float-contact-buttons">
-        <a href="https://wa.me/919805753890" class="float-contact-btn whatsapp" target="_blank" title="Chat on WhatsApp">
+        <a href="https://wa.me/919805753890" class="float-contact-btn whatsapp" target="_blank"
+            title="Chat on WhatsApp">
             <i class="fa-brands fa-whatsapp"></i>
+            <span class="tooltip">WhatsApp</span>
         </a>
         <a href="tel:+919805753890" class="float-contact-btn phone" title="Call Us">
             <i class="fa-solid fa-phone"></i>
+            <span class="tooltip">Call Us</span>
         </a>
     </div>
+
+    <!-- Back to Top Button -->
+    <button id="backToTopBtn" title="Go to top">
+        <i class="fa-solid fa-chevron-up"></i>
+    </button>
 
     <!-- Hidden Netlify Form for Estimate Bookings -->
     <form name="estimate-booking" netlify netlify-honeypot="bot-field" hidden>

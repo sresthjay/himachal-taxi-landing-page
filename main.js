@@ -10,10 +10,15 @@ fleetButtons.forEach(btn => {
 
             const calcCar = document.getElementById('calc-car');
             if (calcCar) {
-                if (carName.includes('Swift')) calcCar.value = "14";
+                if (carName.includes('Alto')) calcCar.value = "14";
+                else if (carName.includes('Dzire')) calcCar.value = "17";
                 else if (carName.includes('Etios')) calcCar.value = "18";
-                else if (carName.includes('Bolero')) calcCar.value = "24";
-                else if (carName.includes('Innova')) calcCar.value = "28";
+                else if (carName.includes('Ertiga')) calcCar.value = "24";
+                else if (carName.includes('Toyota')) calcCar.value = "26";
+                else if (carName.includes('Crysta')) calcCar.value = "29";
+                else if (carName.includes('Traveller 12-Seater')) calcCar.value = "40";
+                else if (carName.includes('Traveller 17-Seater')) calcCar.value = "50";
+                else if (carName.includes('Urbania 17-Seater')) calcCar.value = "70";
             }
         }
     });
@@ -67,14 +72,14 @@ if (calcBtn) {
             <div style="font-size: 0.85rem; margin-bottom: 15px; color: #555;">
                 Car: ${carName} | From: ${pickup} To: ${drop}<br>
                 Distance: ${km} km | Days: ${days}<br>
-                *Includes driver allowance. Tolls & Parking extra.
+                *Includes DA. Taxes, Tolls & Parking extra. Call us for more details.
             </div>
             
             <div class="form-group" style="text-align: left; margin-bottom: 15px;">
                  <label for="calc-phone" style="font-size: 0.9rem; font-weight: 600; color: #333; display: block; margin-bottom: 5px; text-align: center;">Enter Phone Number to Book:</label>
                  <!-- Centered Input: Added text-align:center to the container or flex center -->
            <div style="width: 50%; margin: 0 auto; text-align: center;"> 
-                <input type="tel" id="calc-phone" placeholder="+91 98765 43210" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" required>
+                <input type="tel" id="calc-phone" placeholder="Your Phone Number" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" required>
             </div>
             </div>
 
@@ -213,8 +218,28 @@ if (form) {
     });
 }
 
-// Dynamic Year in Footer
+// 5. Dynamic Year in Footer
 const yearSpan = document.getElementById('current-year');
 if (yearSpan) {
     yearSpan.innerText = new Date().getFullYear();
 }
+
+// 6. Get to top button
+  const backToTopBtn = document.getElementById("backToTopBtn");
+
+  // Show button when user scrolls down 200px
+  window.onscroll = function() {
+    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
+      backToTopBtn.style.display = "block";
+    } else {
+      backToTopBtn.style.display = "none";
+    }
+  };
+
+  // Scroll to top when clicked
+  backToTopBtn.addEventListener("click", function() {
+    window.scrollTo({
+      top: 0,
+      behavior: "smooth" // Uses the smooth scrolling you already set in CSS
+    });
+  });
