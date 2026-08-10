@@ -42,6 +42,7 @@ if (calcBtn) {
             resultDiv.style.background = '#ffebee';
             resultDiv.style.color = '#c62828';
             resultDiv.innerHTML = "⚠️ Please enter both Pickup and Drop locations.";
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             return;
         }
 
@@ -50,6 +51,7 @@ if (calcBtn) {
             resultDiv.style.background = '#ffebee';
             resultDiv.style.color = '#c62828';
             resultDiv.innerHTML = "⚠️ Please enter a valid distance.";
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             return;
         }
 
@@ -65,32 +67,35 @@ if (calcBtn) {
         resultDiv.style.display = 'block';
         resultDiv.style.background = '#e8f5e9';
         resultDiv.style.color = '#2e7d32';
-
         resultDiv.innerHTML = `
             <div style="font-size: 1.2rem; margin-bottom: 5px;">Estimated Cost:</div>
             <div style="font-size: 2rem; font-weight: 800; margin-bottom: 5px;">${formattedTotal}</div>
             <div style="font-size: 0.85rem; margin-bottom: 15px; color: #555;">
                 Car: ${carName} | From: ${pickup} To: ${drop}<br>
-                Distance: ${km} km | Days: ${days}<br>
-                *Includes DA. Taxes, Tolls & Parking extra. Call us for more details.
+                Distance: ${km} km | Day/s: ${days}<br>
+                *Includes DA. Taxes, Tolls & Parking extra. <a href="tel:9805753890" style="color: #dfce13; text-decoration:none;">CALL US</a> for more details.
             </div>
             
             <div class="form-group" style="text-align: left; margin-bottom: 15px;">
-                 <label for="calc-phone" style="font-size: 0.9rem; font-weight: 600; color: #333; display: block; margin-bottom: 5px; text-align: center;">Enter Phone Number to Book:</label>
+                 <label for="calc-phone" style="font-size: 0.9rem; font-weight: 600; color: #333; display: block; margin-bottom: 5px; text-align: center;">Enter Your Phone Number to Book:</label>
                  <!-- Centered Input: Added text-align:center to the container or flex center -->
            <div style="width: 50%; margin: 0 auto; text-align: center;"> 
-                <input type="tel" id="calc-phone" placeholder="Your Phone Number" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box;" required>
+                <input type="tel" id="calc-phone" placeholder="Your Phone No." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; text-align: center;" required>
             </div>
             </div>
 
             <!-- Button: Width set to 70% -->
-            <button id="bookEstimateBtn" class="cta-btn" style="background:#1a1a1a; color:white; border:none; padding:12px 20px; border-radius:4px; cursor:pointer; width: 70%; margin: 0 auto; opacity: 0.5;" disabled>
+            <button id="bookEstimateBtn" class="cta-btn" style="background:#2E7D32; color:white; border:none; padding:12px 20px; border-radius:4px; cursor:pointer; width: 70%; margin: 0 auto; opacity:0.9;" disabled>
             Book This Price
             </button>
         `;
 
         const calcPhoneInput = document.getElementById('calc-phone');
         const bookBtn = document.getElementById('bookEstimateBtn');
+
+        if (bookBtn) {
+            bookBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        }
 
         if (calcPhoneInput && bookBtn) {
             calcPhoneInput.addEventListener('input', () => {
@@ -243,3 +248,5 @@ if (yearSpan) {
       behavior: "smooth" // Uses the smooth scrolling you already set in CSS
     });
   });
+
+
