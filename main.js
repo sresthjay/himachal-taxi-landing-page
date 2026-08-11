@@ -116,11 +116,31 @@ if (calcBtn) {
                 }
 
                 const originalText = bookBtn.innerText;
-                bookBtn.innerText = "Submitting Booking...";
+                bookBtn.innerText = "Sending Quote Request...";
                 bookBtn.disabled = true;
 
-                const formData = new URLSearchParams();
-                formData.append("form-name", "estimate-booking");
+                // Get all calculated values
+                const carRate = parseFloat(carSelect.value);
+                const carName = carSelect.options[carSelect.selectedIndex].text;
+                const pickup = document.getElementById('calc-pickup').value.trim();
+                const drop = document.getElementById('calc-drop').value.trim();
+                const km = parseFloat(document.getElementById('calc-km').value);
+                const days = parseFloat(document.getElementById('calc-days').value) || 1;
+                
+                // Calculate total (same logic as before)
+                const driverAllowance = 500;
+                const total = (carRate * km) + (driverAllowance * days);
+                const formattedTotal = new Intl.NumberFormat('en-IN', {
+                    style: 'currency',
+                    currency: 'INR',
+                    maximumFractionDigits: 0
+                }).format(total);
+
+                // Formspree Endpoint
+                const formspreeUrl = "https://formspree.io/f/xljrbvgw";
+
+                // Prepare FormData
+                const formData = new FormData();
                 formData.append("car", carName);
                 formData.append("pickup", pickup);
                 formData.append("drop", drop);
@@ -128,26 +148,40 @@ if (calcBtn) {
                 formData.append("days", days);
                 formData.append("estimated_cost", formattedTotal);
                 formData.append("phone", phone);
+                formData.append("name", "Website Visitor"); // Optional: Default name
 
                 try {
-                    const response = await fetch("/", {
-                        method: "POST",
+                    // Send to Formspree
+                    const response = await fetch(formspreeUrl, {
+                        method: 'POST',
+                        body: formData,
                         headers: {
-                            "Content-Type": "application/x-www-form-urlencoded"
-                        },
-                        body: formData.toString()
+                            'Accept': 'application/json'
+                        }
                     });
 
                     if (response.ok) {
-                        alert("Booking request sent successfully! We will contact you shortly.");
-                        resultDiv.style.display = 'none';
+                        alert("✅ Quote request sent successfully! We will call you shortly.");
+                        
+                        // Clear the result section and form fields
+                        document.getElementById('calc-result').style.display = 'none';
                         document.getElementById('calc-pickup').value = '';
                         document.getElementById('calc-drop').value = '';
                         document.getElementById('calc-km').value = '';
                         document.getElementById('calc-days').value = '1';
+                        document.getElementById('calc-phone').value = '';
+                        
+                        // Reset button state
+                        bookBtn.innerText = "Book This Price";
+                        bookBtn.disabled = false;
                     } else {
-                        console.error("Error submitting booking:", response.status);
-                        alert("Oops! Something went wrong. Please call us directly.");
+                        // Handle Formspree errors
+                        const data = await response.json();
+                        if (data.errors) {
+                            alert("Error: " + data.errors.map(e => e.message).join(", "));
+                        } else {
+                            alert("Oops! Something went wrong. Please call us directly at +91 98057 53890.");
+                        }
                         bookBtn.innerText = originalText;
                         bookBtn.disabled = false;
                     }
