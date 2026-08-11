@@ -8,10 +8,11 @@
     <meta name="description"
         content="Book trusted, local taxi drivers for Himachal tours. One-way cabs, round trips, and airport transfers. Safe, AC cars, and no hidden charges.">
 
-    <!-- Preconnect for Performance -->
+    <!-- Preconnect & Preload for Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
+    <link rel="preload" fetchpriority="high" as="image" href="/Images/hero-bg.jpg" type="image/jpeg">
 
     <!-- Google Fonts & Font Awesome (Non-blocking) -->
     <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
@@ -24,6 +25,20 @@
 
     <!-- Inline Critical & Core CSS to Eliminate Render-Blocking Requests and Accelerate LCP Discovery -->
     <style>
+        @font-face {
+            font-family: 'Font Awesome 6 Brands';
+            font-style: normal;
+            font-weight: 400;
+            font-display: swap;
+            src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-brands-400.woff2') format('woff2');
+        }
+        @font-face {
+            font-family: 'Font Awesome 6 Free';
+            font-style: normal;
+            font-weight: 900;
+            font-display: swap;
+            src: url('https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/webfonts/fa-solid-900.woff2') format('woff2');
+        }
         /* CSS RESET & BASE STYLES */
         * { box-sizing: border-box; margin: 0; padding: 0; }
         html { scroll-behavior: smooth; }
@@ -162,7 +177,7 @@
         <div class="header-container">
             <div class="logo">
                 <a href="index.html">
-                    <img src="/Images/logo.png" alt="Himachal Taxi Service Logo" width="180" height="50">
+                    <img src="/Images/logo.png" alt="Himachal Taxi Service Logo" width="180" height="50" fetchpriority="high" loading="eager">
                 </a>
             </div>
             <div class="header-contact">
