@@ -77,10 +77,9 @@ if (calcBtn) {
             </div>
             
             <div class="form-group" style="text-align: left; margin-bottom: 15px;">
-                 <label for="calc-phone" style="font-size: 0.9rem; font-weight: 600; color: #333; display: block; margin-bottom: 5px; text-align: center;">Enter Your Phone Number & Email to Book:</label>
-                 <div style="width: 70%; margin: 0 auto; text-align: center; display: flex; flex-direction: column; gap: 10px;"> 
-                      <input type="tel" id="calc-phone" placeholder="Phone Number (10 digits)" pattern="[0-9]{10}" maxlength="10" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; text-align: center;" required>
-                      <input type="email" id="calc-email" placeholder="Email Address" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; text-align: center;" required>
+                 <label for="calc-phone" style="font-size: 0.9rem; font-weight: 600; color: #333; display: block; margin-bottom: 5px; text-align: center;">Enter Your Phone Number to Book:</label>
+                 <div style="width: 50%; margin: 0 auto; text-align: center;"> 
+                      <input type="tel" id="calc-phone" placeholder="Your Phone No." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; text-align: center;">
                  </div>
             </div>
 
@@ -99,8 +98,7 @@ if (calcBtn) {
 
         if (calcPhoneInput && bookBtn) {
             calcPhoneInput.addEventListener('input', () => {
-                calcPhoneInput.value = calcPhoneInput.value.replace(/\D/g, '');
-                if (calcPhoneInput.value.trim().length === 10) {
+                if (calcPhoneInput.value.trim().length > 0) {
                     bookBtn.disabled = false;
                     bookBtn.style.opacity = '1';
                 } else {
@@ -111,15 +109,8 @@ if (calcBtn) {
 
             bookBtn.addEventListener('click', async () => {
                 const phone = calcPhoneInput.value.trim();
-                const emailInput = document.getElementById('calc-email');
-                const email = emailInput ? emailInput.value.trim() : "";
-
-                if (!phone || !/^\d{10}$/.test(phone)) {
-                    alert("Please enter a valid 10-digit phone number.");
-                    return;
-                }
-                if (!email) {
-                    alert("Please enter your email address.");
+                if (!phone) {
+                    alert("Please enter your phone number.");
                     return;
                 }
 
@@ -144,8 +135,6 @@ if (calcBtn) {
                     maximumFractionDigits: 0
                 }).format(total);
 
-                // Formspree Endpoint
-                const formspreeUrl = "https://formspree.io/f/xljrbvgw";
 
                 // Prepare FormData
                 const formData = new FormData();
@@ -156,25 +145,19 @@ if (calcBtn) {
                 formData.append("days", days);
                 formData.append("estimated_cost", formattedTotal);
                 formData.append("phone", phone);
-                formData.append("email", email);
                 formData.append("name", "Website Visitor");
 
                 try {
-                    // Send to Formspree
-                    const response = await fetch('/api/submit.php', {
+                    await fetch("submit.php", {
                         method: 'POST',
-                        body: formData,
-                        headers: {
-                            'Accept': 'application/json'
-                        }
+                        body: formData
                     });
-
-                    if (response.ok) {
-                        window.location.href = "/success.html";
-                    } else {
-                        let errorMsg = "Please call us directly at +91 98057 53890.";
-                        try {
-                            const data = await response.json();
+                } catch (error) {
+                    console.error("Submission error:", error);
+                }
+                window.location.href = "/success.html";
+            });
+        }
                             if (data.errors) {
                                 errorMsg = data.errors.map(e => e.message).join(", ");
                             }
@@ -208,7 +191,7 @@ faqQuestions.forEach(item => {
     });
 });
 
-// 4. FORM SUBMISSION (With Formspree & Safety Check)
+// 4. FORM SUBMISSION
 const form = document.getElementById('taxiForm');
 if (form) {
     form.addEventListener('submit', async (e) => {
@@ -218,7 +201,6 @@ if (form) {
         const submitBtn = document.getElementById('submitBtn');
         if (!submitBtn) {
             console.error("Submit button not found!");
-            alert("Error: Form button missing. Please refresh.");
             return;
         }
 
@@ -229,35 +211,14 @@ if (form) {
         const formData = new FormData(form);
 
         try {
-            const response = await fetch('/api/submit.php', {
+            await fetch("submit.php", {
                 method: "POST",
-                body: formData,
-                headers: {
-                    "Accept": "application/json"
-                }
+                body: formData
             });
-
-            if (response.ok) {
-                console.log("Form submitted successfully!");
-                window.location.href = "/success.html";
-            } else {
-                let errorMsg = "Please call us directly at +91 98057 53890.";
-                try {
-                    const data = await response.json();
-                    if (data.errors) {
-                        errorMsg = data.errors.map(e => e.message).join(", ");
-                    }
-                } catch (parseErr) {}
-                alert("Error: " + errorMsg);
-                submitBtn.innerText = originalText;
-                submitBtn.disabled = false;
-            }
         } catch (error) {
-            console.error("Network error:", error);
-            alert("Network error. Please try again or call us at +91 98057 53890.");
-            submitBtn.innerText = originalText;
-            submitBtn.disabled = false;
+            console.error("Submission error:", error);
         }
+        window.location.href = "/success.html";
     });
 }
 

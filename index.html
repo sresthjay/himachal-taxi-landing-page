@@ -197,30 +197,23 @@
             <p class="subhead">Safe, AC Cabs for Manali, Shimla, Dharamshala & More. <br>Instant Quotes. No Hidden Fees.
             </p>
 
-            <!-- FORM: Netlify handles the submission automatically -->
-            <form id="taxiForm" class="booking-form" name="taxi-booking" netlify netlify-honeypot="bot-field">
-                <!-- Netlify requires a hidden input to identify the form if we use fetch -->
-                <input type="hidden" name="form-name" value="taxi-booking">
+
+            <form id="taxiForm" class="booking-form" action="submit.php" method="POST">
                 <input type="hidden" name="bot-field">
 
                 <div class="form-group">
                     <label for="name">Your Name</label>
-                    <input type="text" id="name" name="name" placeholder="Your Name" required>
+                    <input type="text" id="name" name="name" placeholder="Your Name">
                 </div>
 
                 <div class="form-group">
                     <label for="phone">Phone Number</label>
-                    <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" pattern="[0-9]{10}" maxlength="10" required>
-                </div>
-
-                <div class="form-group">
-                    <label for="email">Email Address</label>
-                    <input type="email" id="email" name="email" placeholder="Your Email Address" required>
+                    <input type="tel" id="phone" name="phone" placeholder="Your Phone Number">
                 </div>
 
                 <div class="form-group">
                     <label for="destination">Where are you going?</label>
-                    <select id="destination" name="destination" required>
+                    <select id="destination" name="destination">
                         <option value="" disabled selected>Select Destination</option>
                         <option value="Shimla">Shimla</option>
                         <option value="Manali">Manali</option>
@@ -235,7 +228,7 @@
 
                 <div class="form-group">
                     <label for="type">Select Vehicle</label>
-                    <select id="type" name="vehicle-type" required>
+                    <select id="type" name="vehicle-type">
                         <option value="" disabled selected>Select Vehicle Type</option>
                         <option value="Sedan">Sedan (2-4 seater)</option>
                         <option value="SUV">SUV (4-7 seater)</option>
@@ -689,18 +682,6 @@
     <button id="backToTopBtn" title="Go to top" aria-label="Back to top">
         <i class="fa-solid fa-chevron-up" aria-hidden="true"></i>
     </button>
-
-    <!-- Hidden Netlify Form for Estimate Bookings -->
-    <form name="estimate-booking" netlify netlify-honeypot="bot-field" hidden>
-        <input type="hidden" name="form-name" value="estimate-booking">
-        <input type="text" name="car">
-        <input type="text" name="pickup">
-        <input type="text" name="drop">
-        <input type="text" name="distance">
-        <input type="text" name="days">
-        <input type="text" name="estimated_cost">
-        <input type="text" name="phone">
-    </form>
 
     </main>
 
