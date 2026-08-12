@@ -149,14 +149,27 @@ if (calcBtn) {
                 formData.append("name", "Website Visitor");
 
                 try {
-                    await fetch("api/submit.php", {
+                    const response = await fetch("api/submit.php", {
                         method: 'POST',
-                        body: formData
+                        body: formData,
+                        headers: {
+                            'Accept': 'application/json'
+                        }
                     });
+                    const data = await response.json();
+                    if (response.ok && data.success) {
+                        window.location.href = "/success.html";
+                    } else {
+                        alert("Error: " + (data.message || "Failed to send email. Please check your SMTP settings or call us directly."));
+                        bookBtn.innerText = originalText;
+                        bookBtn.disabled = false;
+                    }
                 } catch (error) {
                     console.error("Submission error:", error);
+                    alert("Network error or server misconfiguration. Please call us directly at +91 98057 53890.");
+                    bookBtn.innerText = originalText;
+                    bookBtn.disabled = false;
                 }
-                window.location.href = "/success.html";
             });
         }
     });
@@ -194,14 +207,27 @@ if (form) {
         const formData = new FormData(form);
 
         try {
-            await fetch("submit.php", {
+            const response = await fetch("api/submit.php", {
                 method: "POST",
-                body: formData
+                body: formData,
+                headers: {
+                    "Accept": "application/json"
+                }
             });
+            const data = await response.json();
+            if (response.ok && data.success) {
+                window.location.href = "/success.html";
+            } else {
+                alert("Error: " + (data.message || "Failed to send email. Please check your SMTP settings or call us directly."));
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            }
         } catch (error) {
             console.error("Submission error:", error);
+            alert("Network error or server misconfiguration. Please call us directly at +91 98057 53890.");
+            submitBtn.innerText = originalText;
+            submitBtn.disabled = false;
         }
-        window.location.href = "/success.html";
     });
 }
 
