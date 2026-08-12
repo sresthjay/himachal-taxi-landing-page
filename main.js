@@ -148,7 +148,7 @@ if (calcBtn) {
                 formData.append("name", "Website Visitor");
 
                 try {
-                    await fetch("submit.php", {
+                    await fetch("api/submit.php", {
                         method: 'POST',
                         body: formData
                     });

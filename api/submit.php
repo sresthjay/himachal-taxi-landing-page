@@ -57,7 +57,7 @@ $vehicle     = clean($_POST['vehicle-type'] ?? '');
 // VALIDATION
 // --------------------------------------------------
 
-if (!$name || !$phone || !$email || !$destination || !$vehicle) {
+if (!$name || !$phone || !$destination || !$vehicle) {
     http_response_code(400);
 
     echo json_encode([
@@ -68,18 +68,18 @@ if (!$name || !$phone || !$email || !$destination || !$vehicle) {
     exit;
 }
 
-if (!preg_match('/^[0-9]{10}$/', $phone)) {
+if (strlen($phone) < 6) {
     http_response_code(400);
 
     echo json_encode([
         'success' => false,
-        'message' => 'Please enter a valid 10-digit phone number.'
+        'message' => 'Please enter a valid phone number.'
     ]);
 
     exit;
 }
 
-if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
     http_response_code(400);
 
     echo json_encode([
