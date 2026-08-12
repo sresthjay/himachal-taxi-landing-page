@@ -212,7 +212,7 @@ faqQuestions.forEach(item => {
     });
 });
 
-// 4. FORM SUBMISSION (With Safety Check)
+// 4. FORM SUBMISSION (With Formspree & Safety Check)
 const form = document.getElementById('taxiForm');
 if (form) {
     form.addEventListener('submit', async (e) => {
@@ -227,34 +227,41 @@ if (form) {
         }
 
         const originalText = submitBtn.innerText;
-        submitBtn.innerText = "Sending...";
+        submitBtn.innerText = "Sending Quote Request...";
         submitBtn.disabled = true;
 
         const formData = new FormData(form);
-        const formName = form.querySelector('input[name="form-name"]').value;
+        formData.append("email", "no-reply@himachaltaxiservice.com"); // Formspree requirement fallback
+
+        const formspreeUrl = "https://formspree.io/f/xljrbvgw";
 
         try {
-            const response = await fetch("/", {
+            const response = await fetch(formspreeUrl, {
                 method: "POST",
+                body: formData,
                 headers: {
-                    "Content-Type": "application/x-www-form-urlencoded",
-                    "X-Netlify-Form-Name": formName
-                },
-                body: new URLSearchParams(formData).toString()
+                    "Accept": "application/json"
+                }
             });
 
             if (response.ok) {
                 console.log("Form submitted successfully!");
                 window.location.href = "/success.html";
             } else {
-                console.error("Error submitting form:", response.status);
-                alert("Oops! Something went wrong. Please call us directly.");
+                let errorMsg = "Please call us directly at +91 98057 53890.";
+                try {
+                    const data = await response.json();
+                    if (data.errors) {
+                        errorMsg = data.errors.map(e => e.message).join(", ");
+                    }
+                } catch (parseErr) {}
+                alert("Error: " + errorMsg);
                 submitBtn.innerText = originalText;
                 submitBtn.disabled = false;
             }
         } catch (error) {
             console.error("Network error:", error);
-            alert("Network error. Please try again.");
+            alert("Network error. Please try again or call us at +91 98057 53890.");
             submitBtn.innerText = originalText;
             submitBtn.disabled = false;
         }
