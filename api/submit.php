@@ -1,6 +1,5 @@
 <?php
-
-header('Content-Type: application/json; charset=utf-8');
+header('Content-Type: application/json');
 
 // Only allow POST
 if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
@@ -12,79 +11,58 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
+// PHPMailer
+require_once __DIR__ . '/PHPMailer/src/Exception.php';
+require_once __DIR__ . '/PHPMailer/src/PHPMailer.php';
+require_once __DIR__ . '/PHPMailer/src/SMTP.php';
+
+use PHPMailer\PHPMailer\PHPMailer;
+use PHPMailer\PHPMailer\Exception;
+
 
 // --------------------------------------------------
 // CONFIGURATION
 // --------------------------------------------------
 
-$ADMIN_EMAIL = 'shimlamanalitaxiservice01@gmail.com';
+$smtpHost = 'smtp.hostinger.com';
+$smtpPort = 587;
 
-// Use an email belonging to your domain once you buy one.
-// For now, this can be a Hostinger email if available.
-$FROM_EMAIL = 'noreply@lightcyan-raven-664511.hostingersite.com';
+// IMPORTANT:
+// Replace these with your actual Hostinger email account credentials.
+$smtpUsername = 'noreply@lightcyan-raven-664511.hostingersite.com';
+$smtpPassword = 'YOUR_EMAIL_PASSWORD';
 
-
-// --------------------------------------------------
-// BASIC SPAM PROTECTION
-// --------------------------------------------------
-
-// Honeypot field
-if (!empty($_POST['bot-field'])) {
-    // Pretend success so bots don't know they were blocked.
-    echo json_encode([
-        'success' => true
-    ]);
-    exit;
-}
+$adminEmail = 'shimlamanalitaxiservice01@gmail.com';
 
 
 // --------------------------------------------------
-// SANITIZE INPUT
+// GET FORM DATA
 // --------------------------------------------------
 
-function clean($value) {
-    return trim(strip_tags($value ?? ''));
-}
+$name        = trim($_POST['name'] ?? '');
+$phone       = trim($_POST['phone'] ?? '');
+$email       = trim($_POST['email'] ?? '');
+$destination = trim($_POST['destination'] ?? '');
+$vehicle     = trim($_POST['vehicle-type'] ?? '');
 
-$name        = clean($_POST['name'] ?? '');
-$phone       = clean($_POST['phone'] ?? '');
-$email       = clean($_POST['email'] ?? '');
-$destination = clean($_POST['destination'] ?? '');
-$vehicle     = clean($_POST['vehicle-type'] ?? '');
+$car         = trim($_POST['car'] ?? '');
+$pickup      = trim($_POST['pickup'] ?? '');
+$drop        = trim($_POST['drop'] ?? '');
+$distance    = trim($_POST['distance'] ?? '');
+$days        = trim($_POST['days'] ?? '');
+$estimated   = trim($_POST['estimated_cost'] ?? '');
 
 
 // --------------------------------------------------
-// VALIDATION
+// BASIC VALIDATION
 // --------------------------------------------------
 
-if (!$name || !$phone || !$destination || !$vehicle) {
+if (!$phone) {
     http_response_code(400);
 
     echo json_encode([
         'success' => false,
-        'message' => 'Please fill in all required fields.'
-    ]);
-
-    exit;
-}
-
-if (strlen($phone) < 6) {
-    http_response_code(400);
-
-    echo json_encode([
-        'success' => false,
-        'message' => 'Please enter a valid phone number.'
-    ]);
-
-    exit;
-}
-
-if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
-    http_response_code(400);
-
-    echo json_encode([
-        'success' => false,
-        'message' => 'Please enter a valid email address.'
+        'message' => 'Phone number is required'
     ]);
 
     exit;
@@ -92,96 +70,173 @@ if ($email !== '' && !filter_var($email, FILTER_VALIDATE_EMAIL)) {
 
 
 // --------------------------------------------------
-// SAVE SUBMISSION
+// CREATE EMAIL
 // --------------------------------------------------
 
-// Store outside public_html
-$domainRoot = dirname(__DIR__, 1);
+$mail = new PHPMailer(true);
 
-// /public_html/api -> /public_html
-// We want one level above public_html.
-$storageDir = dirname(__DIR__, 2) . '/form-data';
+try {
 
-if (!is_dir($storageDir)) {
-    mkdir($storageDir, 0755, true);
-}
+    // SMTP
+    $mail->isSMTP();
+    $mail->Host       = $smtpHost;
+    $mail->SMTPAuth   = true;
+    $mail->Username   = $smtpUsername;
+    $mail->Password   = $smtpPassword;
+    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    $mail->Port       = $smtpPort;
 
-$csvFile = $storageDir . '/submissions.csv';
 
-$isNewFile = !file_exists($csvFile);
+    // Sender
+    $mail->setFrom($smtpUsername, 'Himachal Taxi Website');
 
-$fp = fopen($csvFile, 'a');
+    // Admin recipient
+    $mail->addAddress($adminEmail);
 
-if ($fp) {
 
-    if ($isNewFile) {
-        fputcsv($fp, [
-            'Date',
-            'Name',
-            'Phone',
-            'Email',
-            'Destination',
-            'Vehicle'
-        ]);
+    // Reply to customer
+    if ($email && filter_var($email, FILTER_VALIDATE_EMAIL)) {
+        $mail->addReplyTo($email, $name ?: 'Website Visitor');
     }
 
-    fputcsv($fp, [
-        date('Y-m-d H:i:s'),
-        $name,
-        $phone,
-        $email,
-        $destination,
-        $vehicle
+
+    $mail->isHTML(true);
+
+
+    // --------------------------------------------------
+    // EMAIL SUBJECT
+    // --------------------------------------------------
+
+    if ($car || $pickup || $drop) {
+
+        $mail->Subject = '🚕 New Taxi Price Booking Request';
+
+        $mail->Body = "
+        <h2>New Taxi Price Booking Request</h2>
+
+        <table cellpadding='8' cellspacing='0' border='1'
+               style='border-collapse:collapse;'>
+
+            <tr>
+                <td><strong>Name</strong></td>
+                <td>" . htmlspecialchars($name ?: 'Website Visitor') . "</td>
+            </tr>
+
+            <tr>
+                <td><strong>Phone</strong></td>
+                <td>" . htmlspecialchars($phone) . "</td>
+            </tr>
+
+            <tr>
+                <td><strong>Email</strong></td>
+                <td>" . htmlspecialchars($email) . "</td>
+            </tr>
+
+            <tr>
+                <td><strong>Vehicle</strong></td>
+                <td>" . htmlspecialchars($car) . "</td>
+            </tr>
+
+            <tr>
+                <td><strong>Pickup</strong></td>
+                <td>" . htmlspecialchars($pickup) . "</td>
+            </tr>
+
+            <tr>
+                <td><strong>Drop</strong></td>
+                <td>" . htmlspecialchars($drop) . "</td>
+            </tr>
+
+            <tr>
+                <td><strong>Distance</strong></td>
+                <td>" . htmlspecialchars($distance) . "</td>
+            </tr>
+
+            <tr>
+                <td><strong>Days</strong></td>
+                <td>" . htmlspecialchars($days) . "</td>
+            </tr>
+
+            <tr>
+                <td><strong>Estimated Cost</strong></td>
+                <td><strong>" . htmlspecialchars($estimated) . "</strong></td>
+            </tr>
+
+        </table>
+        ";
+
+    } else {
+
+        $mail->Subject = '🚕 New Taxi Quote Request';
+
+        $mail->Body = "
+        <h2>New Taxi Quote Request</h2>
+
+        <table cellpadding='8' cellspacing='0' border='1'
+               style='border-collapse:collapse;'>
+
+            <tr>
+                <td><strong>Name</strong></td>
+                <td>" . htmlspecialchars($name) . "</td>
+            </tr>
+
+            <tr>
+                <td><strong>Phone</strong></td>
+                <td>" . htmlspecialchars($phone) . "</td>
+            </tr>
+
+            <tr>
+                <td><strong>Email</strong></td>
+                <td>" . htmlspecialchars($email) . "</td>
+            </tr>
+
+            <tr>
+                <td><strong>Destination</strong></td>
+                <td>" . htmlspecialchars($destination) . "</td>
+            </tr>
+
+            <tr>
+                <td><strong>Vehicle</strong></td>
+                <td>" . htmlspecialchars($vehicle) . "</td>
+            </tr>
+
+        </table>
+        ";
+    }
+
+
+    // Plain-text alternative
+    $mail->AltBody =
+        "New taxi booking request\n\n" .
+        "Name: $name\n" .
+        "Phone: $phone\n" .
+        "Email: $email\n" .
+        "Destination: $destination\n" .
+        "Vehicle: $vehicle\n" .
+        "Pickup: $pickup\n" .
+        "Drop: $drop\n" .
+        "Distance: $distance\n" .
+        "Days: $days\n" .
+        "Estimated Cost: $estimated\n";
+
+
+    // Send
+    $mail->send();
+
+
+    echo json_encode([
+        'success' => true,
+        'message' => 'Booking request sent successfully'
     ]);
 
-    fclose($fp);
+} catch (Exception $e) {
+
+    error_log('PHPMailer error: ' . $mail->ErrorInfo);
+
+    http_response_code(500);
+
+    echo json_encode([
+        'success' => false,
+        'message' => 'Unable to send email'
+    ]);
 }
-
-
-// --------------------------------------------------
-// SEND EMAIL
-// --------------------------------------------------
-
-$subject = 'New Taxi Booking Enquiry - ' . $destination;
-
-$message = "
-New taxi enquiry received from your website.
-
---------------------------------
-CUSTOMER DETAILS
---------------------------------
-
-Name: $name
-Phone: $phone
-Email: $email
-
-Destination: $destination
-Vehicle: $vehicle
-
---------------------------------
-Received: " . date('Y-m-d H:i:s') . "
---------------------------------
-";
-
-$headers = [];
-
-$headers[] = 'From: ' . $FROM_EMAIL;
-$headers[] = 'Reply-To: ' . $email;
-$headers[] = 'Content-Type: text/plain; charset=UTF-8';
-
-$mailSent = mail(
-    $ADMIN_EMAIL,
-    $subject,
-    $message,
-    implode("\r\n", $headers)
-);
-
-
-// --------------------------------------------------
-// RESPONSE
-// --------------------------------------------------
-
-echo json_encode([
-    'success' => true,
-    'email_sent' => $mailSent
-]);
