@@ -119,15 +119,15 @@ if (calcBtn) {
                 bookBtn.innerText = "Sending Quote Request...";
                 bookBtn.disabled = true;
 
-                // Get all calculated values
-                const carRate = parseFloat(carSelect.value);
-                const carName = carSelect.options[carSelect.selectedIndex].text;
+                // Get all calculated values safely
+                const carSelect = document.getElementById('calc-car');
+                const carRate = carSelect ? parseFloat(carSelect.value) : 17;
+                const carName = carSelect ? carSelect.options[carSelect.selectedIndex].text : "Standard Car";
                 const pickup = document.getElementById('calc-pickup').value.trim();
                 const drop = document.getElementById('calc-drop').value.trim();
-                const km = parseFloat(document.getElementById('calc-km').value);
+                const km = parseFloat(document.getElementById('calc-km').value) || 0;
                 const days = parseFloat(document.getElementById('calc-days').value) || 1;
                 
-                // Calculate total (same logic as before)
                 const driverAllowance = 500;
                 const total = (carRate * km) + (driverAllowance * days);
                 const formattedTotal = new Intl.NumberFormat('en-IN', {
@@ -148,7 +148,8 @@ if (calcBtn) {
                 formData.append("days", days);
                 formData.append("estimated_cost", formattedTotal);
                 formData.append("phone", phone);
-                formData.append("name", "Website Visitor"); // Optional: Default name
+                formData.append("name", "Website Visitor");
+                formData.append("email", "no-reply@himachaltaxiservice.com"); // Formspree fallback email
 
                 try {
                     // Send to Formspree
@@ -175,19 +176,22 @@ if (calcBtn) {
                         bookBtn.innerText = "Book This Price";
                         bookBtn.disabled = false;
                     } else {
-                        // Handle Formspree errors
-                        const data = await response.json();
-                        if (data.errors) {
-                            alert("Error: " + data.errors.map(e => e.message).join(", "));
-                        } else {
-                            alert("Oops! Something went wrong. Please call us directly at +91 98057 53890.");
+                        let errorMsg = "Please call us directly at +91 98057 53890.";
+                        try {
+                            const data = await response.json();
+                            if (data.errors) {
+                                errorMsg = data.errors.map(e => e.message).join(", ");
+                            }
+                        } catch (parseErr) {
+                            // Fallback if response isn't JSON
                         }
+                        alert("Error: " + errorMsg);
                         bookBtn.innerText = originalText;
                         bookBtn.disabled = false;
                     }
                 } catch (error) {
                     console.error("Network error:", error);
-                    alert("Network error. Please try again.");
+                    alert("Network error. Please try again or call us at +91 98057 53890.");
                     bookBtn.innerText = originalText;
                     bookBtn.disabled = false;
                 }
