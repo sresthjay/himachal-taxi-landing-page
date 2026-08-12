@@ -91,7 +91,8 @@
         .fleet-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(280px, 1fr)); gap: 2rem; max-width: 1200px; margin: 0 auto; }
         .fleet-card { background: white; border-radius: 12px; overflow: hidden; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08); transition: transform 0.3s; display: flex; flex-direction: column; }
         .fleet-card:hover { transform: translateY(-5px); }
-        .fleet-img { height: 250px; background: #ddd; background-size: cover; background-position: center; position: relative; }
+        .fleet-img { height: 250px; background: #e8e8e8; position: relative; overflow: hidden; }
+        .fleet-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
         .fleet-badge { position: absolute; top: 10px; right: 10px; background: var(--accent); color: var(--dark); padding: 4px 10px; border-radius: 4px; font-size: 0.8rem; font-weight: bold; }
         .fleet-details { padding: 1.5rem; flex-grow: 1; }
         .fleet-details p { font-size: 0.85rem; color: #222222; margin-bottom: 1rem; }
@@ -145,7 +146,8 @@
         .testimonial-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); gap: 3rem; max-width: 1200px; margin: 3.5rem auto 0; }
         .testimonial-card { background: #ffffff; border-radius: 12px; box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08); padding: 2.5rem 2rem 2rem; position: relative; text-align: center; border-top: 4px solid var(--primary); transition: transform 0.3s ease; }
         .testimonial-card:hover { transform: translateY(-5px); }
-        .testimonial-avatar { width: 75px; height: 75px; border-radius: 50%; background-size: cover; background-position: center; position: absolute; top: -37.5px; left: 50%; transform: translateX(-50%); border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.15); }
+        .testimonial-avatar { width: 75px; height: 75px; border-radius: 50%; background: #e8e8e8; position: absolute; top: -37.5px; left: 50%; transform: translateX(-50%); border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.15); overflow: hidden; }
+        .testimonial-avatar img { width: 100%; height: 100%; object-fit: cover; }
         .testimonial-stars { color: #FFC107; font-size: 1.1rem; margin-bottom: 1rem; letter-spacing: 2px; }
         .testimonial-text { font-size: 0.95rem; color: #555; line-height: 1.6; margin-bottom: 1.5rem; font-style: italic; }
         .testimonial-name { font-size: 1.1rem; font-weight: 700; color: var(--dark); margin-bottom: 0.2rem; }
@@ -289,7 +291,8 @@
         <div class="fleet-grid">
             <!-- Car 1: Hatchback -->
             <div class="fleet-card">
-                <div class="fleet-img" style="background-image: url('/Images/Maruti\ Alto.jpg');">
+                <div class="fleet-img">
+                    <img src="/Images/Maruti Alto.jpg" alt="Maruti Alto Taxi" width="300" height="250" loading="lazy">
                     <span class="fleet-badge">Budget Friendly</span>
                 </div>
                 <div class="fleet-details">
@@ -318,7 +321,8 @@
 
             <!-- Car 2: Sedan -->
             <div class="fleet-card">
-                <div class="fleet-img" style="background-image: url('/Images/Swift\ Dzire.jpg');">
+                <div class="fleet-img">
+                    <img src="/Images/Swift Dzire.jpg" alt="Swift Dzire Taxi" width="300" height="250" loading="lazy">
                     <span class="fleet-badge">Popular</span>
                 </div>
                 <div class="fleet-details">
@@ -342,7 +346,8 @@
             </div>
 
             <div class="fleet-card">
-                <div class="fleet-img" style="background-image: url('/Images/Etios.webp');">
+                <div class="fleet-img">
+                    <img src="/Images/Etios.webp" alt="Toyota Etios Taxi" width="300" height="250" loading="lazy">
                     <span class="fleet-badge">Comfort</span>
                 </div>
                 <div class="fleet-details">
@@ -367,7 +372,8 @@
 
             <!-- Car 3: SUV -->
             <div class="fleet-card">
-                <div class="fleet-img" style="background-image: url('/Images/ertiga.webp');">
+                <div class="fleet-img">
+                    <img src="/Images/ertiga.webp" alt="Suzuki Ertiga Taxi" width="300" height="250" loading="lazy">
                     <span class="fleet-badge">Suitable for Hills</span>
                 </div>
                 <div class="fleet-details">
@@ -391,7 +397,8 @@
             </div>
 
             <div class="fleet-card">
-                <div class="fleet-img" style="background-image: url('Images/Innova.webp');">
+                <div class="fleet-img">
+                    <img src="/Images/Innova.webp" alt="Toyota Innova Taxi" width="300" height="250" loading="lazy">
                     <span class="fleet-badge">Comfort</span>
                 </div>
                 <div class="fleet-details">
@@ -416,7 +423,8 @@
 
             <!-- Car 4: Luxury -->
             <div class="fleet-card">
-                <div class="fleet-img" style="background-image: url('/Images/Innova\ Crysta.webp');">
+                <div class="fleet-img">
+                    <img src="/Images/Innova Crysta.webp" alt="Innova Crysta Taxi" width="300" height="250" loading="lazy">
                     <span class="fleet-badge">Premium</span>
                 </div>
                 <div class="fleet-details">
@@ -441,7 +449,8 @@
 
             <!-- Car 5: Mini-Bus -->
             <div class="fleet-card">
-                <div class="fleet-img" style="background-image: url('/Images/Traveller\ 12\ Seater.webp');">
+                <div class="fleet-img">
+                    <img src="/Images/Traveller 12 Seater.webp" alt="Traveller 12 Seater" width="300" height="250" loading="lazy">
                     <span class="fleet-badge">Group</span>
                 </div>
                 <div class="fleet-details">
@@ -465,7 +474,8 @@
             </div>
 
             <div class="fleet-card">
-                <div class="fleet-img" style="background-image: url('/Images/Traveller\ 17\ Seater.webp');">
+                <div class="fleet-img">
+                    <img src="/Images/Traveller 17 Seater.webp" alt="Traveller 17 Seater" width="300" height="250" loading="lazy">
                     <span class="fleet-badge">Large Group</span>
                 </div>
                 <div class="fleet-details">
@@ -489,7 +499,8 @@
             </div>
 
             <div class="fleet-card">
-                <div class="fleet-img" style="background-image: url('/Images/Urbania.webp');">
+                <div class="fleet-img">
+                    <img src="/Images/Urbania.webp" alt="Urbania 17 Seater" width="300" height="250" loading="lazy">
                     <span class="fleet-badge">Luxury</span>
                 </div>
                 <div class="fleet-details">
@@ -572,7 +583,8 @@
 
             <!-- Testimonial 1 -->
             <div class="testimonial-card">
-                <div class="testimonial-avatar" style="background-image: url('/Images/user-male.png');">
+                <div class="testimonial-avatar">
+                    <img src="/Images/user-male.png" alt="Customer Avatar" width="75" height="75" loading="lazy">
                 </div>
                 <div class="testimonial-content">
                     <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
@@ -589,7 +601,8 @@
 
             <!-- Testimonial 2 -->
             <div class="testimonial-card">
-                <div class="testimonial-avatar" style="background-image: url('/Images/user-female.png');">
+                <div class="testimonial-avatar">
+                    <img src="/Images/user-female.png" alt="Customer Avatar" width="75" height="75" loading="lazy">
                 </div>
                 <div class="testimonial-content">
                     <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
@@ -603,7 +616,8 @@
 
             <!-- Testimonial 3 -->
             <div class="testimonial-card">
-                <div class="testimonial-avatar" style="background-image: url('/Images/user-male-2.png');">
+                <div class="testimonial-avatar">
+                    <img src="/Images/user-male-2.png" alt="Customer Avatar" width="75" height="75" loading="lazy">
                 </div>
                 <div class="testimonial-content">
                     <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
@@ -697,6 +711,7 @@
     <!-- FOOTER -->
     <footer class="site-footer">
         <p>&copy; <span id="current-year"></span> Himachal Cabs Online - A Unit of <a href="https://uranoteholidays.com" target="_blank" style="text-decoration: none; font-weight: bold; color: var(--accent);">Uranote Holidays.</a> All rights reserved.</p>
+        <p><a href="/privacy-policy.html" style="color: var(--light);">Privacy Policy</a></p>
     </footer>
 
     <script src="main.js" defer></script>
