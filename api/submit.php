@@ -33,6 +33,15 @@ $smtpPassword = SMTP_PASSWORD;
 
 $adminEmail = ADMIN_EMAIL;
 
+if (empty($smtpPassword)) {
+    http_response_code(500);
+    echo json_encode([
+        'success' => false,
+        'message' => 'SMTP password is not configured in api/config.php'
+    ]);
+    exit;
+}
+
 
 // --------------------------------------------------
 // GET FORM DATA
@@ -82,7 +91,11 @@ try {
     $mail->SMTPAuth   = true;
     $mail->Username   = $smtpUsername;
     $mail->Password   = $smtpPassword;
-    $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    if ($smtpPort == 465) {
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_SMTPS;
+    } else {
+        $mail->SMTPSecure = PHPMailer::ENCRYPTION_STARTTLS;
+    }
     $mail->Port       = $smtpPort;
 
 
@@ -110,97 +123,97 @@ try {
 
         $mail->Subject = 'New Taxi Price Booking Request - Phone: ' . $phone;
 
-        $mail->Body = "
-        <h2>" . htmlspecialchars($phone) . " Taxi Price Booking Request</h2>
+        $mail->Body = '
+        <h2>' . htmlspecialchars($phone) . ' Taxi Price Booking Request</h2>
 
-        <table cellpadding='8' cellspacing='0' border='1'
-               style='border-collapse:collapse;'>
+        <table cellpadding="8" cellspacing="0" border="1"
+               style="border-collapse:collapse;">
 
             <tr>
                 <td><strong>Name</strong></td>
-                <td>" . htmlspecialchars($name ?: 'Website Visitor') . "</td>
+                <td>' . htmlspecialchars($name ?: 'Website Visitor') . '</td>
             </tr>
 
             <tr>
                 <td><strong>Phone</strong></td>
-                <td><a href="tel:<?php echo htmlspecialchars($phone); ?>"><?php echo htmlspecialchars($phone); ?></a></td>
+                <td><a href="tel:' . htmlspecialchars($phone) . '">' . htmlspecialchars($phone) . '</a></td>
             </tr>
 
             <tr>
                 <td><strong>Email</strong></td>
-                <td>" . htmlspecialchars($email) . "</td>
+                <td>' . htmlspecialchars($email) . '</td>
             </tr>
 
             <tr>
                 <td><strong>Vehicle</strong></td>
-                <td>" . htmlspecialchars($car) . "</td>
+                <td>' . htmlspecialchars($car) . '</td>
             </tr>
 
             <tr>
                 <td><strong>Pickup</strong></td>
-                <td>" . htmlspecialchars($pickup) . "</td>
+                <td>' . htmlspecialchars($pickup) . '</td>
             </tr>
 
             <tr>
                 <td><strong>Drop</strong></td>
-                <td>" . htmlspecialchars($drop) . "</td>
+                <td>' . htmlspecialchars($drop) . '</td>
             </tr>
 
             <tr>
                 <td><strong>Distance</strong></td>
-                <td>" . htmlspecialchars($distance) . "</td>
+                <td>' . htmlspecialchars($distance) . '</td>
             </tr>
 
             <tr>
                 <td><strong>Days</strong></td>
-                <td>" . htmlspecialchars($days) . "</td>
+                <td>' . htmlspecialchars($days) . '</td>
             </tr>
 
             <tr>
                 <td><strong>Estimated Cost</strong></td>
-                <td><strong>" . htmlspecialchars($estimated) . "</strong></td>
+                <td><strong>' . htmlspecialchars($estimated) . '</strong></td>
             </tr>
 
         </table>
-        ";
+        ';
 
     } else {
 
         $mail->Subject = 'New Taxi Quote Request - ' . ($name ? $name : 'Website Visitor');
 
-        $mail->Body = "
-        <h2>" . htmlspecialchars($name) . ": Taxi Quote Request</h2>
+        $mail->Body = '
+        <h2>' . htmlspecialchars($name) . ': Taxi Quote Request</h2>
 
-        <table cellpadding='8' cellspacing='0' border='1'
-               style='border-collapse:collapse;'>
+        <table cellpadding="8" cellspacing="0" border="1"
+               style="border-collapse:collapse;">
 
             <tr>
                 <td><strong>Name</strong></td>
-                <td></td>
+                <td>' . htmlspecialchars($name ?: 'Website Visitor') . '</td>
             </tr>
 
             <tr>
                 <td><strong>Phone</strong></td>
-                <td><a href="tel:<?php echo htmlspecialchars($phone); ?>"><?php echo htmlspecialchars($phone); ?></a></td>
+                <td><a href="tel:' . htmlspecialchars($phone) . '">' . htmlspecialchars($phone) . '</a></td>
             </tr>
 
             <tr>
                 <td><strong>Email</strong></td>
-                <td>" . htmlspecialchars($email) . "</td>
+                <td>' . htmlspecialchars($email) . '</td>
             </tr>
 
             <tr>
                 <td><strong>Destination</strong></td>
-                <td>" . htmlspecialchars($destination) . "</td>
+                <td>' . htmlspecialchars($destination) . '</td>
             </tr>
 
             <tr>
                 <td><strong>Vehicle</strong></td>
-                <td>" . htmlspecialchars($vehicle) . "</td>
+                <td>' . htmlspecialchars($vehicle) . '</td>
             </tr>
 
         </table>
-        ";
+        ';
     }
 
 
