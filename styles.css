@@ -443,7 +443,7 @@ button.cta-btn:hover {
 
 .logo img {
   width: 180px;
-  height: 50px;
+  height: 80px;
   max-width: 100%;
   object-fit: contain;
   display: block;
@@ -581,7 +581,7 @@ button.cta-btn:hover {
 }
 
 .float-contact-btn.phone {
-    background-color: #e9e902;
+    background-color: #FFC107;
     animation-delay: .75s;
 }
 

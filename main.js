@@ -73,7 +73,7 @@ if (calcBtn) {
             <div style="font-size: 0.85rem; margin-bottom: 15px; color: #555;">
                 Car: ${carName} | From: ${pickup} To: ${drop}<br>
                 Distance: ${km} km | Day/s: ${days}<br>
-                *Includes DA. Taxes, Tolls & Parking extra. <a href="tel:9805753890" style="color: #dfce13; text-decoration:none;">CALL US</a> for more details.
+                *Includes DA. Taxes, Tolls & Parking extra. <a href="tel:9805753890" style="color: #dfce13; text-decoration:none; font-size:1.2rem;">Call Us</a> for more details.
             </div>
             
             <div class="form-group" style="text-align: left; margin-bottom: 15px;">

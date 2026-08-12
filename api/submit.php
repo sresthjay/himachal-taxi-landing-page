@@ -87,7 +87,7 @@ try {
 
 
     // Sender
-    $mail->setFrom($smtpUsername, 'Himachal Taxi Website');
+    $mail->setFrom($smtpUsername, 'Himachal Cabs Online');
 
     // Admin recipient
     $mail->addAddress($adminEmail);
