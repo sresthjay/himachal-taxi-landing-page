@@ -108,10 +108,10 @@ try {
 
     if ($car || $pickup || $drop) {
 
-        $mail->Subject = '🚕 New Taxi Price Booking Request';
+        $mail->Subject = '🚕 New Taxi Price Booking Request - Phone: ' . $phone;
 
         $mail->Body = "
-        <h2>New Taxi Price Booking Request</h2>
+        <h2>" . htmlspecialchars($phone) . " Taxi Price Booking Request</h2>
 
         <table cellpadding='8' cellspacing='0' border='1'
                style='border-collapse:collapse;'>
@@ -166,17 +166,17 @@ try {
 
     } else {
 
-        $mail->Subject = '🚕 New Taxi Quote Request';
+        $mail->Subject = '🚕 New Taxi Quote Request - ' . ($name ? $name : 'Website Visitor');
 
         $mail->Body = "
-        <h2>New Taxi Quote Request</h2>
+        <h2>" . htmlspecialchars($name) . ": Taxi Quote Request</h2>
 
         <table cellpadding='8' cellspacing='0' border='1'
                style='border-collapse:collapse;'>
 
             <tr>
                 <td><strong>Name</strong></td>
-                <td>" . htmlspecialchars($name) . "</td>
+                <td></td>
             </tr>
 
             <tr>
