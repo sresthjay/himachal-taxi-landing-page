@@ -26,7 +26,7 @@ jobs:
           define('SMTP_PORT', 587);
           define('SMTP_USERNAME', 'bookings@uranoteholidays.com');
           define('SMTP_PASSWORD', '${SMTP_PASSWORD}');
-          define('ADMIN_EMAIL', 'shimlamanalitaxiservice01@gmail.com');
+          define('ADMIN_EMAIL', 'himachalcabsonline01@gmail.com');
           EOF
 
       - name: Configure SSH
