@@ -77,11 +77,11 @@ if (calcBtn) {
             </div>
             
             <div class="form-group" style="text-align: left; margin-bottom: 15px;">
-                 <label for="calc-phone" style="font-size: 0.9rem; font-weight: 600; color: #333; display: block; margin-bottom: 5px; text-align: center;">Enter Your Phone Number to Book:</label>
-                 <!-- Centered Input: Added text-align:center to the container or flex center -->
-           <div style="width: 50%; margin: 0 auto; text-align: center;"> 
-                <input type="tel" id="calc-phone" placeholder="Your Phone No." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; text-align: center;" required>
-            </div>
+                 <label for="calc-phone" style="font-size: 0.9rem; font-weight: 600; color: #333; display: block; margin-bottom: 5px; text-align: center;">Enter Your Phone Number & Email to Book:</label>
+                 <div style="width: 70%; margin: 0 auto; text-align: center; display: flex; flex-direction: column; gap: 10px;"> 
+                      <input type="tel" id="calc-phone" placeholder="Phone Number (10 digits)" pattern="[0-9]{10}" maxlength="10" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; text-align: center;" required>
+                      <input type="email" id="calc-email" placeholder="Email Address" style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; text-align: center;" required>
+                 </div>
             </div>
 
             <!-- Button: Width set to 70% -->
@@ -99,7 +99,8 @@ if (calcBtn) {
 
         if (calcPhoneInput && bookBtn) {
             calcPhoneInput.addEventListener('input', () => {
-                if (calcPhoneInput.value.trim().length > 0) {
+                calcPhoneInput.value = calcPhoneInput.value.replace(/\D/g, '');
+                if (calcPhoneInput.value.trim().length === 10) {
                     bookBtn.disabled = false;
                     bookBtn.style.opacity = '1';
                 } else {
@@ -110,8 +111,15 @@ if (calcBtn) {
 
             bookBtn.addEventListener('click', async () => {
                 const phone = calcPhoneInput.value.trim();
-                if (!phone) {
-                    alert("Please enter your phone number to book this price.");
+                const emailInput = document.getElementById('calc-email');
+                const email = emailInput ? emailInput.value.trim() : "";
+
+                if (!phone || !/^\d{10}$/.test(phone)) {
+                    alert("Please enter a valid 10-digit phone number.");
+                    return;
+                }
+                if (!email) {
+                    alert("Please enter your email address.");
                     return;
                 }
 
@@ -148,8 +156,8 @@ if (calcBtn) {
                 formData.append("days", days);
                 formData.append("estimated_cost", formattedTotal);
                 formData.append("phone", phone);
+                formData.append("email", email);
                 formData.append("name", "Website Visitor");
-                formData.append("email", "no-reply@himachaltaxiservice.com"); // Formspree fallback email
 
                 try {
                     // Send to Formspree
@@ -162,19 +170,7 @@ if (calcBtn) {
                     });
 
                     if (response.ok) {
-                        alert("✅ Quote request sent successfully! We will call you shortly.");
-                        
-                        // Clear the result section and form fields
-                        document.getElementById('calc-result').style.display = 'none';
-                        document.getElementById('calc-pickup').value = '';
-                        document.getElementById('calc-drop').value = '';
-                        document.getElementById('calc-km').value = '';
-                        document.getElementById('calc-days').value = '1';
-                        document.getElementById('calc-phone').value = '';
-                        
-                        // Reset button state
-                        bookBtn.innerText = "Book This Price";
-                        bookBtn.disabled = false;
+                        window.location.href = "/success.html";
                     } else {
                         let errorMsg = "Please call us directly at +91 98057 53890.";
                         try {
