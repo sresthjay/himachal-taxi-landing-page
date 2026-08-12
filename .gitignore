@@ -117,3 +117,10 @@ Thumbs.db
 
 # Configuration files
 api/config.php
+
+#secrets
+.git/
+.github/
+.env
+node_modules/
+tests/

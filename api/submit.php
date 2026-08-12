@@ -108,7 +108,7 @@ try {
 
     if ($car || $pickup || $drop) {
 
-        $mail->Subject = '🚕 New Taxi Price Booking Request - Phone: ' . $phone;
+        $mail->Subject = 'New Taxi Price Booking Request - Phone: ' . $phone;
 
         $mail->Body = "
         <h2>" . htmlspecialchars($phone) . " Taxi Price Booking Request</h2>
@@ -166,7 +166,7 @@ try {
 
     } else {
 
-        $mail->Subject = '🚕 New Taxi Quote Request - ' . ($name ? $name : 'Website Visitor');
+        $mail->Subject = 'New Taxi Quote Request - ' . ($name ? $name : 'Website Visitor');
 
         $mail->Body = "
         <h2>" . htmlspecialchars($name) . ": Taxi Quote Request</h2>
