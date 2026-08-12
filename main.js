@@ -110,7 +110,7 @@ if (calcBtn) {
             bookBtn.addEventListener('click', async () => {
                 const phone = calcPhoneInput.value.trim();
                 if (!phone) {
-                    alert("Please enter your phone number.");
+                    alert("Please enter your phone number to book this price.");
                     return;
                 }
 
@@ -156,24 +156,6 @@ if (calcBtn) {
                     console.error("Submission error:", error);
                 }
                 window.location.href = "/success.html";
-            });
-        }
-                            if (data.errors) {
-                                errorMsg = data.errors.map(e => e.message).join(", ");
-                            }
-                        } catch (parseErr) {
-                            // Fallback if response isn't JSON
-                        }
-                        alert("Error: " + errorMsg);
-                        bookBtn.innerText = originalText;
-                        bookBtn.disabled = false;
-                    }
-                } catch (error) {
-                    console.error("Network error:", error);
-                    alert("Network error. Please try again or call us at +91 98057 53890.");
-                    bookBtn.innerText = originalText;
-                    bookBtn.disabled = false;
-                }
             });
         }
     });
