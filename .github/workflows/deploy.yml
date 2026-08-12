@@ -18,11 +18,20 @@ jobs:
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
-          echo "${{ secrets.HOSTINGER_SSH_KEY }}" > ~/.ssh/hostinger_key
+
+          printf '%s\n' '${{ secrets.HOSTINGER_SSH_KEY }}' > ~/.ssh/hostinger_key
           chmod 600 ~/.ssh/hostinger_key
 
-          ssh-keyscan -p "${{ secrets.HOSTINGER_PORT }}" \
-            "${{ secrets.HOSTINGER_HOST }}" >> ~/.ssh/known_hosts
+          ssh-keyscan -H -p "${{ secrets.HOSTINGER_PORT }}" \
+            "${{ secrets.HOSTINGER_HOST }}" > ~/.ssh/known_hosts
+
+      - name: Test SSH connection
+        run: |
+          ssh \
+            -i ~/.ssh/hostinger_key \
+            -p "${{ secrets.HOSTINGER_PORT }}" \
+            "${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}" \
+            "echo SSH connection successful"
 
       - name: Deploy
         run: |
