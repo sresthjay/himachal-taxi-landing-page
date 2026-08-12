@@ -123,7 +123,7 @@ try {
 
             <tr>
                 <td><strong>Phone</strong></td>
-                <td>" . htmlspecialchars($phone) . "</td>
+                <td><a href="tel:<?php echo htmlspecialchars($phone); ?>"><?php echo htmlspecialchars($phone); ?></a></td>
             </tr>
 
             <tr>
@@ -181,7 +181,7 @@ try {
 
             <tr>
                 <td><strong>Phone</strong></td>
-                <td>" . htmlspecialchars($phone) . "</td>
+                <td><a href="tel:<?php echo htmlspecialchars($phone); ?>"><?php echo htmlspecialchars($phone); ?></a></td>
             </tr>
 
             <tr>

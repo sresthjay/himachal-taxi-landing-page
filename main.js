@@ -85,8 +85,13 @@ if (calcBtn) {
 
             <!-- Button: Width set to 70% -->
             <button id="bookEstimateBtn" class="cta-btn" style="background:#2E7D32; color:white; border:none; padding:12px 20px; border-radius:4px; cursor:pointer; width: 70%; margin: 0 auto; opacity:0.9;" disabled>
-            Book This Price
+            Get Quote
             </button>
+
+                <!-- New Disclaimer Line -->
+            <div style="text-align: center; font-size: 0.75rem; color: #666; margin-top: 10px; line-height: 1.4;">
+            *The displayed fare is an estimate and may vary based on the travel date, season, time of day or night, traffic conditions, route, and other applicable charges. The final fare will be confirmed at the time of booking.
+            </div>
         `;
 
         const calcPhoneInput = document.getElementById('calc-phone');
@@ -127,7 +132,7 @@ if (calcBtn) {
                 const drop = document.getElementById('calc-drop').value.trim();
                 const km = parseFloat(document.getElementById('calc-km').value) || 0;
                 const days = parseFloat(document.getElementById('calc-days').value) || 1;
-                
+
                 const driverAllowance = 500;
                 const total = (carRate * km) + (driverAllowance * days);
                 const formattedTotal = new Intl.NumberFormat('en-IN', {
@@ -246,23 +251,23 @@ if (yearSpan) {
 }
 
 // 6. Get to top button
-  const backToTopBtn = document.getElementById("backToTopBtn");
+const backToTopBtn = document.getElementById("backToTopBtn");
 
-  // Show button when user scrolls down 200px
-  window.onscroll = function() {
+// Show button when user scrolls down 200px
+window.onscroll = function () {
     if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-      backToTopBtn.style.display = "block";
+        backToTopBtn.style.display = "block";
     } else {
-      backToTopBtn.style.display = "none";
+        backToTopBtn.style.display = "none";
     }
-  };
+};
 
-  // Scroll to top when clicked
-  backToTopBtn.addEventListener("click", function() {
+// Scroll to top when clicked
+backToTopBtn.addEventListener("click", function () {
     window.scrollTo({
-      top: 0,
-      behavior: "smooth" // Uses the smooth scrolling you already set in CSS
+        top: 0,
+        behavior: "smooth" // Uses the smooth scrolling you already set in CSS
     });
-  });
+});
 
 
