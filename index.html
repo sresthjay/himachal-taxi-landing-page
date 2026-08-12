@@ -14,12 +14,11 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
     <link rel="preload" fetchpriority="high" as="image" href="/Images/hero-bg.jpg" type="image/jpeg">
 
-    <!-- Google Fonts & Font Awesome (Non-blocking) -->
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet" media="print" onload="this.media='all'">
+    <!-- Google Fonts & Font Awesome -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" media="print" onload="this.media='all'">
 
     <noscript>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     </noscript>
 
@@ -132,7 +131,7 @@
         /* TOP SITE HEADER */
         .site-header { background: rgba(221, 221, 221, 0.25); box-shadow: 0 2px 10px rgba(0,0,0,0.1); position: relative; top: 0; z-index: 1000; padding: 15px 0; }
         .header-container { display: flex; justify-content: space-between; align-items: center; padding: 0px 100px; }
-        .logo img { width: 180px; height: 50px; max-width: 100%; object-fit: contain; display: block; }
+        .logo img { width: 180px; height: 80px; max-width: 100%; object-fit: contain; display: block; }
         .header-contact { display: flex; gap: 20px; align-items: center; }
         .header-contact a { color: var(--dark); text-decoration: none; font-size: 0.95rem; font-weight: 600; display: flex; align-items: center; gap: 6px; transition: color 0.3s; }
         .header-contact a:hover { color: var(--primary); }
@@ -154,13 +153,17 @@
         .float-contact-buttons { position: fixed; left: 20px; bottom: 30px; z-index: 99; display: flex; flex-direction: column; gap: 15px; }
         .float-contact-btn { display: flex; align-items: center; justify-content: center; width: 55px; height: 55px; border-radius: 50%; color: white; font-size: 1.6rem; text-decoration: none; box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35); animation: bouncePulse 1.5s infinite ease-in-out; transition: transform 0.5s ease, box-shadow 0.3s ease; position: relative; }
         .float-contact-btn.whatsapp { background-color: #25D366; animation-delay: 0s; }
-        .float-contact-btn.phone { background-color: #e9e902; animation-delay: .75s; }
+        .float-contact-btn.phone { background-color: var(--accent); animation-delay: .75s; }
         .float-contact-btn:hover { transform: scale(1.12); box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45); }
 
         .float-contact-btn .tooltip { visibility: hidden; width: 110px; background-color: #ffffff; color: #030303; text-align: center; border-radius: 6px; padding: 5px 9px; position: absolute; left: 100%; top: 50%; transform: translateY(-50%) translateX(10px); opacity: 0; transition: all 0.3s ease; white-space: nowrap; z-index: 1000; font-size: 14px; font-weight: 600; box-shadow: 0 2px 8px rgba(0,0,0,0.3); }
         .float-contact-btn .tooltip::after { content: ""; position: absolute; top: 50%; right: 100%; margin-top: -5px; border-width: 5px; border-style: solid; border-color: transparent #fff transparent transparent; }
         .float-contact-btn:hover .tooltip { visibility: visible; opacity: 1; transform: translateY(-50%) translateX(0); }
         .float-contact-btn:hover { animation-play-state: paused; }
+
+        @media (max-width: 768px) { .float-contact-btn { width: 50px; height: 50px;font-size: 20px; }
+  
+        .float-contact-btn .tooltip { display: none;}}
 
         #backToTopBtn { display: none; position: fixed; bottom: 30px; right: 20px; z-index: 99; border: none; outline: none; background-color: #333; color: white; cursor: pointer; padding: 10px; border-radius: 50%; font-size: 18px; box-shadow: 0 4px 6px rgba(0,0,0,0.3); transition: background-color 0.3s, transform 0.3s; }
 
@@ -193,8 +196,8 @@
     <!-- HERO SECTION -->
     <header class="hero">
         <div class="hero-content">
-            <h1>Explore Himachal with Trusted Local Drivers</h1>
-            <p class="subhead">Safe, AC Cabs for Manali, Shimla, Dharamshala & More. <br>Instant Quotes. No Hidden Fees.
+            <h1>Plan an Unforgettable Tour with <br> <span style="color: var(--accent);"> Himachal Cabs Online </span></h1>
+            <p class="subhead">Your Trusted Local Partner for Safe Journeys Across Himachal. Instant Quotes. Zero Hidden Fees.
             </p>
 
 
@@ -249,8 +252,8 @@
     <!-- WHY CHOOSE US -->
     <section class="trust-section">
         <div class="section-title">
-            <h2>Why Travelers Trust Us in Himachal</h2>
-            <p>We don't just drive; we guide you through the mountains safely.</p>
+            <h2>Why Travelers Trust Himachal Cabs Online</h2>
+            <p>From the bustling streets of Shimla to the scenic routes of a Manali, travelers choose us for peace of mind. Whether you're heading to Dharamshala or exploring hidden valleys of Himachal, we deliver reliability and local care on every mile.</p>
         </div>
         <div class="why-us-grid">
             <div class="why-card">
@@ -280,7 +283,7 @@
     <section class="fleet-section">
         <div class="section-title">
             <h2>Our Fleet & Transparent Pricing</h2>
-            <p>Choose the perfect car for your Himachal adventure. Prices are per day.</p>
+            <p>Choose the perfect car for your next Himachal trip. We are here to make your Himachal experience unforgettable.</p>
         </div>
         <div class="fleet-grid">
             <!-- Car 1: Hatchback -->
@@ -300,7 +303,7 @@
                         <i class="fa fa-mountain" style="color:#2E7D32; width:16px; margin-right: 5px;"></i> Perfect for local sightseeing
                     </p>
                     <p>
-                        <i class="fa fa-user-friends" style="color:#2E7D32;width:16px;margin-right: 5px"></i> Best for couples
+                        <i class="fa fa-user-friends" style="color:#2E7D32;width:16px;margin-right: 5px"></i> Best for couples & solo travelers
                     </p>
                     <p>
                         <i class="fa fa-indian-rupee-sign" style="color:#2E7D32;width:16px;margin-right: 5px"></i> Budget-friendly Himachal travel
@@ -314,7 +317,7 @@
 
             <!-- Car 2: Sedan -->
             <div class="fleet-card">
-                <div class="fleet-img" style="background-image: url('/Images/Swift\ Dzire.webp');">
+                <div class="fleet-img" style="background-image: url('/Images/Swift\ Dzire.jpg');">
                     <span class="fleet-badge">Popular</span>
                 </div>
                 <div class="fleet-details">
@@ -599,7 +602,7 @@
 
             <!-- Testimonial 3 -->
             <div class="testimonial-card">
-                <div class="testimonial-avatar" style="background-image: url('/Images/user-male.png');">
+                <div class="testimonial-avatar" style="background-image: url('/Images/user-male-2.png');">
                 </div>
                 <div class="testimonial-content">
                     <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
@@ -692,7 +695,7 @@
 
     <!-- FOOTER -->
     <footer class="site-footer">
-        <p>&copy; <span id="current-year"></span> Uranote Holidays. All rights reserved.</p>
+        <p>&copy; <span id="current-year"></span> Himachal Cabs Online - A Unit of <a href="https://uranoteholidays.com" target="_blank" style="text-decoration: none; font-weight: bold; color: var(--accent);">Uranote Holidays.</a> All rights reserved.</p>
     </footer>
 
     <script src="main.js" defer></script>
