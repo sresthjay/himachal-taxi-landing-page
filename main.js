@@ -161,7 +161,7 @@ if (calcBtn) {
 
                 try {
                     // Send to Formspree
-                    const response = await fetch(formspreeUrl, {
+                    const response = await fetch('/api/submit.php', {
                         method: 'POST',
                         body: formData,
                         headers: {
@@ -228,10 +228,8 @@ if (form) {
 
         const formData = new FormData(form);
 
-        const formspreeUrl = "https://formspree.io/f/xljrbvgw";
-
         try {
-            const response = await fetch(formspreeUrl, {
+            const response = await fetch('/api/submit.php', {
                 method: "POST",
                 body: formData,
                 headers: {
