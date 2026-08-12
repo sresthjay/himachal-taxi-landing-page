@@ -98,6 +98,7 @@ if (calcBtn) {
 
         if (calcPhoneInput && bookBtn) {
             calcPhoneInput.addEventListener('input', () => {
+                calcPhoneInput.value = calcPhoneInput.value.replace(/\D/g, '');
                 if (calcPhoneInput.value.trim().length > 0) {
                     bookBtn.disabled = false;
                     bookBtn.style.opacity = '1';
@@ -201,6 +202,14 @@ if (form) {
             console.error("Submission error:", error);
         }
         window.location.href = "/success.html";
+    });
+}
+
+// Restrict hero phone input to numbers only
+const heroPhoneInput = document.getElementById('phone');
+if (heroPhoneInput) {
+    heroPhoneInput.addEventListener('input', () => {
+        heroPhoneInput.value = heroPhoneInput.value.replace(/\D/g, '');
     });
 }
 
