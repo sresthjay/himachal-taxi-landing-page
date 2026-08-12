@@ -15,6 +15,20 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v6
 
+      - name: Create SMTP config
+        env:
+          SMTP_PASSWORD: ${{ secrets.SMTP_PASSWORD }}
+        run: |
+          cat > api/config.php <<EOF
+          <?php
+
+          define('SMTP_HOST', 'smtp.hostinger.com');
+          define('SMTP_PORT', 587);
+          define('SMTP_USERNAME', 'bookings@uranoteholidays.com');
+          define('SMTP_PASSWORD', '${SMTP_PASSWORD}');
+          define('ADMIN_EMAIL', 'shimlamanalitaxiservice01@gmail.com');
+          EOF
+
       - name: Configure SSH
         run: |
           mkdir -p ~/.ssh
@@ -36,6 +50,7 @@ jobs:
       - name: Deploy
         run: |
           rsync -avz \
+            --exclude='.git/' \
             -e "ssh -i ~/.ssh/hostinger_key -p ${{ secrets.HOSTINGER_PORT }}" \
             ./ \
             "${{ secrets.HOSTINGER_USER }}@${{ secrets.HOSTINGER_HOST }}:${{ secrets.HOSTINGER_TARGET }}"

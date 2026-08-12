@@ -88,3 +88,32 @@ build/
 # ==============================
 
 .DS_Store
+
+
+
+# ==============================
+# Customer Data
+# ==============================
+
+# Customer form submissions
+form-data/
+*.csv
+
+# Environment / secrets
+.env
+.env.*
+!.env.example
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Editor files
+.vscode/
+.idea/
+
+# Logs
+*.log
+
+# Configuration files
+api/config.php

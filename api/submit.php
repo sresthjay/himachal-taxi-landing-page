@@ -15,6 +15,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
 require_once __DIR__ . '/PHPMailer/src/Exception.php';
 require_once __DIR__ . '/PHPMailer/src/PHPMailer.php';
 require_once __DIR__ . '/PHPMailer/src/SMTP.php';
+require_once __DIR__ . '/config.php';
+
 
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
@@ -24,15 +26,12 @@ use PHPMailer\PHPMailer\Exception;
 // CONFIGURATION
 // --------------------------------------------------
 
-$smtpHost = 'smtp.hostinger.com';
-$smtpPort = 587;
+$smtpHost = SMTP_HOST;
+$smtpPort = SMTP_PORT;
+$smtpUsername = SMTP_USERNAME;
+$smtpPassword = SMTP_PASSWORD;
 
-// IMPORTANT:
-// Replace these with your actual Hostinger email account credentials.
-$smtpUsername = 'noreply@lightcyan-raven-664511.hostingersite.com';
-$smtpPassword = 'YOUR_EMAIL_PASSWORD';
-
-$adminEmail = 'shimlamanalitaxiservice01@gmail.com';
+$adminEmail = ADMIN_EMAIL;
 
 
 // --------------------------------------------------
