@@ -227,7 +227,6 @@ if (form) {
         submitBtn.disabled = true;
 
         const formData = new FormData(form);
-        formData.append("email", "no-reply@himachaltaxiservice.com"); // Formspree requirement fallback
 
         const formspreeUrl = "https://formspree.io/f/xljrbvgw";
 
