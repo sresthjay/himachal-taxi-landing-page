@@ -27,7 +27,7 @@ fleetButtons.forEach(btn => {
 // 2. Price Calculator Logic
 const calcBtn = document.getElementById('calcBtn');
 if (calcBtn) {
-    calcBtn.addEventListener('click', () => {
+    calcBtn.addEventListener('click', async () => {
         const carSelect = document.getElementById('calc-car');
         const carRate = parseFloat(carSelect.value);
         const carName = carSelect.options[carSelect.selectedIndex].text;
@@ -35,6 +35,8 @@ if (calcBtn) {
         const drop = document.getElementById('calc-drop').value.trim();
         const km = parseFloat(document.getElementById('calc-km').value);
         const days = parseFloat(document.getElementById('calc-days').value) || 1;
+        const phoneInput = document.getElementById('calc-phone');
+        const phone = phoneInput ? phoneInput.value.trim() : '';
         const resultDiv = document.getElementById('calc-result');
 
         if (!pickup || !drop) {
@@ -51,6 +53,15 @@ if (calcBtn) {
             resultDiv.style.background = '#ffebee';
             resultDiv.style.color = '#c62828';
             resultDiv.innerHTML = "⚠️ Please enter a valid distance.";
+            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            return;
+        }
+
+        if (!phone) {
+            resultDiv.style.display = 'block';
+            resultDiv.style.background = '#ffebee';
+            resultDiv.style.color = '#c62828';
+            resultDiv.innerHTML = "⚠️ Please enter your phone number.";
             resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
             return;
         }
@@ -76,107 +87,50 @@ if (calcBtn) {
                 *Includes DA. Taxes, Tolls & Parking extra. <a href="tel:9805753890" style="color: #dfce13; text-decoration:none; font-size:1.2rem;">Call Us</a> for more details.
             </div>
             
-            <div class="form-group" style="text-align: left; margin-bottom: 15px;">
-                 <label for="calc-phone" style="font-size: 0.9rem; font-weight: 600; color: #333; display: block; margin-bottom: 5px; text-align: center;">Enter Your Phone Number to Book:</label>
-                 <div style="width: 50%; margin: 0 auto; text-align: center;"> 
-                      <input type="tel" id="calc-phone" placeholder="Your Phone No." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; text-align: center;">
-                 </div>
-            </div>
-
-            <!-- Button: Width set to 70% -->
-            <button id="bookEstimateBtn" class="cta-btn" style="background:#2E7D32; color:white; border:none; padding:12px 20px; border-radius:4px; cursor:pointer; width: 70%; margin: 0 auto; opacity:0.9;" disabled>
-            Get Quote
-            </button>
-
-                <!-- New Disclaimer Line -->
             <div style="text-align: center; font-size: 0.75rem; color: #666; margin-top: 10px; line-height: 1.4;">
             *The displayed fare is an estimate and may vary based on the travel date, season, time of day or night, traffic conditions, route, and other applicable charges. The final fare will be confirmed at the time of booking.
             </div>
+            <div style="margin-top: 10px; font-weight: 600; color: #2e7d32;">Sending your quote request...</div>
         `;
 
-        const calcPhoneInput = document.getElementById('calc-phone');
-        const bookBtn = document.getElementById('bookEstimateBtn');
+        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
 
-        if (bookBtn) {
-            bookBtn.scrollIntoView({ behavior: 'smooth', block: 'center' });
-        }
+        const formData = new FormData();
+        formData.append("car", carName);
+        formData.append("pickup", pickup);
+        formData.append("drop", drop);
+        formData.append("distance", km + " km");
+        formData.append("days", days);
+        formData.append("estimated_cost", formattedTotal);
+        formData.append("phone", phone);
+        formData.append("name", "Website Visitor");
 
-        if (calcPhoneInput && bookBtn) {
-            calcPhoneInput.addEventListener('input', () => {
-                calcPhoneInput.value = calcPhoneInput.value.replace(/\D/g, '');
-                if (calcPhoneInput.value.trim().length > 0) {
-                    bookBtn.disabled = false;
-                    bookBtn.style.opacity = '1';
-                } else {
-                    bookBtn.disabled = true;
-                    bookBtn.style.opacity = '0.5';
+        try {
+            const response = await fetch("api/submit.php", {
+                method: 'POST',
+                body: formData,
+                headers: {
+                    'Accept': 'application/json'
                 }
             });
-
-            bookBtn.addEventListener('click', async () => {
-                const phone = calcPhoneInput.value.trim();
-                if (!phone) {
-                    alert("Please enter your phone number to book this price.");
-                    return;
-                }
-
-                const originalText = bookBtn.innerText;
-                bookBtn.innerText = "Sending Quote Request...";
-                bookBtn.disabled = true;
-
-                // Get all calculated values safely
-                const carSelect = document.getElementById('calc-car');
-                const carRate = carSelect ? parseFloat(carSelect.value) : 17;
-                const carName = carSelect ? carSelect.options[carSelect.selectedIndex].text : "Standard Car";
-                const pickup = document.getElementById('calc-pickup').value.trim();
-                const drop = document.getElementById('calc-drop').value.trim();
-                const km = parseFloat(document.getElementById('calc-km').value) || 0;
-                const days = parseFloat(document.getElementById('calc-days').value) || 1;
-
-                const driverAllowance = 500;
-                const total = (carRate * km) + (driverAllowance * days);
-                const formattedTotal = new Intl.NumberFormat('en-IN', {
-                    style: 'currency',
-                    currency: 'INR',
-                    maximumFractionDigits: 0
-                }).format(total);
-
-
-                // Prepare FormData
-                const formData = new FormData();
-                formData.append("car", carName);
-                formData.append("pickup", pickup);
-                formData.append("drop", drop);
-                formData.append("distance", km + " km");
-                formData.append("days", days);
-                formData.append("estimated_cost", formattedTotal);
-                formData.append("phone", phone);
-                formData.append("name", "Website Visitor");
-
-                try {
-                    const response = await fetch("api/submit.php", {
-                        method: 'POST',
-                        body: formData,
-                        headers: {
-                            'Accept': 'application/json'
-                        }
-                    });
-                    const data = await response.json();
-                    if (response.ok && data.success) {
-                        window.location.href = "/success.html";
-                    } else {
-                        alert("Error: " + (data.message || "Failed to send email. Please check your SMTP settings or call us directly."));
-                        bookBtn.innerText = originalText;
-                        bookBtn.disabled = false;
-                    }
-                } catch (error) {
-                    console.error("Submission error:", error);
-                    alert("Network error or server misconfiguration. Please call us directly at +91 98057 53890.");
-                    bookBtn.innerText = originalText;
-                    bookBtn.disabled = false;
-                }
-            });
+            const data = await response.json();
+            if (response.ok && data.success) {
+                window.location.href = "/success.html";
+            } else {
+                alert("Error: " + (data.message || "Failed to send email. Please check your SMTP settings or call us directly."));
+            }
+        } catch (error) {
+            console.error("Submission error:", error);
+            alert("Network error or server misconfiguration. Please call us directly at +91 98057 53890.");
         }
+    });
+}
+
+// Restrict phone input to numbers only
+const calcPhoneInput = document.getElementById('calc-phone');
+if (calcPhoneInput) {
+    calcPhoneInput.addEventListener('input', () => {
+        calcPhoneInput.value = calcPhoneInput.value.replace(/\D/g, '');
     });
 }
 
