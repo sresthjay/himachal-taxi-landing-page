@@ -2,10 +2,10 @@
 <html lang="en">
 
 <head>
-    <!-- Preload LCP Hero Image immediately for lowest possible Resource Load Delay -->
+    <!-- Preload LCP Hero Image immediately -->
     <link rel="preload" fetchpriority="high" as="image" href="/Images/hero-bg.jpg" type="image/jpeg">
 
-    <!-- Google Tag Manager (Optimized: loaded on user interaction or idle / 4s timeout to eliminate TBT) -->
+    <!-- Google Tag Manager (Optimized: loaded exclusively on user interaction for 0 TBT) -->
     <script>
         function loadGTM() {
             if (window.gtmLoaded) return;
@@ -19,15 +19,8 @@
                         'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
             })(window, document, 'script', 'dataLayer', 'GTM-5KZDTW64');
         }
-        ['pointerdown', 'touchstart', 'scroll', 'keydown'].forEach(function(e) {
+        ['pointerdown', 'touchstart', 'scroll', 'keydown', 'click'].forEach(function(e) {
             window.addEventListener(e, loadGTM, { once: true, passive: true });
-        });
-        window.addEventListener('load', function() {
-            if ('requestIdleCallback' in window) {
-                requestIdleCallback(loadGTM, { timeout: 4000 });
-            } else {
-                setTimeout(loadGTM, 4000);
-            }
         });
     </script>
     <!-- End Google Tag Manager -->
@@ -103,17 +96,7 @@
             padding: 50px 20px;
             text-align: center;
             color: white;
-            background: #1a1a1a;
-        }
-
-        .hero-bg {
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            z-index: 1;
+            background: url('/Images/hero-bg.jpg') center/cover no-repeat #1a1a1a;
         }
 
         .hero::after {
@@ -124,12 +107,12 @@
             width: 100%;
             height: 100%;
             background: rgba(0, 0, 0, 0.6);
-            z-index: 2;
+            z-index: 1;
         }
 
         .hero-content {
             position: relative;
-            z-index: 3;
+            z-index: 2;
         }
 
         @media (max-width: 768px) {
@@ -825,7 +808,6 @@
 
         <!-- HERO SECTION -->
         <header class="hero">
-            <img src="/Images/hero-bg.jpg" alt="Himachal Cabs Online" fetchpriority="high" class="hero-bg">
             <div class="hero-content">
                 <h1>Explore Himachal with <br> <span style="color: var(--accent); text-shadow: 2px 2px 6px rgba(226, 226, 226, 0.5);"> Himachal Cabs Online
                     </span></h1>
