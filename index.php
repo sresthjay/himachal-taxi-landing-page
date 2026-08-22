@@ -21,25 +21,7 @@ if ($adgroup === 'himachal-taxi-service') {
     <!-- Preload LCP Hero Image immediately -->
     <link rel="preload" fetchpriority="high" as="image" href="/Images/hero-bg.jpg" type="image/jpeg">
 
-    <!-- Google Tag Manager (Optimized: loaded exclusively on user interaction for 0 TBT) -->
-    <script>
-        function loadGTM() {
-            if (window.gtmLoaded) return;
-            window.gtmLoaded = true;
-            (function (w, d, s, l, i) {
-                w[l] = w[l] || []; w[l].push({
-                    'gtm.start':
-                        new Date().getTime(), event: 'gtm.js'
-                }); var f = d.getElementsByTagName(s)[0],
-                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-            })(window, document, 'script', 'dataLayer', 'GTM-5KZDTW64');
-        }
-        ['pointerdown', 'touchstart', 'scroll', 'keydown', 'click'].forEach(function (e) {
-            window.addEventListener(e, loadGTM, { once: true, passive: true });
-        });
-    </script>
-    <!-- End Google Tag Manager -->
+    
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -2050,6 +2032,31 @@ if ($adgroup === 'himachal-taxi-service') {
     </footer>
 
     <script src="main.js" defer></script>
+
+    <!-- Google Tag Manager (Optimized) -->
+    <!-- Google Tag Manager (Optimized: loaded exclusively on user interaction for 0 TBT) -->
+    <script>
+        function loadGTM() {
+            if (window.gtmLoaded) return;
+            window.gtmLoaded = true;
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                }); var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-5KZDTW64');
+        }
+        ['pointerdown', 'touchstart', 'scroll', 'keydown', 'click'].forEach(function (e) {
+            window.addEventListener(e, loadGTM, { once: true, passive: true });
+        });
+    </script>
+    <!-- End Google Tag Manager -->
+    
+    <!-- Dynamic Meta Description & Title for Ad Groups -->
+    
+
 </body>
 
 </html>
