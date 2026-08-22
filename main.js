@@ -77,7 +77,7 @@ if (calcBtn) {
             </div>
             
             <div class="form-group" style="text-align: left; margin-bottom: 15px;">
-                 <label for="calc-phone" style="font-size: 0.9rem; font-weight: 600; color: #333; display: block; margin-bottom: 5px; text-align: center;">Enter Your Phone Number to Book:</label>
+                 <label for="calc-phone" style="font-size: 0.9rem; font-weight: 600; color: #333; display: block; margin-bottom: 5px; text-align: center;">Enter Your Phone Number to Get Free Quote:</label>
                  <div style="width: 50%; margin: 0 auto; text-align: center;"> 
                       <input type="tel" id="calc-phone" placeholder="Your Phone No." style="width: 100%; padding: 10px; border: 1px solid #ccc; border-radius: 4px; box-sizing: border-box; text-align: center;">
                  </div>
