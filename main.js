@@ -1,15 +1,21 @@
-// 1. Car Selection Logic
+// 1. Car Selection Logic & Calculator Modal
 const fleetButtons = document.querySelectorAll('.fleet-cta');
+const calcModal = document.getElementById('calcModal');
+const closeCalcModal = document.getElementById('closeCalcModal');
+const calcFormStep = document.getElementById('calcFormStep');
+const calcResultStep = document.getElementById('calcResultStep');
+const backToCalcBtn = document.getElementById('backToCalcBtn');
+
 fleetButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
         const carName = btn.getAttribute('data-car');
-        const formSection = document.getElementById('booking-form');
-
-        if (formSection) {
-            formSection.scrollIntoView({ behavior: 'smooth' });
+        if (calcModal) {
+            calcModal.style.display = 'flex';
+            if (calcFormStep) calcFormStep.style.display = 'block';
+            if (calcResultStep) calcResultStep.style.display = 'none';
 
             const calcCar = document.getElementById('calc-car');
-            if (calcCar) {
+            if (calcCar && carName) {
                 if (carName.includes('Alto')) calcCar.value = "14";
                 else if (carName.includes('Dzire')) calcCar.value = "17";
                 else if (carName.includes('Etios')) calcCar.value = "18";
@@ -24,10 +30,31 @@ fleetButtons.forEach(btn => {
     });
 });
 
-// 2. Price Calculator Logic
+if (closeCalcModal) {
+    closeCalcModal.addEventListener('click', () => {
+        if (calcModal) calcModal.style.display = 'none';
+    });
+}
+
+if (calcModal) {
+    calcModal.addEventListener('click', (e) => {
+        if (e.target === calcModal) {
+            calcModal.style.display = 'none';
+        }
+    });
+}
+
+if (backToCalcBtn) {
+    backToCalcBtn.addEventListener('click', () => {
+        if (calcFormStep) calcFormStep.style.display = 'block';
+        if (calcResultStep) calcResultStep.style.display = 'none';
+    });
+}
+
+// 2. Price Calculator Logic (Calculate Estimate)
 const calcBtn = document.getElementById('calcBtn');
 if (calcBtn) {
-    calcBtn.addEventListener('click', async () => {
+    calcBtn.addEventListener('click', () => {
         const carSelect = document.getElementById('calc-car');
         const carRate = parseFloat(carSelect.value);
         const carName = carSelect.options[carSelect.selectedIndex].text;
@@ -35,34 +62,15 @@ if (calcBtn) {
         const drop = document.getElementById('calc-drop').value.trim();
         const km = parseFloat(document.getElementById('calc-km').value);
         const days = parseFloat(document.getElementById('calc-days').value) || 1;
-        const phoneInput = document.getElementById('calc-phone');
-        const phone = phoneInput ? phoneInput.value.trim() : '';
         const resultDiv = document.getElementById('calc-result');
 
         if (!pickup || !drop) {
-            resultDiv.style.display = 'block';
-            resultDiv.style.background = '#ffebee';
-            resultDiv.style.color = '#c62828';
-            resultDiv.innerHTML = "⚠️ Please enter both Pickup and Drop locations.";
-            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            alert("⚠️ Please enter both Pickup and Drop locations.");
             return;
         }
 
         if (!km || km <= 0) {
-            resultDiv.style.display = 'block';
-            resultDiv.style.background = '#ffebee';
-            resultDiv.style.color = '#c62828';
-            resultDiv.innerHTML = "⚠️ Please enter a valid distance.";
-            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
-            return;
-        }
-
-        if (!phone) {
-            resultDiv.style.display = 'block';
-            resultDiv.style.background = '#ffebee';
-            resultDiv.style.color = '#c62828';
-            resultDiv.innerHTML = "⚠️ Please enter your phone number.";
-            resultDiv.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            alert("⚠️ Please enter a valid distance in kilometers.");
             return;
         }
 
@@ -75,25 +83,55 @@ if (calcBtn) {
             maximumFractionDigits: 0
         }).format(total);
 
-        resultDiv.style.display = 'block';
         resultDiv.style.background = '#e8f5e9';
         resultDiv.style.color = '#2e7d32';
         resultDiv.innerHTML = `
-            <div style="font-size: 1.2rem; margin-bottom: 5px;">Estimated Cost:</div>
-            <div style="font-size: 2rem; font-weight: 800; margin-bottom: 5px;">${formattedTotal}</div>
-            <div style="font-size: 0.85rem; margin-bottom: 15px; color: #555;">
-                Car: ${carName} | From: ${pickup} To: ${drop}<br>
-                Distance: ${km} km | Day/s: ${days}<br>
-                *Includes DA. Taxes, Tolls & Parking extra. <a href="tel:9805753890" style="color: #dfce13; text-decoration:none; font-size:1.2rem;">Call Us</a> for more details.
+            <div style="font-size: 1.05rem; margin-bottom: 3px; font-weight: 600; color: #1b4332;">Here is the estimated rate based on your journey details:</div>
+            <div style="font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; color: #2e7d32;">${formattedTotal}</div>
+            <div style="font-size: 0.85rem; color: #555; line-height: 1.5; margin-bottom: 12px;">
+                <strong>Car:</strong> ${carName}<br>
+                <strong>Route:</strong> ${pickup} to ${drop} (${km} km, ${days} Day/s)<br>
+                <em>*Includes DA. Taxes, Tolls & Parking extra.</em>
             </div>
-            
-            <div style="text-align: center; font-size: 0.75rem; color: #666; margin-top: 10px; line-height: 1.4;">
-            *The displayed fare is an estimate and may vary based on the travel date, season, time of day or night, traffic conditions, route, and other applicable charges. The final fare will be confirmed at the time of booking.
+            <div style="font-size: 0.75rem; color: #666; line-height: 1.4; border-top: 1px dashed #c8e6c9; padding-top: 10px; text-align: left;">
+                *The displayed fare is an estimate and may vary based on the travel date, season, time of day or night, traffic conditions, route, and other applicable charges. The final fare will be confirmed at the time of booking.
             </div>
-            <div style="margin-top: 10px; font-weight: 600; color: #2e7d32;">Sending your quote request...</div>
         `;
 
-        resultDiv.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        if (calcFormStep) calcFormStep.style.display = 'none';
+        if (calcResultStep) calcResultStep.style.display = 'block';
+    });
+}
+
+// 3. Book Estimate / Submit Phone Number
+const bookEstimateBtn = document.getElementById('bookEstimateBtn');
+if (bookEstimateBtn) {
+    bookEstimateBtn.addEventListener('click', async () => {
+        const phoneInput = document.getElementById('calc-phone');
+        const phone = phoneInput ? phoneInput.value.trim() : '';
+
+        if (!phone || phone.length < 10) {
+            alert("⚠️ Please enter a valid 10-digit phone number.");
+            return;
+        }
+
+        const carSelect = document.getElementById('calc-car');
+        const carRate = parseFloat(carSelect.value);
+        const carName = carSelect.options[carSelect.selectedIndex].text;
+        const pickup = document.getElementById('calc-pickup').value.trim();
+        const drop = document.getElementById('calc-drop').value.trim();
+        const km = parseFloat(document.getElementById('calc-km').value);
+        const days = parseFloat(document.getElementById('calc-days').value) || 1;
+        const driverAllowance = 500;
+        const total = (carRate * km) + (driverAllowance * days);
+        const formattedTotal = new Intl.NumberFormat('en-IN', {
+            style: 'currency',
+            currency: 'INR',
+            maximumFractionDigits: 0
+        }).format(total);
+
+        bookEstimateBtn.innerText = "Sending Quote Request...";
+        bookEstimateBtn.disabled = true;
 
         const formData = new FormData();
         formData.append("car", carName);
@@ -103,7 +141,7 @@ if (calcBtn) {
         formData.append("days", days);
         formData.append("estimated_cost", formattedTotal);
         formData.append("phone", phone);
-        formData.append("name", "Website Visitor");
+        formData.append("name", "Website Visitor (Calculator)");
 
         try {
             const response = await fetch("api/submit.php", {
@@ -118,10 +156,14 @@ if (calcBtn) {
                 window.location.href = "/success.html";
             } else {
                 alert("Error: " + (data.message || "Failed to send email. Please check your SMTP settings or call us directly."));
+                bookEstimateBtn.innerText = "Get Quote & Book Now";
+                bookEstimateBtn.disabled = false;
             }
         } catch (error) {
             console.error("Submission error:", error);
             alert("Network error or server misconfiguration. Please call us directly at +91 98057 53890.");
+            bookEstimateBtn.innerText = "Get Quote & Book Now";
+            bookEstimateBtn.disabled = false;
         }
     });
 }
@@ -224,4 +266,241 @@ backToTopBtn.addEventListener("click", function () {
     });
 });
 
+// TOUR DATA
+const toursData = [
+  {
+    id: 1,
+    title: "Shimla Manali Taxi Tour",
+    image: "/Images/tours/shimla.jpg",
+    badge: "Best Seller",
+    duration: "6 Days",
+    bestFor: "Couples & Families",
+    places: ["Shimla", "Manali", "Kullu", "Rohtang Pass", "Sissu", "Atal Tunnel"],
+    features: [
+      "Ex: Chandigarh/Delhi/Ambala/Shimla",
+      "Taxi for complete 6 Days",
+      "Driver Allowance Included",
+      "Private AC Sedan/SUV/Traveller",
+      "Toll/Fuel/Taxes Included",
+    ],
+    price: "From ₹20,000/-",
+    ctaText: "Get Free Quote"
+  },
+  {
+    id: 2,
+    title: "Spiti Valley Circuit Tour",
+    image: "/Images/tours/spiti-valley.jpg",
+    badge: "Adventure",
+    duration: "10 Days",
+    bestFor: "Adventure Seekers",
+    places: ["Shimla", "Kinnaur", "Kaza", "Tabo", "Chandratal", "Manali"],
+    features: [
+      "Ex: Chandigarh/Delhi/Ambala/Shimla",
+      "Taxi for Complete 10 Days",
+      "Driver Allowance Included",
+      "Private AC SUV/Traveller",
+      "Toll/Fuel/Taxes Included",
+    ],
+    price: "From ₹45,000/-",
+    ctaText: "Get Free Quote"
+  },
+  {
+    id: 3,
+    title: "Dharamshala Dalhousie Tour",
+    image: "/Images/tours/dharamshala.jpg",
+    badge: "Peaceful",
+    duration: "6 Days",
+    bestFor: "Family & Couple",
+    places: ["Dharamshala", "McLeod Ganj", "Dalhousie", "Khajjiar", "Amritsar"],
+    features: [
+      "Ex: Chandigarh/Pathankot/Amritsar",
+      "Taxi for Complete 6 Days",
+      "Driver Allowance Included",
+      "Private AC Sedan/SUV/Traveller",
+      "Toll/Fuel/Taxes Included",
+    ],
+    price: "From ₹18,000/-",
+    ctaText: "Get Free Quote"
+  },
+  {
+    id: 4,
+    title: "Manali & Kasol Taxi Getaway",
+    image: "/Images/tours/kasol.jpg",
+    badge: "Relaxing",
+    duration: "5 Days",
+    bestFor: "Weekend Getaway",
+    places: ["Manali", "Atal Tunnel", "Sissu", "Kullu", "Kasol", "Manikaran"],
+    features: [
+      "Ex: Chandigarh/Delhi/Ambala",
+      "Taxi for Complete 5 Days",
+      "Driver Allowance Included",
+      "Private AC Sedan/SUV/Traveller",
+      "Toll/Fuel/Taxes Included",
+    ],
+    price: "From ₹15,000/-",
+    ctaText: "Get Free Quote"
+  },
+  {
+    id: 5,
+    title: "Complete Himachal Tour",
+    image: "/Images/tours/himachal.jpg",
+    badge: "Long Holidays",
+    duration: "10 Days",
+    bestFor: "Family & Couples",
+    places: ["Shimla", "Manali", "Dharamshala", "Dalhousie", "Amritsar"],
+    features: [
+      "Ex: Chandigarh/Delhi/Ambala",
+      "Taxi for Complete 10 Days",
+      "Driver Allowance Included",
+      "Private AC Sedan/SUV/Traveller",
+      "Toll/Fuel/Taxes Included",
+    ],
+    price: "From ₹30,000/-",
+    ctaText: "Get Free Quote"
+  },
+  {
+    id: 6,
+    title: "Kinnaur Spiti Adventure Trip",
+    image: "/Images/tours/kinnaur.jpg",
+    badge: "Off Beat",
+    duration: "8 Days",
+    bestFor: "Adventure & Off Beat",
+    places: ["Narkanda", "Sangla", "Chitkul", "Kalpa", "Tabo", "Kaza"],
+    features: [
+      "Ex: Chandigarh/Delhi/Ambala",
+      "Taxi for Complete 8 Days",
+      "Driver Allowance Included",
+      "Private AC Sedan/SUV/Traveller",
+      "Toll/Fuel/Taxes Included",
+    ],
+    price: "From ₹27,000/-",
+    ctaText: "Get Free Quote"
+  }
+];
 
+// RENDER TOURS
+const toursContainer = document.getElementById('toursContainer');
+
+if (toursContainer) {
+  toursData.forEach(tour => {
+    // 1. Create Place Tags (Existing logic)
+    const placesHtml = tour.places.map(place => 
+      `<span class="place-tag"><svg style="width:11px;height:11px;fill:currentColor;vertical-align:middle;margin-right:3px;" viewBox="0 0 384 512"><path d="M215.7 499.2C267 435 384 279.4 384 192C384 86 298 0 192 0S0 86 0 192c0 87.4 117 243 168.3 307.2c12.3 15.3 35.1 15.3 47.4 0zM192 256c-35.3 0-64-28.7-64-64s28.7-64 64-64s64 28.7 64 64s-28.7 64-64 64z"/></svg>${place}</span>`
+    ).join('');
+
+    // 2. CREATE FEATURES LIST (New Logic)
+    const featuresHtml = tour.features.map(feat => 
+      `<li style="margin-bottom: 8px; font-size: 0.95rem; color: #444; display: flex; align-items: start; gap: 8px;">
+         <svg style="width:16px;height:16px;fill:#2E7D32;flex-shrink:0;margin-top:3px;" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+         <span>${feat}</span>
+       </li>`
+    ).join('');
+
+    // 3. Create Card HTML
+    const cardHtml = `
+      <div class="tour-card">
+        <div style="position: relative;">
+          <img src="${tour.image}" alt="${tour.title}" class="tour-image">
+          <span class="tour-badge">${tour.badge}</span>
+        </div>
+        <div class="tour-content">
+          <h3 class="tour-title">${tour.title}</h3>
+          
+          <div class="tour-meta">
+            <div class="meta-item"><svg style="width:14px;height:14px;fill:currentColor;vertical-align:middle;margin-right:4px;" viewBox="0 0 512 512"><path d="M256 0a256 256 0 1 1 0 512A256 256 0 1 1 256 0zM232 120V256c0 8 4 15.5 10.7 20l96 64c11 7.4 25.9 4.4 33.3-6.7s4.4-25.9-6.7-33.3L280 243.2V120c0-13.3-10.7-24-24-24s-24 10.7-24 24z"/></svg>${tour.duration}</div>
+            <div class="meta-item"><svg style="width:14px;height:14px;fill:currentColor;vertical-align:middle;margin-right:4px;" viewBox="0 0 640 512"><path d="M96 128a128 128 0 1 1 256 0A128 128 0 1 1 96 128zM0 482.3C0 383.8 79.8 304 178.3 304h91.4C368.2 304 448 383.8 448 482.3c0 16.4-13.3 29.7-29.7 29.7H29.7C13.3 512 0 498.7 0 482.3zM504 312V248H440c-13.3 0-24-10.7-24-24s10.7-24 24-24h64V136c0-13.3 10.7-24 24-24s24 10.7 24 24v64h64c13.3 0 24 10.7 24 24s-10.7 24-24 24H552v64c0 13.3-10.7 24-24 24s-24-10.7-24-24z"/></svg>${tour.bestFor}</div>
+          </div>
+
+          <div class="places-list">
+            ${placesHtml}
+          </div>
+
+          <!-- CHANGE 2: Render List instead of Paragraph -->
+          <ul style="list-style: none; padding: 0; margin: 0 0 20px 0;">
+            ${featuresHtml}
+          </ul>
+          
+          <div class="tour-price">${tour.price}</div>
+          
+          <button class="tour-cta" onclick="scrollToBooking('${tour.title}')">
+            ${tour.ctaText}
+          </button>
+        </div>
+      </div>
+    `;
+
+    toursContainer.innerHTML += cardHtml;
+  });
+}
+
+// Scroll Function (Unchanged)
+function scrollToBooking(tourName) {
+  const bookingForm = document.getElementById('taxiForm');
+  const calcSection = document.getElementById('booking-form');
+  
+  if (bookingForm) {
+    bookingForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } else if (calcSection) {
+    calcSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
+  } else {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  }
+}
+
+// Testimonial Slider Logic
+const testimonialCards = document.querySelectorAll('.testimonial-card');
+const dots = document.querySelectorAll('.testimonial-dots .dot');
+const prevBtn = document.getElementById('prevTestimonial');
+const nextBtn = document.getElementById('nextTestimonial');
+let currentTestimonial = 0;
+let testimonialInterval;
+
+function showTestimonial(index) {
+    testimonialCards.forEach((card, i) => {
+        card.classList.toggle('active', i === index);
+    });
+    dots.forEach((dot, i) => {
+        dot.classList.toggle('active', i === index);
+    });
+    currentTestimonial = index;
+}
+
+function nextTestimonial() {
+    let nextIndex = (currentTestimonial + 1) % testimonialCards.length;
+    showTestimonial(nextIndex);
+}
+
+function prevTestimonialFunc() {
+    let prevIndex = (currentTestimonial - 1 + testimonialCards.length) % testimonialCards.length;
+    showTestimonial(prevIndex);
+}
+
+if (nextBtn && prevBtn && testimonialCards.length > 0) {
+    nextBtn.addEventListener('click', () => {
+        nextTestimonial();
+        resetInterval();
+    });
+
+    prevBtn.addEventListener('click', () => {
+        prevTestimonialFunc();
+        resetInterval();
+    });
+
+    dots.forEach((dot, index) => {
+        dot.addEventListener('click', () => {
+            showTestimonial(index);
+            resetInterval();
+        });
+    });
+
+    function startInterval() {
+        testimonialInterval = setInterval(nextTestimonial, 6000);
+    }
+
+    function resetInterval() {
+        clearInterval(testimonialInterval);
+        startInterval();
+    }
+
+    startInterval();
+}

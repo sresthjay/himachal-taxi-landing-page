@@ -19,7 +19,7 @@
                         'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
             })(window, document, 'script', 'dataLayer', 'GTM-5KZDTW64');
         }
-        ['pointerdown', 'touchstart', 'scroll', 'keydown', 'click'].forEach(function(e) {
+        ['pointerdown', 'touchstart', 'scroll', 'keydown', 'click'].forEach(function (e) {
             window.addEventListener(e, loadGTM, { once: true, passive: true });
         });
     </script>
@@ -30,6 +30,53 @@
     <title>Himachal Cabs Online | Manali, Shimla & Dharamshala Taxi Services</title>
     <meta name="description"
         content="Book reliable Himachal taxi services with local drivers. Get one-way cabs, round trips & sightseeing taxi in Manali, Shimla, Dharamshala and beyond.">
+
+    <!-- Dynamic Meta Description & Title for Ad Groups -->
+    <script>
+        (function () {
+            try {
+                const urlParams = new URLSearchParams(window.location.search);
+                const adgroup = urlParams.get('adgroup');
+
+                const metaTags = {
+                    'himachal-taxi-service': {
+                        title: 'Himachal Taxi Service | Manali, Shimla, Dharamshala | Cabs Online',
+                        description: 'Himachal taxi service with experienced drivers across Manali, Shimla, Dharamshala & Spiti Valley. Book one-way, round trips & sightseeing tours. 5,000+ travelers served in 8 years.'
+                    },
+                    'shimla-taxi-service': {
+                        title: 'Shimla Taxi Service | Reliable Cabs Online',
+                        description: 'Reliable Shimla taxi services with experienced local drivers. One-way, round trips & sightseeing options. Book now for comfortable journeys across Shimla.'
+                    },
+                    'manali-taxi-service': {
+                        title: 'Manali Taxi Service | Comfortable Cabs Online',
+                        description: 'Comfortable Manali taxi services from verified drivers. Round trips, sightseeing & flexible booking options. 5,000+ happy travelers trust us.'
+                    }
+                };
+
+                if (metaTags[adgroup]) {
+                    const tags = metaTags[adgroup];
+
+                    // Update title
+                    document.title = tags.title;
+
+                    // Update meta description
+                    let metaDesc = document.querySelector('meta[name="description"]');
+                    if (metaDesc) {
+                        metaDesc.setAttribute('content', tags.description);
+                    } else {
+                        metaDesc = document.createElement('meta');
+                        metaDesc.name = 'description';
+                        metaDesc.content = tags.description;
+                        document.head.appendChild(metaDesc);
+                    }
+
+                    console.log('✅ Meta tags updated for ad group:', adgroup);
+                }
+            } catch (e) {
+                console.log('Meta tag update skipped:', e);
+            }
+        })();
+    </script>
 
     <!-- Standard Favicon for modern browsers -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
@@ -278,7 +325,7 @@
         .section-title h2 {
             font-size: 2rem;
             color: var(--primary);
-            margin-bottom: 0.5rem;
+            margin: 0 10px 1rem;
             line-height: 1.2;
         }
 
@@ -573,33 +620,333 @@
             font-size: 0.9rem;
         }
 
-        /* TESTIMONIAL SECTION */
+        /* ===== TOUR PACKAGES SECTION ===== */
+
+        .tours-section {
+            padding: 80px 0;
+            background-color: #f9f9f9;
+        }
+
+        .tours-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+        }
+
+        .tour-card {
+            background: #ffffff;
+            border-radius: 12px;
+            overflow: hidden;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tour-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .tour-image {
+            width: 100%;
+            height: 220px;
+            object-fit: cover;
+            position: relative;
+        }
+
+        .tour-badge {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            background: var(--primary);
+
+            color: white;
+            padding: 6px 12px;
+            border-radius: 20px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+        }
+
+        .tour-content {
+            padding: 25px;
+            flex-grow: 1;
+            display: flex;
+            flex-direction: column;
+        }
+
+        .tour-title {
+            font-size: 1.4rem;
+            margin: 0 0 15px;
+            color: #1b4332;
+            font-weight: 700;
+        }
+
+        .tour-meta {
+            display: flex;
+            gap: 15px;
+            margin-bottom: 15px;
+            flex-wrap: wrap;
+        }
+
+        .meta-item {
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            font-size: 0.9rem;
+            color: #444;
+            font-weight: 500;
+        }
+
+        .meta-item svg {
+            fill: var(--primary) !important;
+        }
+
+        .places-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 8px;
+            margin-bottom: 15px;
+        }
+
+        .place-tag {
+            background: #e8f5e9;
+            color: #2e7d32;
+            padding: 4px 10px;
+            border-radius: 6px;
+            font-size: 0.85rem;
+            font-weight: 500;
+        }
+
+        .tour-desc {
+            font-size: 0.95rem;
+            color: #666;
+            line-height: 1.6;
+            margin-bottom: 20px;
+            flex-grow: 1;
+            /* Pushes button to bottom */
+        }
+
+        .tour-price {
+            font-size: 1rem;
+            font-weight: 600;
+            color: #d9a441;
+            /* Gold color */
+            margin-bottom: 20px;
+        }
+
+        .tour-cta {
+            display: inline-block;
+            width: 100%;
+            text-align: center;
+            padding: 12px;
+            background: var(--primary);
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+            font-weight: 500;
+            transition: background 0.3s ease;
+            cursor: pointer;
+            border: none;
+            font-size: 1rem;
+        }
+
+        .tour-cta:hover {
+            background: #1e5c22;
+        }
+
+        /* Add to styles.css */
+
+        .tour-content ul {
+            list-style: none;
+            /* Remove default bullets */
+            padding: 0;
+            margin: 0 0 20px 0;
+        }
+
+        .tour-content ul li {
+            display: flex;
+            align-items: flex-start;
+            /* Aligns text with the top of the icon */
+            gap: 10px;
+            line-height: 1.5;
+            color: #444;
+            font-size: 0.95rem;
+        }
+
+        .tour-content ul li i.fa-circle-check {
+            color: #2E7D32;
+            /* Matches your brand green */
+            font-size: 1.2rem;
+            margin-top: 2px;
+            /* Visual alignment fix */
+            flex-shrink: 0;
+            /* Prevents icon from squishing */
+        }
+
+        /* CALCULATOR MODAL POPUP */
+        .calc-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.65);
+            z-index: 9999;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 20px;
+            backdrop-filter: blur(4px);
+        }
+
+        .calc-modal-content {
+            background: white;
+            width: 100%;
+            max-width: 520px;
+            padding: 30px;
+            border-radius: 16px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.3);
+            position: relative;
+            max-height: 90vh;
+            overflow-y: auto;
+        }
+
+        .calc-modal-close {
+            position: absolute;
+            top: 15px;
+            right: 20px;
+            background: transparent;
+            border: none;
+            font-size: 2rem;
+            cursor: pointer;
+            color: #666;
+            line-height: 1;
+            transition: color 0.2s;
+        }
+
+        .calc-modal-close:hover {
+            color: #000;
+        }
+
+        /* Responsive Tweaks */
+        @media (max-width: 600px) {
+            .tours-grid {
+                grid-template-columns: 1fr;
+                padding: 0 15px;
+            }
+
+            .tour-meta {
+                justify-content: flex-start;
+            }
+        }
+
+        /* TESTIMONIAL SLIDER */
         .testimonial-section {
-            padding: 2.5rem 1.5rem 5rem;
+            padding: 4rem 1.5rem 5rem;
             background: #ffffff;
         }
 
-        .testimonial-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 3rem;
-            max-width: 1200px;
-            margin: 3.5rem auto 0;
+        .testimonial-slider-wrapper {
+            max-width: 800px;
+            margin: 4.5rem auto 1.5rem auto;
+            position: relative;
+            display: flex;
+            align-items: center;
+            padding: 0 15px;
+        }
+
+        .testimonial-slider {
+            width: 100%;
+            overflow: visible;
+            position: relative;
+            min-height: 320px;
         }
 
         .testimonial-card {
-            background: #e5e5e5;
-            border-radius: 12px;
-            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.08);
-            padding: 2.5rem 2rem 2rem;
-            position: relative;
+            background: #ffffff;
+            border-radius: 16px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.12);
+            padding: 3.2rem 2.5rem 2.5rem;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.5s ease, transform 0.5s ease;
             text-align: center;
             border-top: 4px solid var(--primary);
-            transition: transform 0.3s ease;
+            box-sizing: border-box;
+            transform: scale(0.95);
+            z-index: 1;
         }
 
-        .testimonial-card:hover {
-            transform: translateY(-5px);
+        .testimonial-card.active {
+            opacity: 1;
+            visibility: visible;
+            transform: scale(1);
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
+        }
+
+        .testimonial-arrow {
+            position: absolute;
+            top: 50%;
+            transform: translateY(-50%);
+            background: var(--primary);
+            color: white;
+            border: none;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
+            cursor: pointer;
+            font-size: 1.2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            z-index: 10;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .testimonial-arrow:hover {
+            background: #1b4332;
+            transform: translateY(-50%) scale(1.08);
+        }
+
+        .testimonial-arrow.prev {
+            left: -10px;
+        }
+
+        .testimonial-arrow.next {
+            right: -10px;
+        }
+
+        .testimonial-dots {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-top: 1.5rem;
+        }
+
+        .testimonial-dots .dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: #ccc;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.2s;
+        }
+
+        .testimonial-dots .dot.active {
+            background: var(--primary);
+            transform: scale(1.2);
         }
 
         .testimonial-avatar {
@@ -762,6 +1109,240 @@
             transition: background-color 0.3s, transform 0.3s;
         }
 
+        /* ===== TRUST SECTION ===== */
+        .trust-section {
+            background: linear-gradient(180deg, rgba(255, 255, 255, 0.03) 0%, transparent 100%);
+            border-top: 1px solid rgba(255, 255, 255, 0.1);
+            border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+            padding: 40px 0;
+            margin: 0 0 30px 0;
+        }
+
+        .trust-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 20px;
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(170px, 1fr));
+            gap: 20px;
+            place-items: center;
+        }
+
+        /* ===== TRUST CARD ===== */
+        .trust-card {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            gap: 12px;
+            padding: 24px 16px;
+            background: rgba(255, 255, 255, 0.04);
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            border-radius: 12px;
+            text-align: center;
+            transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+            cursor: default;
+            min-height: 140px;
+            justify-content: space-between;
+        }
+
+        .trust-card:hover {
+            background: rgba(255, 255, 255, 0.08);
+            border-color: rgba(255, 255, 255, 0.2);
+            transform: translateY(-4px);
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.15);
+        }
+
+        .trust-card:active {
+            transform: translateY(-2px);
+        }
+
+        /* ===== TRUST CARD ICON ===== */
+        .trust-card__icon {
+            font-size: 40px;
+            line-height: 1;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 60px;
+            height: 60px;
+            background: rgba(255, 255, 255, 0.05);
+            border-radius: 50%;
+            transition: transform 0.3s ease;
+        }
+
+        .trust-card:hover .trust-card__icon {
+            transform: scale(1.1);
+        }
+
+        /* ===== TRUST CARD CONTENT ===== */
+        .trust-card__content {
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+        }
+
+        .trust-card__title {
+            margin: 0;
+            font-size: 15px;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.95);
+            line-height: 1.3;
+        }
+
+        .trust-card__subtitle {
+            margin: 0;
+            font-size: 12px;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.3;
+            letter-spacing: 0.3px;
+        }
+
+        /* ===== FOOTER CONTENT ===== */
+        .footer-content {
+            text-align: center;
+            padding: 20px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .footer-content p {
+            margin: 8px 0;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.7);
+            line-height: 1.6;
+        }
+
+        .footer-content a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-content a:hover {
+            color: rgba(255, 255, 255, 1);
+            text-decoration: underline;
+        }
+
+        .final-cta-container {
+            max-width: 1100px;
+            margin: 0 auto;
+            background: linear-gradient(135deg, #1b5e20 0%, #2e7d32 50%, #388e3c 100%);
+            color: #ffffff;
+            padding: 4rem 2.5rem;
+            border-radius: 20px;
+            box-shadow: 0 15px 40px rgba(46, 125, 50, 0.3);
+            text-align: center;
+        }
+
+        .final-cta-container h2 {
+            color: #ffffff;
+            margin-bottom: 1.2rem;
+            line-height: 1.3;
+            font-size: 2.2rem;
+        }
+
+        .final-cta-container p {
+            color: #f1f8e9 !important;
+            font-size: 1.1rem;
+            line-height: 1.7;
+            max-width: 900px;
+            margin: 0 auto 2.5rem auto !important;
+        }
+
+        /* ===== RESPONSIVE: TABLET (768px and below) ===== */
+        @media (max-width: 768px) {
+            .trust-container {
+                grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+                gap: 16px;
+            }
+
+            .trust-card {
+                padding: 20px 12px;
+                min-height: 130px;
+            }
+
+            .trust-card__icon {
+                font-size: 32px;
+                width: 52px;
+                height: 52px;
+            }
+
+            .trust-card__title {
+                font-size: 14px;
+            }
+
+            .trust-card__subtitle {
+                font-size: 11px;
+            }
+
+            .trust-section {
+                padding: 30px 0;
+                margin: 0 0 20px 0;
+            }
+        }
+
+        /* ===== RESPONSIVE: MOBILE (480px and below) ===== */
+        @media (max-width: 480px) {
+            .trust-container {
+                grid-template-columns: repeat(2, 1fr);
+                gap: 12px;
+            }
+
+            .trust-card {
+                padding: 16px 10px;
+                min-height: 120px;
+                gap: 10px;
+            }
+
+            .trust-card__icon {
+                font-size: 28px;
+                width: 48px;
+                height: 48px;
+            }
+
+            .trust-card__title {
+                font-size: 13px;
+                font-weight: 600;
+            }
+
+            .trust-card__subtitle {
+                font-size: 10px;
+            }
+
+            .trust-section {
+                padding: 24px 0;
+                margin: 0 0 16px 0;
+            }
+
+            .footer-content p {
+                font-size: 12px;
+            }
+
+            .subhead {
+            font-size: 1rem;
+            margin-bottom: 2rem;
+            opacity: 0.9;
+        }
+        }
+
+        /* ===== DARK MODE SUPPORT ===== */
+        @media (prefers-color-scheme: dark) {
+            .trust-card {
+                background: rgba(255, 255, 255, 0.04);
+                border-color: rgba(255, 255, 255, 0.1);
+            }
+
+            .trust-card:hover {
+                background: rgba(255, 255, 255, 0.08);
+                border-color: rgba(255, 255, 255, 0.2);
+            }
+
+            .trust-card__icon {
+                background: rgba(255, 255, 255, 0.05);
+            }
+        }
+
         @keyframes bouncePulse {
 
             0%,
@@ -809,9 +1390,13 @@
         <!-- HERO SECTION -->
         <header class="hero">
             <div class="hero-content">
-                <h1>Explore Himachal with <br> <span style="color: var(--accent); text-shadow: 2px 2px 6px rgba(226, 226, 226, 0.5);"> Himachal Cabs Online
-                    </span></h1>
-                <p class="subhead">Your trusted local taxi partner for reliable journeys across Himachal Pradesh. Book one-way drops, sightseeing trips, or complete journeys with experienced local drivers and transparent pricing.
+                <h1 style="color: var(--accent);">Himachal Cabs
+                    Online</h1>
+                <h4>Himachal Taxi Service for Transfers, Sightseeing & Tours</h4>
+                <p class="subhead">
+                    Himachal Cabs Online is a local taxi service for private travel across Himachal Pradesh. Book
+                    one-way transfers, sightseeing cabs or multi-day taxi trips with experienced local drivers and
+                    choose from sedans, SUVs and larger vehicles for your journey.
                 </p>
 
 
@@ -868,28 +1453,34 @@
         <section class="trust-section">
             <div class="section-title">
                 <h2>Why Travelers Trust Himachal Cabs Online</h2>
-                <p>Reliable taxis, experienced local drivers, and flexible travel options for journeys across Himachal Pradesh. From Shimla and Manali to Dharamshala and beyond, we’re here to make every journey comfortable and hassle-free.</p>
+                <p>Looking for a dependable taxi service in Himachal Pradesh? Our experienced local drivers and flexible
+                    travel options make every journey comfortable and hassle-free — from Shimla and Manali to
+                    Dharamshala, Dalhousie, and beyond.</p>
             </div>
             <div class="why-us-grid">
                 <div class="why-card">
                     <div class="why-icon">🏔️</div>
                     <h3>Mountain Experts</h3>
-                    <p>Our experienced drivers know Himachal Pradesh’s winding roads, steep ghats, and challenging mountain routes, helping you travel safely and comfortably.</p>
+                    <p>Our experienced drivers know Himachal Pradesh’s winding roads, steep ghats, and challenging
+                        mountain routes, helping you travel safely and comfortably.</p>
                 </div>
                 <div class="why-card">
                     <div class="why-icon">🛡️</div>
                     <h3>Safety First</h3>
-                    <p>Our taxis are well-maintained, AC-checked, and equipped with essential safety and travel amenities, including first-aid kits.</p>
+                    <p>Our taxis are well-maintained, AC-checked, and equipped with essential safety and travel
+                        amenities, including first-aid kits.</p>
                 </div>
                 <div class="why-card">
                     <div class="why-icon">💰</div>
                     <h3>No Hidden Costs</h3>
-                    <p>Get clear, upfront pricing with no hidden charges. Any applicable tolls, parking fees, or other additional costs are communicated clearly.</p>
+                    <p>Get clear, upfront pricing with no hidden charges. Any applicable tolls, parking fees, or other
+                        additional costs are communicated clearly.</p>
                 </div>
                 <div class="why-card">
                     <div class="why-icon">🌙</div>
                     <h3>24/7 Support</h3>
-                    <p>Need assistance during your journey? Our support team is available 24/7, and in case of a vehicle breakdown, we work to arrange a replacement swiftly.</p>
+                    <p>Need assistance during your journey? Our support team is available 24/7, and in case of a vehicle
+                        breakdown, we work to arrange a replacement swiftly.</p>
                 </div>
             </div>
         </section>
@@ -898,7 +1489,8 @@
         <section class="fleet-section">
             <div class="section-title">
                 <h2>Our Fleet & Transparent Pricing</h2>
-                <p>Choose the right vehicle for your Himachal journey with comfortable options for every group size, route, and budget.</p>
+                <p>Choose the right vehicle for your Himachal journey with comfortable options for every group size,
+                    route, and budget.</p>
             </div>
             <div class="fleet-grid">
                 <!-- Car 1: Hatchback -->
@@ -1145,54 +1737,74 @@
             </div>
         </section>
 
-        <!-- PRICE CALCULATOR -->
-        <section class="calculator-section" id="booking-form">
-            <div class="section-title">
-                <h2>Plan Your Himachal Trip Budget</h2>
-                <p>Tell us about your journey and get a quick estimated fare for your selected taxi.</p>
-            </div>
-            <div class="calc-wrapper">
-                <div class="form-group">
-                    <label for="calc-car">Select Car</label>
-                    <select id="calc-car">
-                        <option value="14">Maruti Alto</option>
-                        <option value="17">Swift Dzire</option>
-                        <option value="18">Toyota Etios </option>
-                        <option value="24">Suzuki Ertiga</option>
-                        <option value="26">Toyota Innova</option>
-                        <option value="29">Innova Crysta</option>
-                        <option value="40">Traveller 12-Seater</option>
-                        <option value="50">Traveller 17-Seater</option>
-                        <option value="70">Urbania 17-Seater</option>
-                    </select>
+        <!-- PRICE CALCULATOR MODAL -->
+        <div id="calcModal" class="calc-modal-overlay" style="display: none;">
+            <div class="calc-modal-content">
+                <button class="calc-modal-close" id="closeCalcModal">&times;</button>
+                <div class="section-title" style="margin-bottom: 20px;">
+                    <h2 style="font-size: 1.8rem; color: #1b4332;">Plan Your Himachal Taxi Tour Budget</h2>
+                    <p style="font-size: 0.95rem; color: #555;">Tell us about your journey and get a quick estimated
+                        fare for your selected taxi.</p>
                 </div>
-                <div class="form-group">
-                    <label for="calc-pickup">Pickup Location</label>
-                    <input type="text" id="calc-pickup" placeholder="e.g. Chandigarh / Shimla" required>
-                </div>
-                <div class="form-group">
-                    <label for="calc-drop">Drop Location</label>
-                    <input type="text" id="calc-drop" placeholder="e.g. Manali / Delhi" required>
-                </div>
-                <div class="form-group">
-                    <label for="calc-km">Approx Distance (km)</label>
-                    <input type="number" id="calc-km" placeholder="e.g. 250">
-                </div>
-                <div class="form-group">
-                    <label for="calc-days">Number of Days</label>
-                    <input type="number" id="calc-days" placeholder="e.g. 5" value="1">
-                </div>
-                <div class="form-group">
-                    <label for="calc-phone">Phone Number</label>
-                    <input type="tel" id="calc-phone" placeholder="Your Phone Number" inputmode="numeric" pattern="[0-9]*" required>
-                </div>
-                <button class="cta-btn" id="calcBtn">Calculate Estimate</button>
 
-                <div id="calc-result" class="calc-result">
-                    <!-- Result will appear here -->
+                <!-- Step 1: Form Inputs -->
+                <div id="calcFormStep">
+                    <div class="form-group">
+                        <label for="calc-car">Select Car</label>
+                        <select id="calc-car">
+                            <option value="14">Maruti Alto</option>
+                            <option value="17">Swift Dzire</option>
+                            <option value="18">Toyota Etios</option>
+                            <option value="24">Suzuki Ertiga</option>
+                            <option value="26">Toyota Innova</option>
+                            <option value="29">Innova Crysta</option>
+                            <option value="40">Traveller 12-Seater</option>
+                            <option value="50">Traveller 17-Seater</option>
+                            <option value="70">Urbania 17-Seater</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="calc-pickup">Pickup Location</label>
+                        <input type="text" id="calc-pickup" placeholder="e.g. Chandigarh / Shimla" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="calc-drop">Drop Location</label>
+                        <input type="text" id="calc-drop" placeholder="e.g. Manali / Delhi" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="calc-km">Approx Distance (km)</label>
+                        <input type="number" id="calc-km" placeholder="e.g. 250">
+                    </div>
+                    <div class="form-group">
+                        <label for="calc-days">Number of Days</label>
+                        <input type="number" id="calc-days" placeholder="e.g. 5" value="1">
+                    </div>
+                    <button class="cta-btn" id="calcBtn" style="margin-top: 10px;">Calculate Estimate</button>
+                </div>
+
+                <!-- Step 2: Result & Phone Share -->
+                <div id="calcResultStep" style="display: none;">
+                    <div id="calc-result" class="calc-result" style="display: block; margin-bottom: 20px;">
+                        <!-- Result will appear here -->
+                    </div>
+                    <div class="form-group" style="text-align: left; margin-bottom: 15px;">
+                        <label for="calc-phone"
+                            style="font-weight: 600; color: #333; display: block; margin-bottom: 5px;">Enter Your Phone
+                            Number to Get Quote:</label>
+                        <input type="tel" id="calc-phone" placeholder="Your Phone Number (e.g. 9805753890)"
+                            inputmode="numeric" pattern="[0-9]*"
+                            style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;"
+                            required>
+                    </div>
+                    <button class="cta-btn" id="bookEstimateBtn" style="background: var(--primary); color: white;">Get
+                        Quote & Book Now</button>
+                    <button type="button" id="backToCalcBtn"
+                        style="background: transparent; border: none; color: #555; text-decoration: underline; margin-top: 12px; cursor: pointer; width: 100%; font-size: 0.9rem;">←
+                        Edit Journey Details</button>
                 </div>
             </div>
-        </section>
+        </div>
+
 
         <!-- TESTIMONIAL SECTION -->
         <section class="testimonial-section">
@@ -1201,66 +1813,94 @@
                     style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-bottom: 5px;">
                     Testimonial</p>
                 <h2>What Our Travelers Say</h2>
-                <p>Read genuine experiences from travelers who chose Himachal Cabs Online for their journeys across Himachal Pradesh.</p>
+                <p>Read genuine experiences from travelers who chose Himachal Cabs Online for their journeys across
+                    Himachal Pradesh.</p>
             </div>
-            <div class="testimonial-grid">
-
-                <!-- Testimonial 1 -->
-                <div class="testimonial-card">
-                    <div class="testimonial-avatar">
-                        <img src="/Images/user-male.png" alt="Customer Avatar" width="75" height="75" loading="lazy">
+            
+            <div class="testimonial-slider-wrapper">
+                <button class="testimonial-arrow prev" id="prevTestimonial" aria-label="Previous Testimonial">&#10094;</button>
+                
+                <div class="testimonial-slider" id="testimonialSlider">
+                    <!-- Testimonial 1 -->
+                    <div class="testimonial-card active">
+                        <div class="testimonial-avatar">
+                            <img src="/Images/user-male.png" alt="Customer Avatar" width="75" height="75" loading="lazy">
+                        </div>
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                            <p class="testimonial-text">"We had a pleasant and comfortable experience with Mr.Jayant Thakur
+                                during our recent trip to Himachal Pradesh. Mr.Jayant Thakur gave us a perfectly planned
+                                itinerary for our trip and was always willing to help n guide us in the best possible way
+                                through out the trip. He made sure to provide us with the best transportation with
+                                experienced
+                                and cooperative drivers, who made our trip more enjoyable.. Highly recommended for families
+                                visiting Himachal Pradesh."</p>
+                            <h3 class="testimonial-name">Ramakrishna M</h3>
+                            <span class="testimonial-role">Himachal Family Trip</span>
+                        </div>
                     </div>
-                    <div class="testimonial-content">
-                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                        <p class="testimonial-text">"We had a pleasant and comfortable experience with Mr.Jayant Thakur
-                            during our recent trip to Himachal Pradesh. Mr.Jayant Thakur gave us a perfectly planned
-                            itinerary for our trip and was always willing to help n guide us in the best possible way
-                            through out the trip. He made sure to provide us with the best transportation with
-                            experienced
-                            and cooperative drivers, who made our trip more enjoyable.. Highly recommended for families
-                            visiting Himachal Pradesh."</p>
-                        <h3 class="testimonial-name">Ramakrishna M</h3>
-                        <span class="testimonial-role">Himachal Family Trip</span>
+
+                    <!-- Testimonial 2 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-avatar">
+                            <img src="/Images/user-female.png" alt="Customer Avatar" width="75" height="75" loading="lazy">
+                        </div>
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                            <p class="testimonial-text">"The experience with Pawan Thakur has been excellent over the last
+                                13
+                                days. We had been to Chitkul and Spiti Valley - Pawan took us to all places of interest in
+                                Spiti
+                                Valley without any time binding on us - we had a wonderful experience with him."</p>
+                            <h3 class="testimonial-name">Manika Basu</h3>
+                            <span class="testimonial-role">Spiti Valley Trip</span>
+                        </div>
+                    </div>
+
+                    <!-- Testimonial 3 -->
+                    <div class="testimonial-card">
+                        <div class="testimonial-avatar">
+                            <img src="/Images/user-male-2.png" alt="Customer Avatar" width="75" height="75" loading="lazy">
+                        </div>
+                        <div class="testimonial-content">
+                            <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
+                            <p class="testimonial-text">"Booked a trip to Shimla &amp; Manali - The team proposed a good
+                                itinerary based on my travel dates &amp; plan. We were also able to be flexible on the local
+                                sightseeing schedules. Driver was well versed with the area &amp; locations - Which is
+                                valuable
+                                as roads are difficult being hilly areas. Travel was made easier being driven around these
+                                areas
+                                which allowed us to enjoy the scenic routes &amp; nature. Would recommend people to consider
+                                if
+                                you're on a trip to North India."</p>
+                            <h3 class="testimonial-name">Ramachandran N</h3>
+                            <span class="testimonial-role">Shimla Manali Taxi Tour</span>
+                        </div>
                     </div>
                 </div>
 
-                <!-- Testimonial 2 -->
-                <div class="testimonial-card">
-                    <div class="testimonial-avatar">
-                        <img src="/Images/user-female.png" alt="Customer Avatar" width="75" height="75" loading="lazy">
-                    </div>
-                    <div class="testimonial-content">
-                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                        <p class="testimonial-text">"The experience with Pawan Thakur has been excellent over the last
-                            13
-                            days. We had been to Chitkul and Spiti Valley - Pawan took us to all places of interest in
-                            Spiti
-                            Valley without any time binding on us - we had a wonderful experience with him."</p>
-                        <h3 class="testimonial-name">Manika Basu</h3>
-                        <span class="testimonial-role">Spiti Valley Trip</span>
-                    </div>
-                </div>
+                <button class="testimonial-arrow next" id="nextTestimonial" aria-label="Next Testimonial">&#10095;</button>
+            </div>
 
-                <!-- Testimonial 3 -->
-                <div class="testimonial-card">
-                    <div class="testimonial-avatar">
-                        <img src="/Images/user-male-2.png" alt="Customer Avatar" width="75" height="75" loading="lazy">
-                    </div>
-                    <div class="testimonial-content">
-                        <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                        <p class="testimonial-text">"Booked a trip to Shimla &amp; Manali - The team proposed a good
-                            itinerary based on my travel dates &amp; plan. We were also able to be flexible on the local
-                            sightseeing schedules. Driver was well versed with the area &amp; locations - Which is
-                            valuable
-                            as roads are difficult being hilly areas. Travel was made easier being driven around these
-                            areas
-                            which allowed us to enjoy the scenic routes &amp; nature. Would recommend people to consider
-                            if
-                            you're on a trip to North India."</p>
-                        <h3 class="testimonial-name">Ramachandran N</h3>
-                        <span class="testimonial-role">Shimla Manali Taxi Tour</span>
-                    </div>
-                </div>
+            <!-- Dots Pagination -->
+            <div class="testimonial-dots" id="testimonialDots">
+                <span class="dot active" data-index="0"></span>
+                <span class="dot" data-index="1"></span>
+                <span class="dot" data-index="2"></span>
+            </div>
+        </section>
+
+        <!-- TOUR PACKAGES SECTION -->
+        <section class="tours-section" id="tours">
+            <div class="section-title">
+                <h2>Popular Himachal Tour Packages</h2>
+                <p>Checkout our pre-planned taxi tour itineraries of Himachal. These itineraries are fully customizable.
+                </p>
+            </div>
+
+            <!-- This grid will be populated by JS -->
+            <div class="tours-grid" id="toursContainer">
+                <!-- Cards will be injected here automatically -->
             </div>
         </section>
 
@@ -1269,6 +1909,7 @@
         <section class="faq-section">
             <div class="section-title">
                 <h2>Frequently Asked Questions</h2>
+                <p>Checkout the most asked questions and their answers regarding our Himachal Taxi Service.</p>
             </div>
             <div class="faq-container">
                 <div class="faq-item">
@@ -1282,7 +1923,8 @@
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">Do you provide AC in all cars?</div>
-                    <div class="faq-answer">Yes, all our vehicles are fully AC. However, AC service will be switched off in hilly areas.</div>
+                    <div class="faq-answer">Yes, all our vehicles are fully AC. However, AC service will be switched off
+                        in hilly areas.</div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">Q. What is the advance booking payment policy?</div>
@@ -1291,11 +1933,15 @@
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">Q. Can we customize our Himachal tour itinerary?</div>
-                    <div class="faq-answer">Yes! Our taxi service is flexible and can be arranged according to your travel itinerary. You can choose the destinations, sightseeing places, and stopovers you want to cover, and we’ll provide a suitable taxi for your planned journey.</div>
+                    <div class="faq-answer">Yes! Our taxi service is flexible and can be arranged according to your
+                        travel itinerary. You can choose the destinations, sightseeing places, and stopovers you want to
+                        cover, and we’ll provide a suitable taxi for your planned journey.</div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">Q. Do you provide one-way taxi service or taxis for the entire trip?</div>
-                    <div class="faq-answer">Yes, we provide both one-way taxi services and full-trip taxi services across Himachal Pradesh. You can book a taxi based on your travel requirements—whether you need a one-way drop to your destination or a dedicated vehicle for your entire Himachal trip.</div>
+                    <div class="faq-answer">Yes, we provide both one-way taxi services and full-trip taxi services
+                        across Himachal Pradesh. You can book a taxi based on your travel requirements—whether you need
+                        a one-way drop to your destination or a dedicated vehicle for your entire Himachal trip.</div>
                 </div>
                 <div class="faq-item">
                     <div class="faq-question">Q. From which locations do you offer pickup for Himachal tours?</div>
@@ -1349,27 +1995,74 @@
 
         <!-- Final CTA Section -->
         <section class="final-cta-section">
-            <div class="section-title">
-                <h2>More Than 5,000 People Have Explored Himachal With Us</h2>
+            <div class="final-cta-container">
+                <h2>More Than <span style="color:var(--accent);">5,000</span> People Have Explored Himachal With Us</h2>
                 <p>
-                    If you are planning a trip to Himachal, we are here to fulfill all your transportation requirements
-                    with our best taxi service in Shimla, Manali, Dharamshala, Dalhousie & Spiti Valley. With
-                    satisfaction guaranteed, our brilliant cab services in Himachal has served more than 5000 travelers
-                    in the past 8 years. Join over 5000 happy travellers who have explored the beauty of Himachal with
-                    our trusted Himachal taxi service.
+                    Planning a trip to Himachal? We're a complete Himachal taxi service providers covering all your
+                    transportation needs — including our popular Shimla taxi service and Manali taxi service, plus
+                    reliable cabs to Dharamshala, Dalhousie, and Spiti Valley. Over the past 8 years, we've safely
+                    carried more than 5,000 satisfied travelers across the mountains, backed by our satisfaction
+                    guarantee. Join the thousands of happy travelers who've explored Himachal with us.
                 </p>
                 <a href="#taxiForm" class="cta-btn">Book Your Taxi Now</a>
             </div>
+
         </section>
 
     </main>
 
     <!-- FOOTER -->
     <footer class="site-footer">
-        <p>&copy; <span id="current-year"></span> Himachal Cabs Online - A Unit of <a href="https://uranoteholidays.com"
-                target="_blank" style="text-decoration: none; font-weight: bold; color: var(--accent);">Uranote
-                Holidays.</a> All rights reserved.</p>
-        <p><a href="/privacy-policy.html" style="color: var(--light);">Privacy Policy</a></p>
+        <!-- Trust Badges Section -->
+        <div class="trust-section">
+            <div class="trust-container">
+                <!-- Badge 1: Himachal Tourism -->
+                <div class="trust-card">
+                    <div class="trust-card__icon">🏛️</div>
+                    <div class="trust-card__content">
+                        <h3 class="trust-card__title">Himachal Tourism</h3>
+                        <p class="trust-card__subtitle">Registered Transporters</p>
+                    </div>
+                </div>
+
+                <!-- Badge 3: Google Reviews -->
+                <div class="trust-card">
+                    <div class="trust-card__icon">⭐</div>
+                    <div class="trust-card__content">
+                        <h3 class="trust-card__title">200+ Reviews</h3>
+                        <p class="trust-card__subtitle">4.8★ Positive Rating</p>
+                    </div>
+                </div>
+
+                <!-- Badge 4: Years in Business -->
+                <div class="trust-card">
+                    <div class="trust-card__icon">📅</div>
+                    <div class="trust-card__content">
+                        <h3 class="trust-card__title">8+ Years in Market</h3>
+                        <p class="trust-card__subtitle">Proven Track Record</p>
+                    </div>
+                </div>
+
+                <!-- Badge 5: Happy Travelers -->
+                <div class="trust-card">
+                    <div class="trust-card__icon">👥</div>
+                    <div class="trust-card__content">
+                        <h3 class="trust-card__title">5,000+</h3>
+                        <p class="trust-card__subtitle">Community of Explorers</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Original Footer Content -->
+        <div class="footer-content">
+            <p>&copy; <span id="current-year"></span> Himachal Cabs Online - A Unit of <a
+                    href="https://uranoteholidays.com" target="_blank"
+                    style="text-decoration: none; font-weight: bold; color: var(--accent);">Uranote Holidays.</a> All
+                rights reserved.</p>
+            <p><a href="/privacy-policy.html" style="color: var(--light); text-decoration: underline;">Privacy
+                    Policy</a></p>
+        </div>
     </footer>
 
     <script src="main.js" defer></script>
