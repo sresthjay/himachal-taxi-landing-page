@@ -1,3 +1,19 @@
+<?php
+$adgroup = isset($_GET['adgroup']) ? trim($_GET['adgroup']) : '';
+$title = 'Himachal Cabs Online | Manali, Shimla & Dharamshala Taxi Services';
+$description = 'Book reliable Himachal taxi services with local drivers. Get one-way cabs, round trips & sightseeing taxi in Manali, Shimla, Dharamshala and beyond.';
+
+if ($adgroup === 'himachal-taxi-service') {
+    $title = 'Himachal Taxi Service | Manali, Shimla, Dharamshala | Cabs Online';
+    $description = 'Himachal taxi service with experienced drivers across Manali, Shimla, Dharamshala & Spiti Valley. Book one-way, round trips & sightseeing tours. 5,000+ travelers served in 8 years.';
+} elseif ($adgroup === 'shimla-taxi-service') {
+    $title = 'Shimla Taxi Service | Reliable Cabs Online';
+    $description = 'Reliable Shimla taxi services with experienced local drivers. One-way, round trips & sightseeing options. Book now for comfortable journeys across Shimla.';
+} elseif ($adgroup === 'manali-taxi-service') {
+    $title = 'Manali Taxi Service | Comfortable Cabs Online';
+    $description = 'Comfortable Manali taxi services from verified drivers. Round trips, sightseeing & flexible booking options. 5,000+ happy travelers trust us.';
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -27,56 +43,8 @@
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Himachal Cabs Online | Manali, Shimla & Dharamshala Taxi Services</title>
-    <meta name="description"
-        content="Book reliable Himachal taxi services with local drivers. Get one-way cabs, round trips & sightseeing taxi in Manali, Shimla, Dharamshala and beyond.">
-
-    <!-- Dynamic Meta Description & Title for Ad Groups -->
-    <script>
-        (function () {
-            try {
-                const urlParams = new URLSearchParams(window.location.search);
-                const adgroup = urlParams.get('adgroup');
-
-                const metaTags = {
-                    'himachal-taxi-service': {
-                        title: 'Himachal Taxi Service | Manali, Shimla, Dharamshala | Cabs Online',
-                        description: 'Himachal taxi service with experienced drivers across Manali, Shimla, Dharamshala & Spiti Valley. Book one-way, round trips & sightseeing tours. 5,000+ travelers served in 8 years.'
-                    },
-                    'shimla-taxi-service': {
-                        title: 'Shimla Taxi Service | Reliable Cabs Online',
-                        description: 'Reliable Shimla taxi services with experienced local drivers. One-way, round trips & sightseeing options. Book now for comfortable journeys across Shimla.'
-                    },
-                    'manali-taxi-service': {
-                        title: 'Manali Taxi Service | Comfortable Cabs Online',
-                        description: 'Comfortable Manali taxi services from verified drivers. Round trips, sightseeing & flexible booking options. 5,000+ happy travelers trust us.'
-                    }
-                };
-
-                if (metaTags[adgroup]) {
-                    const tags = metaTags[adgroup];
-
-                    // Update title
-                    document.title = tags.title;
-
-                    // Update meta description
-                    let metaDesc = document.querySelector('meta[name="description"]');
-                    if (metaDesc) {
-                        metaDesc.setAttribute('content', tags.description);
-                    } else {
-                        metaDesc = document.createElement('meta');
-                        metaDesc.name = 'description';
-                        metaDesc.content = tags.description;
-                        document.head.appendChild(metaDesc);
-                    }
-
-                    console.log('✅ Meta tags updated for ad group:', adgroup);
-                }
-            } catch (e) {
-                console.log('Meta tag update skipped:', e);
-            }
-        })();
-    </script>
+    <title><?php echo htmlspecialchars($title); ?></title>
+    <meta name="description" content="<?php echo htmlspecialchars($description); ?>">
 
     <!-- Standard Favicon for modern browsers -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
