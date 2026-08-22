@@ -2,23 +2,35 @@
 <html lang="en">
 
 <head>
-    <!-- Google Tag Manager (Deferred for FCP/LCP optimization) -->
+    <!-- Preload LCP Hero Image immediately for lowest possible Resource Load Delay -->
+    <link rel="preload" fetchpriority="high" as="image" href="/Images/hero-bg.jpg" type="image/jpeg">
+
+    <!-- Google Tag Manager (Optimized: loaded on user interaction or idle / 4s timeout to eliminate TBT) -->
     <script>
-        window.addEventListener('load', function () {
-            setTimeout(function () {
-                (function (w, d, s, l, i) {
-                    w[l] = w[l] || []; w[l].push({
-                        'gtm.start':
-                            new Date().getTime(), event: 'gtm.js'
-                    }); var f = d.getElementsByTagName(s)[0],
-                        j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
-                            'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
-                })(window, document, 'script', 'dataLayer', 'GTM-5KZDTW64');
-            }, 1000);
+        function loadGTM() {
+            if (window.gtmLoaded) return;
+            window.gtmLoaded = true;
+            (function (w, d, s, l, i) {
+                w[l] = w[l] || []; w[l].push({
+                    'gtm.start':
+                        new Date().getTime(), event: 'gtm.js'
+                }); var f = d.getElementsByTagName(s)[0],
+                    j = d.createElement(s), dl = l != 'dataLayer' ? '&l=' + l : ''; j.async = true; j.src =
+                        'https://www.googletagmanager.com/gtm.js?id=' + i + dl; f.parentNode.insertBefore(j, f);
+            })(window, document, 'script', 'dataLayer', 'GTM-5KZDTW64');
+        }
+        ['pointerdown', 'touchstart', 'scroll', 'keydown'].forEach(function(e) {
+            window.addEventListener(e, loadGTM, { once: true, passive: true });
+        });
+        window.addEventListener('load', function() {
+            if ('requestIdleCallback' in window) {
+                requestIdleCallback(loadGTM, { timeout: 4000 });
+            } else {
+                setTimeout(loadGTM, 4000);
+            }
         });
     </script>
     <!-- End Google Tag Manager -->
-
 
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -26,32 +38,24 @@
     <meta name="description"
         content="Book reliable Himachal taxi services with local drivers. Get one-way cabs, round trips & sightseeing taxi in Manali, Shimla, Dharamshala and beyond.">
 
-        <head>
- 
-  <!-- Standard Favicon for modern browsers -->
-  <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
-  <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
+    <!-- Standard Favicon for modern browsers -->
+    <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
+    <link rel="icon" type="image/png" sizes="16x16" href="/favicon/favicon-16x16.png">
 
-  <!-- Apple Touch Icon for iOS devices -->
-  <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
+    <!-- Apple Touch Icon for iOS devices -->
+    <link rel="apple-touch-icon" sizes="180x180" href="/favicon/apple-touch-icon.png">
 
-  <!-- PWA Icons (Matching your site.webmanifest) -->
-  <!-- Ensure these files exist in /favicon/ or update the paths in site.webmanifest -->
-  <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-chrome-192x192.png">
-  <link rel="icon" type="image/png" sizes="512x512" href="/favicon/android-chrome-512x512.png">
+    <!-- PWA Icons -->
+    <link rel="icon" type="image/png" sizes="192x192" href="/favicon/android-chrome-192x192.png">
+    <link rel="icon" type="image/png" sizes="512x512" href="/favicon/android-chrome-512x512.png">
 
-  <link rel="manifest" href="/site.webmanifest">
+    <link rel="manifest" href="/site.webmanifest">
+    <meta name="theme-color" content="#ffffff">
 
-  <!-- Optional: Theme color (matches your manifest) -->
-  <meta name="theme-color" content="#ffffff">
-
-</head>
-
-    <!-- Preconnect & Preload for Performance -->
+    <!-- Preconnect for Performance -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
-    <link rel="preload" fetchpriority="high" as="image" href="/Images/hero-bg.jpg" type="image/jpeg">
 
     <!-- Google Fonts (Non-blocking) -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style"
