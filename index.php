@@ -19,10 +19,6 @@ if ($adgroup === 'himachal-taxi-service') {
 
 <head>
     <!-- Preload LCP Hero Image immediately -->
-    <link rel="preload" fetchpriority="high" as="image" href="/Images/hero-bg.jpg" type="image/jpeg">
-
-    
-
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title><?php echo htmlspecialchars($title); ?></title>
@@ -93,7 +89,7 @@ if ($adgroup === 'himachal-taxi-service') {
             padding: 50px 20px;
             text-align: center;
             color: white;
-            background: #1a1a1a;
+            background: linear-gradient(135deg, #0d1b2a 0%, #1b4332 50%, #0f172a 100%);
         }
 
         .hero-bg {
@@ -106,20 +102,11 @@ if ($adgroup === 'himachal-taxi-service') {
             z-index: 1;
         }
 
-        .hero::after {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.6);
-            z-index: 1;
-        }
+        
 
         .hero-content {
             position: relative;
-            z-index: 3;
+            z-index: 2;
         }
 
         .hero-content {
@@ -1354,11 +1341,10 @@ if ($adgroup === 'himachal-taxi-service') {
 
         <!-- HERO SECTION -->
         <header class="hero">
-            <img src="/Images/hero-bg.jpg" alt="Himachal Cabs Online" fetchpriority="high" class="hero-bg">
             <div class="hero-content">
                 <h1 style="color: var(--accent);">Himachal Cabs
                     Online</h1>
-                <h4>Himachal Taxi Service for Transfers, Sightseeing & Tours</h4>
+                <h2>Himachal Taxi Service for Transfers, Sightseeing & Tours</h2>
                 <p class="subhead">
                     Himachal Cabs Online is a local taxi service for private travel across Himachal Pradesh. Book
                     one-way transfers, sightseeing cabs or multi-day taxi trips with experienced local drivers and
