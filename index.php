@@ -686,8 +686,8 @@ if ($adgroup === 'himachal-taxi-service') {
         .tour-price {
             font-size: 1rem;
             font-weight: 600;
-            color: #d9a441;
-            /* Gold color */
+            color: #805c1b;
+            /* Dark Brown color */
             margin-bottom: 20px;
         }
 
@@ -1362,8 +1362,8 @@ if ($adgroup === 'himachal-taxi-service') {
 
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Your Phone Number" inputmode="numeric"
-                            pattern="[0-9]*" required>
+                        <input type="tel" id="phone" name="phone" placeholder="Your Phone Number (10-12 digits)" inputmode="numeric"
+                            pattern="[0-9]{10,12}" minlength="10" maxlength="12" title="Enter 10-12 digits" required>
                     </div>
 
                     <div class="form-group">
@@ -1743,8 +1743,8 @@ if ($adgroup === 'himachal-taxi-service') {
                         <label for="calc-phone"
                             style="font-weight: 600; color: #333; display: block; margin-bottom: 5px;">Enter Your Phone
                             Number to Get Quote:</label>
-                        <input type="tel" id="calc-phone" placeholder="Your Phone Number (e.g. 9805753890)"
-                            inputmode="numeric" pattern="[0-9]*"
+                        <input type="tel" id="calc-phone" placeholder="Your Phone Number (10-12 digits, e.g. 9805753890)"
+                            inputmode="numeric" pattern="[0-9]{10,12}" minlength="10" maxlength="12" title="Enter 10-12 digits"
                             style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;"
                             required>
                     </div>

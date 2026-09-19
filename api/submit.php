@@ -65,12 +65,12 @@ $estimated   = trim($_POST['estimated_cost'] ?? '');
 // BASIC VALIDATION
 // --------------------------------------------------
 
-if (!$phone) {
+if (!$phone || !preg_match('/^[0-9]{10,12}$/', $phone)) {
     http_response_code(400);
 
     echo json_encode([
         'success' => false,
-        'message' => 'Phone number is required'
+        'message' => 'Please enter a valid phone number (10-12 digits)'
     ]);
 
     exit;

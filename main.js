@@ -110,8 +110,8 @@ if (bookEstimateBtn) {
         const phoneInput = document.getElementById('calc-phone');
         const phone = phoneInput ? phoneInput.value.trim() : '';
 
-        if (!phone || phone.length < 10) {
-            alert("⚠️ Please enter a valid 10-digit phone number.");
+        if (!/^[0-9]{10,12}$/.test(phone)) {
+            alert("⚠️ Please enter a valid phone number (10-12 digits).");
             return;
         }
 
@@ -168,11 +168,11 @@ if (bookEstimateBtn) {
     });
 }
 
-// Restrict phone input to numbers only
+// Restrict phone input to numbers only (max 12 digits)
 const calcPhoneInput = document.getElementById('calc-phone');
 if (calcPhoneInput) {
     calcPhoneInput.addEventListener('input', () => {
-        calcPhoneInput.value = calcPhoneInput.value.replace(/\D/g, '');
+        calcPhoneInput.value = calcPhoneInput.value.replace(/\D/g, '').slice(0, 12);
     });
 }
 
@@ -205,6 +205,14 @@ if (form) {
         submitBtn.innerText = "Sending Quote Request...";
         submitBtn.disabled = true;
 
+        const heroPhone = form.querySelector('#phone') ? form.querySelector('#phone').value.trim() : '';
+        if (!/^[0-9]{10,12}$/.test(heroPhone)) {
+            alert("⚠️ Please enter a valid phone number (10-12 digits).");
+            submitBtn.innerText = originalText;
+            submitBtn.disabled = false;
+            return;
+        }
+
         const formData = new FormData(form);
 
         try {
@@ -232,11 +240,11 @@ if (form) {
     });
 }
 
-// Restrict hero phone input to numbers only
+// Restrict hero phone input to numbers only (max 12 digits)
 const heroPhoneInput = document.getElementById('phone');
 if (heroPhoneInput) {
     heroPhoneInput.addEventListener('input', () => {
-        heroPhoneInput.value = heroPhoneInput.value.replace(/\D/g, '');
+        heroPhoneInput.value = heroPhoneInput.value.replace(/\D/g, '').slice(0, 12);
     });
 }
 
