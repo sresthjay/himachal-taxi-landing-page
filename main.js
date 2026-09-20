@@ -512,3 +512,91 @@ if (nextBtn && prevBtn && testimonialCards.length > 0) {
 
     startInterval();
 }
+
+// 7. Mobile Navbar Menu
+const navToggle = document.getElementById('navToggle');
+const mainNav = document.getElementById('mainNav');
+
+function closeMobileNav() {
+    if (mainNav && mainNav.classList.contains('open')) {
+        mainNav.classList.remove('open');
+        if (navToggle) {
+            navToggle.setAttribute('aria-expanded', 'false');
+            navToggle.setAttribute('aria-label', 'Open menu');
+        }
+        const backdrop = document.getElementById('navBackdrop');
+        if (backdrop) backdrop.classList.remove('show');
+        document.body.style.overflow = '';
+    }
+}
+
+if (navToggle && mainNav) {
+    navToggle.addEventListener('click', (e) => {
+        e.stopPropagation();
+        const isOpen = mainNav.classList.toggle('open');
+        navToggle.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        navToggle.setAttribute('aria-label', isOpen ? 'Close menu' : 'Open menu');
+        const backdrop = document.getElementById('navBackdrop');
+        if (backdrop) backdrop.classList.toggle('show', isOpen);
+        document.body.style.overflow = isOpen ? 'hidden' : '';
+    });
+
+    // Close when a nav link is tapped
+    mainNav.querySelectorAll('a').forEach(link => {
+        link.addEventListener('click', closeMobileNav);
+    });
+
+    // Close when tapping outside the menu
+    document.addEventListener('click', (e) => {
+        if (mainNav.classList.contains('open') &&
+            !mainNav.contains(e.target) &&
+            !navToggle.contains(e.target)) {
+            closeMobileNav();
+        }
+    });
+
+    // Close on Escape
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeMobileNav();
+    });
+
+    // Close menu on resize to desktop
+    window.addEventListener('resize', () => {
+        if (window.innerWidth > 900) closeMobileNav();
+    });
+}
+
+// 8. Scrollspy: highlight active nav link while scrolling
+const spySections = ['home', 'why-us', 'fleet', 'tours', 'reviews', 'faq']
+    .map(id => document.getElementById(id))
+    .filter(Boolean);
+
+if (spySections.length && mainNav) {
+    const navLinks = mainNav.querySelectorAll('a[href^="#"]');
+    const spyObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                navLinks.forEach(link => {
+                    const target = link.getAttribute('href');
+                    if (target === '#' + entry.target.id && !link.classList.contains('nav-cta')) {
+                        link.classList.add('active');
+                    } else {
+                        link.classList.remove('active');
+                    }
+                });
+            }
+        });
+    }, { rootMargin: '-40% 0px -55% 0px' });
+
+    spySections.forEach(section => spyObserver.observe(section));
+}
+
+// 9. Header "scrolled" state: shrink + elevate header after scrolling
+const siteHeader = document.querySelector('.site-header');
+if (siteHeader) {
+    const updateHeaderState = () => {
+        siteHeader.classList.toggle('scrolled', window.scrollY > 10);
+    };
+    window.addEventListener('scroll', updateHeaderState, { passive: true });
+    updateHeaderState();
+}

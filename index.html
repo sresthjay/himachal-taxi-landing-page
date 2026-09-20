@@ -9,7 +9,7 @@
     <meta name="description"
         content="Book reliable Himachal taxi services with local drivers. Get one-way cabs, round trips & sightseeing taxi in Manali, Shimla, Dharamshala and beyond.">
 
-    
+
 
     <!-- Standard Favicon for modern browsers -->
     <link rel="icon" type="image/png" sizes="32x32" href="/favicon/favicon-32x32.png">
@@ -31,11 +31,11 @@
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
     <!-- Google Fonts (Non-blocking) -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" as="style"
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
 
     <noscript>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
     </noscript>
 
     <!-- Inline Critical & Core CSS to Eliminate Render-Blocking Requests and Accelerate LCP Discovery -->
@@ -63,6 +63,18 @@
             --accent: #FFC107;
             --dark: #1a1a1a;
             --light: #ffffff;
+            --font-head: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+        }
+
+        /* Distinctive heading typeface (loads non-blocking, swaps in when ready) */
+        h1,
+        h2,
+        h3,
+        .tour-title,
+        .fleet-name,
+        .final-cta-container h2 {
+            font-family: var(--font-head);
+            letter-spacing: -0.01em;
         }
 
         /* HERO SECTION */
@@ -89,7 +101,7 @@
             z-index: 1;
         }
 
-        
+
 
         .hero-content {
             position: relative;
@@ -102,26 +114,17 @@
         }
 
         @media (max-width: 768px) {
-            .header-contact {
+            .top-strip {
                 display: none !important;
             }
 
             .header-container {
-                justify-content: center !important;
                 padding: 0 15px;
             }
 
-            .logo {
-                display: flex;
-                justify-content: center;
-                align-items: center;
-                width: 100%;
-            }
-
             .logo img {
-                max-width: 188px;
+                max-width: 160px;
                 height: auto;
-                margin: 0 auto;
             }
         }
 
@@ -134,6 +137,17 @@
             font-size: 2.5rem;
             margin-bottom: 1rem;
             line-height: 1.2;
+        }
+
+        /* Amber accent bar under the hero heading */
+        .hero-content h1::after {
+            content: "";
+            display: block;
+            width: 72px;
+            height: 4px;
+            margin: 14px auto 0;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--accent), #ffdf5d);
         }
 
         .subhead {
@@ -314,12 +328,13 @@
             position: absolute;
             top: 10px;
             right: 10px;
-            background: var(--accent);
+            background: linear-gradient(135deg, #FFC107, #FFB300);
             color: var(--dark);
-            padding: 4px 10px;
-            border-radius: 4px;
+            padding: 5px 12px;
+            border-radius: 20px;
             font-size: 0.8rem;
             font-weight: bold;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
         }
 
         .fleet-details {
@@ -504,21 +519,61 @@
             }
         }
 
+        /* TOP UTILITY STRIP (desktop only) */
+        .top-strip {
+            background: #1b4332;
+            color: #ffffff;
+            font-size: 0.8rem;
+        }
+
+        .top-strip-inner {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 6px 20px;
+            display: flex;
+            justify-content: flex-end;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .top-strip a {
+            color: #ffffff;
+            text-decoration: none;
+            font-weight: 600;
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .top-strip a:hover {
+            color: var(--accent);
+        }
+
+        .top-strip::after {
+            content: "";
+            display: block;
+            height: 3px;
+            background: linear-gradient(90deg, var(--accent), #43a047);
+        }
+
         /* TOP SITE HEADER */
         .site-header {
-            background: rgba(221, 221, 221, 0.25);
+            background: rgba(255, 255, 255, 0.97);
             box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-            position: relative;
+            position: sticky;
             top: 0;
             z-index: 1000;
-            padding: 15px 0;
+            padding: 10px 0;
         }
 
         .header-container {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            padding: 0px 100px;
+            gap: 16px;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0px 20px;
         }
 
         .logo img {
@@ -527,6 +582,389 @@
             max-width: 100%;
             object-fit: contain;
             display: block;
+        }
+
+        .main-nav {
+            display: flex;
+            align-items: center;
+            gap: 22px;
+        }
+
+        .main-nav a {
+            color: var(--dark);
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 600;
+            padding: 6px 2px;
+            border-bottom: 2px solid transparent;
+            transition: color 0.3s, border-color 0.3s;
+            white-space: nowrap;
+        }
+
+        .main-nav a:hover,
+        .main-nav a.active {
+            color: var(--primary);
+            border-bottom-color: var(--accent);
+        }
+
+        .header-actions {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .nav-cta {
+            background: linear-gradient(135deg, #FFC107, #FFB300);
+            color: #1a1a1a !important;
+            padding: 10px 20px !important;
+            border-radius: 999px;
+            border-bottom: none !important;
+            text-decoration: none;
+            font-size: 0.95rem;
+            font-weight: 700;
+            white-space: nowrap;
+            box-shadow: 0 4px 12px rgba(255, 179, 0, 0.35);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
+        }
+
+        .nav-cta:hover {
+            filter: brightness(1.05);
+            transform: translateY(-1px);
+            box-shadow: 0 6px 16px rgba(255, 179, 0, 0.45);
+            color: #1a1a1a !important;
+        }
+
+        /* Modern hamburger button */
+        .nav-toggle {
+            display: none;
+            width: 46px;
+            height: 46px;
+            border: none;
+            border-radius: 50%;
+            background: linear-gradient(135deg, #2E7D32, #43a047);
+            box-shadow: 0 4px 12px rgba(46, 125, 50, 0.35);
+            cursor: pointer;
+            align-items: center;
+            justify-content: center;
+            flex-direction: column;
+            gap: 5px;
+            padding: 0;
+            transition: transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .nav-toggle:hover {
+            transform: scale(1.07);
+            box-shadow: 0 6px 18px rgba(46, 125, 50, 0.45);
+        }
+
+        .nav-toggle:active {
+            transform: scale(0.95);
+        }
+
+        .nav-toggle span {
+            display: block;
+            width: 20px;
+            height: 2.4px;
+            background: #ffffff;
+            border-radius: 3px;
+            transition: transform 0.35s cubic-bezier(0.68, -0.4, 0.27, 1.4), opacity 0.2s ease;
+        }
+
+        .nav-toggle[aria-expanded="true"] {
+            box-shadow: 0 0 0 6px rgba(255, 193, 7, 0.3);
+        }
+
+        .nav-toggle[aria-expanded="true"] span:nth-child(1) {
+            transform: translateY(7.4px) rotate(45deg);
+        }
+
+        .nav-toggle[aria-expanded="true"] span:nth-child(2) {
+            opacity: 0;
+            transform: scaleX(0);
+        }
+
+        .nav-toggle[aria-expanded="true"] span:nth-child(3) {
+            transform: translateY(-7.4px) rotate(-45deg);
+        }
+
+        /* Header state after scrolling */
+        .site-header {
+            transition: box-shadow 0.3s ease, background-color 0.3s ease, padding 0.3s ease;
+        }
+
+        .site-header.scrolled {
+            background: rgba(255, 255, 255, 0.99);
+            box-shadow: 0 6px 24px rgba(0, 0, 0, 0.14);
+            padding: 6px 0;
+        }
+
+        /* Nav link icons */
+        .main-nav a {
+            display: inline-flex;
+            align-items: center;
+            gap: 7px;
+        }
+
+        .main-nav a .nav-ico {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+            opacity: 0.7;
+        }
+
+        .main-nav a:hover .nav-ico,
+        .main-nav a.active .nav-ico {
+            opacity: 1;
+        }
+
+        /* Dimmed backdrop behind open mobile menu */
+        .nav-backdrop {
+            position: fixed;
+            inset: 0;
+            background: rgba(13, 27, 42, 0.45);
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s ease, visibility 0.3s ease;
+            z-index: 999;
+        }
+
+        .nav-backdrop.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        @media (min-width: 901px) {
+            .nav-backdrop {
+                display: none;
+            }
+        }
+
+        /* Fleet feature icons (inline SVG, no icon-font dependency) */
+        .feat-ico {
+            width: 16px;
+            height: 16px;
+            margin-right: 5px;
+            color: #2E7D32;
+            vertical-align: -3px;
+            flex-shrink: 0;
+        }
+
+        section[id] {
+            scroll-margin-top: 90px;
+        }
+
+        .header-actions .nav-cta-desktop {
+            display: inline-block;
+        }
+
+        /* Mobile-only menu extras (hidden on desktop) */
+        .mobile-menu-label,
+        .main-nav .nav-cta-menu,
+        .main-nav .mobile-menu-call {
+            display: none;
+        }
+
+        @media (max-width: 900px) {
+            .nav-toggle {
+                display: inline-flex;
+            }
+
+            .main-nav {
+                position: absolute;
+                top: calc(100% + 8px);
+                left: 12px;
+                right: 12px;
+                background: #ffffff;
+                flex-direction: column;
+                align-items: stretch;
+                gap: 4px;
+                padding: 10px 12px 16px;
+                box-shadow: 0 20px 45px rgba(0, 0, 0, 0.2);
+                border: 1px solid #eee;
+                border-radius: 20px;
+                opacity: 0;
+                visibility: hidden;
+                transform: translateY(-12px) scale(0.98);
+                transform-origin: top center;
+                transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
+                max-height: calc(100dvh - 110px);
+                overflow-y: auto;
+            }
+
+            .main-nav.open {
+                opacity: 1;
+                visibility: visible;
+                transform: translateY(0) scale(1);
+            }
+
+            .main-nav.open a {
+                animation: navLinkIn 0.4s cubic-bezier(0.2, 0.7, 0.3, 1) both;
+            }
+
+            .main-nav.open a:nth-of-type(1) {
+                animation-delay: 0.03s;
+            }
+
+            .main-nav.open a:nth-of-type(2) {
+                animation-delay: 0.08s;
+            }
+
+            .main-nav.open a:nth-of-type(3) {
+                animation-delay: 0.13s;
+            }
+
+            .main-nav.open a:nth-of-type(4) {
+                animation-delay: 0.18s;
+            }
+
+            .main-nav.open a:nth-of-type(5) {
+                animation-delay: 0.23s;
+            }
+
+            .main-nav.open a:nth-of-type(6) {
+                animation-delay: 0.28s;
+            }
+
+            @keyframes navLinkIn {
+                from {
+                    opacity: 0;
+                    transform: translateX(16px);
+                }
+
+                to {
+                    opacity: 1;
+                    transform: translateX(0);
+                }
+            }
+
+            .main-nav a {
+                display: flex;
+                align-items: center;
+                gap: 12px;
+                padding: 10px 12px;
+                border-bottom: none;
+                border-radius: 14px;
+                font-size: 1rem;
+                transition: background-color 0.25s ease, box-shadow 0.25s ease;
+            }
+
+            .main-nav a:hover {
+                border-bottom-color: transparent;
+                background: #f1f8f1;
+            }
+
+            .main-nav a.active {
+                border-bottom-color: transparent;
+                background: #FFF8E1;
+                box-shadow: inset 3px 0 0 var(--accent);
+            }
+
+            .main-nav a:not(.nav-cta-menu):not(.mobile-menu-call)::after {
+                content: "›";
+                margin-left: auto;
+                color: #bdbdbd;
+                font-size: 1.4rem;
+                line-height: 1;
+                transition: transform 0.25s ease, color 0.25s ease;
+            }
+
+            .main-nav a:not(.nav-cta-menu):not(.mobile-menu-call):hover::after {
+                transform: translateX(4px);
+                color: var(--primary);
+            }
+
+            .main-nav a.active:not(.nav-cta-menu):not(.mobile-menu-call)::after {
+                color: var(--accent);
+            }
+
+            .main-nav a .nav-ico {
+                width: 38px;
+                height: 38px;
+                padding: 10px;
+                box-sizing: border-box;
+                background: #e8f5e9;
+                border-radius: 12px;
+                opacity: 1;
+                transition: background-color 0.25s ease, color 0.25s ease, transform 0.25s ease;
+            }
+
+            .main-nav a:hover .nav-ico {
+                background: var(--primary);
+                color: #ffffff;
+                transform: scale(1.05);
+            }
+
+            .main-nav a.active .nav-ico {
+                background: var(--accent);
+                color: #1a1a1a;
+            }
+
+            .mobile-menu-label {
+                display: block;
+                font-size: 0.72rem;
+                font-weight: 700;
+                letter-spacing: 2px;
+                text-transform: uppercase;
+                color: #9e9e9e;
+                padding: 10px 12px 2px;
+            }
+
+            .main-nav .nav-cta-menu {
+                display: block;
+                text-align: center;
+                margin-top: 12px;
+                padding: 14px 18px !important;
+                font-size: 1rem;
+            }
+
+            .main-nav a.nav-cta-menu:hover {
+                background: linear-gradient(135deg, #FFB300, #FFA000);
+            }
+
+            .main-nav .mobile-menu-call {
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                gap: 8px;
+                padding: 12px 4px 6px;
+                color: var(--primary);
+                font-weight: 700;
+                background: none !important;
+                box-shadow: none !important;
+            }
+
+            .main-nav a.mobile-menu-call:hover {
+                background: none;
+            }
+
+            .main-nav .mobile-menu-call .nav-ico {
+                width: 16px;
+                height: 16px;
+                padding: 0;
+                background: none;
+                border-radius: 0;
+            }
+
+            .main-nav a:last-child {
+                border-bottom: none;
+            }
+
+            .nav-cta {
+                text-align: center;
+                margin-top: 8px;
+            }
+
+            .header-actions .nav-cta {
+                display: none;
+            }
+        }
+
+        @media (min-width: 901px) {
+            .main-nav .nav-cta {
+                display: none;
+            }
         }
 
         .header-contact {
@@ -557,6 +995,7 @@
             text-align: center;
             padding: 2rem 1rem;
             font-size: 0.9rem;
+            border-top: 4px solid var(--accent);
         }
 
         /* ===== TOUR PACKAGES SECTION ===== */
@@ -601,14 +1040,14 @@
             position: absolute;
             top: 15px;
             right: 15px;
-            background: var(--primary);
+            background: linear-gradient(135deg, #FFC107, #FFB300);
 
-            color: white;
+            color: var(--dark);
             padding: 6px 12px;
             border-radius: 20px;
             font-size: 0.8rem;
-            font-weight: 600;
-            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+            font-weight: 700;
+            box-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
         }
 
         .tour-content {
@@ -850,7 +1289,7 @@
             align-items: center;
             justify-content: center;
             z-index: 10;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
             transition: background 0.3s, transform 0.2s;
         }
 
@@ -1033,8 +1472,8 @@
         #backToTopBtn {
             display: none;
             position: fixed;
-            bottom: 30px;
-            right: 40px;
+            bottom: 20px;
+            right: 20px;
             z-index: 99;
             border: none;
             outline: none;
@@ -1159,7 +1598,7 @@
         }
 
         .footer-content a:hover {
-            color: rgba(255, 255, 255, 1);
+            color: var(--accent);
             text-decoration: underline;
         }
 
@@ -1170,7 +1609,8 @@
             color: #ffffff;
             padding: 4rem 2.5rem;
             border-radius: 20px;
-            box-shadow: 0 15px 40px rgba(46, 125, 50, 0.3);
+            border: 1px solid rgba(255, 193, 7, 0.45);
+            box-shadow: 0 15px 40px rgba(46, 125, 50, 0.3), 0 0 0 4px rgba(255, 193, 7, 0.12);
             text-align: center;
         }
 
@@ -1213,6 +1653,10 @@
 
             .trust-card__subtitle {
                 font-size: 11px;
+            }
+
+            .why-card {
+                margin: 0 15px;
             }
 
             .trust-section {
@@ -1258,11 +1702,15 @@
                 font-size: 12px;
             }
 
+            .why-card {
+                margin: 0 15px;
+            }
+
             .subhead {
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
+                font-size: 1rem;
+                margin-bottom: 2rem;
+                opacity: 0.9;
+            }
         }
 
         /* ===== DARK MODE SUPPORT ===== */
@@ -1297,41 +1745,87 @@
 </head>
 
 <body>
+    <!-- TOP UTILITY STRIP (desktop only) -->
+    <div class="top-strip">
+        <div class="top-strip-inner">
+            <a href="tel:+919805753890"><svg style="width:12px;height:12px;fill:currentColor;vertical-align:middle;"
+                    viewBox="0 0 512 512">
+                    <path
+                        d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 333.4 178.6 277.7 144 207.3L193.3 167c13.7-11.1 18.4-30 11.6-46.3l-40-96z" />
+                </svg> +91 98057 53890</a>
+            <a href="mailto:himachalcabsonline01@gmail.com"><svg
+                    style="width:12px;height:12px;fill:currentColor;vertical-align:middle;" viewBox="0 0 512 512">
+                    <path
+                        d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 192V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V192L286.4 336.4c-17.7 13.3-41.1 13.3-58.8 0L0 192z" />
+                </svg>
+                himachalcabsonline01@gmail.com</a>
+        </div>
+    </div>
+
     <!-- TOP SITE HEADER -->
     <header class="site-header">
         <div class="header-container">
             <div class="logo">
-                <a href="index.html">
+                <a href="#home">
                     <img src="/Images/logo.png" alt="Himachal Taxi Service Logo" width="180" height="50"
                         fetchpriority="high" loading="eager">
                 </a>
             </div>
-            <div class="header-contact">
-                <a href="tel:+919805753890"><svg
-                        style="width:14px;height:14px;fill:currentColor;vertical-align:middle;margin-right:5px;"
-                        viewBox="0 0 512 512">
+            <nav class="main-nav" id="mainNav" aria-label="Primary">
+                <p class="mobile-menu-label">Explore</p>
+                <a href="#home"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3 10.5 12 3l9 7.5" />
+                        <path d="M5 9.5V21h5v-6h4v6h5V9.5" />
+                    </svg>Home</a>
+                <a href="#why-us"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 3l7 2.8v5.4c0 4.4-2.9 8.3-7 9.8-4.1-1.5-7-5.4-7-9.8V5.8z" />
+                        <path d="M9.3 11.8l2 2 3.4-3.8" />
+                    </svg>Why Us</a>
+                <a href="#fleet"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M4.5 12 6.2 7.6A2 2 0 0 1 8.1 6.2h7.8a2 2 0 0 1 1.9 1.4L19.5 12" />
+                        <rect x="3.5" y="12" width="17" height="5" rx="1.5" />
+                        <circle cx="7.5" cy="17.5" r="1.3" />
+                        <circle cx="16.5" cy="17.5" r="1.3" />
+                    </svg>Fleet</a>
+                <a href="#reviews"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.2 2.7 1-5.7-4.1-4 5.7-.8z" />
+                    </svg>Reviews</a>
+                <a href="#tours"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M12 21.5s-6.5-5.6-6.5-10.5a6.5 6.5 0 1 1 13 0c0 4.9-6.5 10.5-6.5 10.5z" />
+                        <circle cx="12" cy="11" r="2.2" />
+                    </svg>Tours</a>
+                <a href="#faq"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path
-                            d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 333.4 178.6 277.7 144 207.3L193.3 167c13.7-11.1 18.4-30 11.6-46.3l-40-96z" />
-                    </svg> +91 98057 53890</a>
-                <a href="mailto:himachalcabsonline01@gmail.com"><svg
-                        style="width:14px;height:14px;fill:currentColor;vertical-align:middle;margin-right:5px;"
-                        viewBox="0 0 512 512">
-                        <path
-                            d="M48 64C21.5 64 0 85.5 0 112c0 15.1 7.1 29.3 19.2 38.4L236.8 313.6c11.4 8.5 27 8.5 38.4 0L492.8 150.4c12.1-9.1 19.2-23.3 19.2-38.4c0-26.5-21.5-48-48-48H48zM0 192V384c0 35.3 28.7 64 64 64H448c35.3 0 64-28.7 64-64V192L286.4 336.4c-17.7 13.3-41.1 13.3-58.8 0L0 192z" />
-                    </svg>
-                    himachalcabsonline01@gmail.com</a>
+                            d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v8a1.5 1.5 0 0 1-1.5 1.5H9l-5 4.5z" />
+                    </svg>FAQ</a>
+            </nav>
+            <div class="header-actions">
+                <a href="#home" class="nav-cta nav-cta-desktop">Book Now</a>
+                <button class="nav-toggle" id="navToggle" aria-label="Open menu" aria-expanded="false"
+                    aria-controls="mainNav">
+                    <span></span>
+                    <span></span>
+                    <span></span>
+                </button>
             </div>
         </div>
     </header>
+    <div class="nav-backdrop" id="navBackdrop"></div>
 
     <main role="main">
 
         <!-- HERO SECTION -->
-        <header class="hero">
+        <header class="hero" id="home">
             <div class="hero-content">
-                <h1 style="color: var(--accent);">Himachal Cabs
-                    Online</h1>
-                <h2>Himachal Taxi Service for Transfers, Sightseeing & Tours</h2>
+                <!-- <h1 style="color: var(--accent);">Himachal Cabs
+                    Online</h1> -->
+                <h1 style="color: var(--accent);">Himachal Taxi Service for Transfers, Sightseeing & Tours</h1>
                 <p class="subhead">
                     Himachal Cabs Online is a local taxi service for private travel across Himachal Pradesh. Book
                     one-way transfers, sightseeing cabs or multi-day taxi trips with experienced local drivers and
@@ -1349,8 +1843,9 @@
 
                     <div class="form-group">
                         <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Your Phone Number (10-12 digits)" inputmode="numeric"
-                            pattern="[0-9]{10,12}" minlength="10" maxlength="12" title="Enter 10-12 digits" required>
+                        <input type="tel" id="phone" name="phone" placeholder="Your Phone Number (10-12 digits)"
+                            inputmode="numeric" pattern="[0-9]{10,12}" minlength="10" maxlength="12"
+                            title="Enter 10-12 digits" required>
                     </div>
 
                     <div class="form-group">
@@ -1389,7 +1884,7 @@
         </header>
 
         <!-- WHY CHOOSE US -->
-        <section class="trust-section">
+        <section class="trust-section" id="why-us">
             <div class="section-title">
                 <h2>Why Travelers Trust Himachal Cabs Online</h2>
                 <p>Looking for a dependable taxi service in Himachal Pradesh? Our experienced local drivers and flexible
@@ -1425,7 +1920,7 @@
         </section>
 
         <!-- FLEET & PRICING -->
-        <section class="fleet-section">
+        <section class="fleet-section" id="fleet">
             <div class="section-title">
                 <h2>Our Fleet & Transparent Pricing</h2>
                 <p>Choose the right vehicle for your Himachal journey with comfortable options for every group size,
@@ -1448,19 +1943,19 @@
                         </div>
                         <div class="fleet-price">₹2500/day <small>or ₹15/km</small></div>
                         <p>
-                            <i class="fa fa-mountain" style="color:#2E7D32; width:16px; margin-right: 5px;"></i> Perfect
+                            <svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20 9.5 5l4.5 8.5L16.5 10 21 20H3z"/></svg> Perfect
                             for local sightseeing
                         </p>
                         <p>
-                            <i class="fa fa-user-friends" style="color:#2E7D32;width:16px;margin-right: 5px"></i> Best
+                            <svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="16.8" cy="9" r="2.5"/><path d="M16.4 14.6c2.5.6 4.6 2.4 4.6 5.4"/></svg> Best
                             for couples & solo travelers
                         </p>
                         <p>
-                            <i class="fa fa-indian-rupee-sign" style="color:#2E7D32;width:16px;margin-right: 5px"></i>
+                            <svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 4h12M6 8.5h12M6 4c6.5 0 9.5 1.3 9.5 4.5S12.5 13 8 13l7.5 8"/></svg>
                             Budget-friendly Himachal travel
                         </p>
                         <p>
-                            <i class="fa fa-road" style="color:#2E7D32;width:16px;margin-right: 5px"></i> Easy on narrow
+                            <svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21 9.5 3M19 21 14.5 3M12 6.5v2.5M12 11v2.5M12 15.5V18"/></svg> Easy on narrow
                             roads
                         </p>
                     </div>
@@ -1481,13 +1976,13 @@
                             <span>🎒 2-4 Bags</span>
                         </div>
                         <div class="fleet-price">₹3000/day <small>or ₹17/km</small></div>
-                        <p><i class="fa-solid fa-user-friends" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="16.8" cy="9" r="2.5"/><path d="M16.4 14.6c2.5.6 4.6 2.4 4.6 5.4"/></svg>
                             Ideal for couples</p>
-                        <p><i class="fa-solid fa-mountain" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20 9.5 5l4.5 8.5L16.5 10 21 20H3z"/></svg>
                             Great for Shimla-Manali</p>
-                        <p><i class="fa-solid fa-road" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21 9.5 3M19 21 14.5 3M12 6.5v2.5M12 11v2.5M12 15.5V18"/></svg>
                             Comfortable highway travel</p>
-                        <p><i class="fa-solid fa-people-group" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="2.6"/><circle cx="5.5" cy="9.5" r="2.2"/><circle cx="18.5" cy="9.5" r="2.2"/><path d="M7.5 20c0-2.8 2-4.7 4.5-4.7s4.5 1.9 4.5 4.7M1.5 20c0-2.4 1.6-4 3.7-4.4M18.8 15.6c2.1.4 3.7 2 3.7 4.4"/></svg>
                             Budget-friendly family trips</p>
                     </div>
                     <a href="#booking-form" class="fleet-cta" data-car="Swift Dzire">Calculate Price</a>
@@ -1506,13 +2001,13 @@
                             <span>⛽ Diesel</span>
                         </div>
                         <div class="fleet-price">₹3200/day <small>or ₹18/km</small></div>
-                        <p><i class="fa-solid fa-road" style="color:#2E7D32;width:16px; margin-right: 5px"></i> Reliable
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21 9.5 3M19 21 14.5 3M12 6.5v2.5M12 11v2.5M12 15.5V18"/></svg> Reliable
                             long-distance travel</p>
-                        <p><i class="fa-solid fa-people-group" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="2.6"/><circle cx="5.5" cy="9.5" r="2.2"/><circle cx="18.5" cy="9.5" r="2.2"/><path d="M7.5 20c0-2.8 2-4.7 4.5-4.7s4.5 1.9 4.5 4.7M1.5 20c0-2.4 1.6-4 3.7-4.4M18.8 15.6c2.1.4 3.7 2 3.7 4.4"/></svg>
                             Comfortable for family trips</p>
-                        <p><i class="fa-solid fa-mountain" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20 9.5 5l4.5 8.5L16.5 10 21 20H3z"/></svg>
                             Great for Himachal Taxi Tours</p>
-                        <p><i class="fa-solid fa-road" style="color:#2E7D32;width:16px; margin-right: 5px"></i> Suitable
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21 9.5 3M19 21 14.5 3M12 6.5v2.5M12 11v2.5M12 15.5V18"/></svg> Suitable
                             for hill roads</p>
                     </div>
                     <a href="#booking-form" class="fleet-cta" data-car="Toyota Etios">Calculate Price</a>
@@ -1532,13 +2027,13 @@
                             <span>⛽ Diesel</span>
                         </div>
                         <div class="fleet-price">₹4000/day <small>or ₹24/km</small></div>
-                        <p><i class="fa-solid fa-users" style="color:#2E7D32;width:16px; margin-right: 5px"></i> Perfect
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="16.8" cy="9" r="2.5"/><path d="M16.4 14.6c2.5.6 4.6 2.4 4.6 5.4"/></svg> Perfect
                             for small groups</p>
-                        <p><i class="fa-solid fa-people-group" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="2.6"/><circle cx="5.5" cy="9.5" r="2.2"/><circle cx="18.5" cy="9.5" r="2.2"/><path d="M7.5 20c0-2.8 2-4.7 4.5-4.7s4.5 1.9 4.5 4.7M1.5 20c0-2.4 1.6-4 3.7-4.4M18.8 15.6c2.1.4 3.7 2 3.7 4.4"/></svg>
                             Great for family tours</p>
-                        <p><i class="fa-solid fa-mountain" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20 9.5 5l4.5 8.5L16.5 10 21 20H3z"/></svg>
                             Comfortable mountain journeys</p>
-                        <p><i class="fa-solid fa-road" style="color:#2E7D32;width:16px; margin-right: 5px"></i> Ideal
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21 9.5 3M19 21 14.5 3M12 6.5v2.5M12 11v2.5M12 15.5V18"/></svg> Ideal
                             for Himachal circuits</p>
                     </div>
                     <a href="#booking-form" class="fleet-cta" data-car="Suzuki Ertiga">Calculate Price</a>
@@ -1557,13 +2052,13 @@
                             <span>⛽ Diesel</span>
                         </div>
                         <div class="fleet-price">₹4500/day <small>or ₹26/km</small></div>
-                        <p><i class="fa-solid fa-road" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21 9.5 3M19 21 14.5 3M12 6.5v2.5M12 11v2.5M12 15.5V18"/></svg>
                             Excellent for long journeys</p>
-                        <p><i class="fa-solid fa-mountain" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20 9.5 5l4.5 8.5L16.5 10 21 20H3z"/></svg>
                             Comfortable on mountain roads</p>
-                        <p><i class="fa-solid fa-people-group" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="2.6"/><circle cx="5.5" cy="9.5" r="2.2"/><circle cx="18.5" cy="9.5" r="2.2"/><path d="M7.5 20c0-2.8 2-4.7 4.5-4.7s4.5 1.9 4.5 4.7M1.5 20c0-2.4 1.6-4 3.7-4.4M18.8 15.6c2.1.4 3.7 2 3.7 4.4"/></svg>
                             Ideal for family tours</p>
-                        <p><i class="fa-solid fa-road" style="color:#2E7D32;width:16px; margin-right: 5px"></i> Great
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21 9.5 3M19 21 14.5 3M12 6.5v2.5M12 11v2.5M12 15.5V18"/></svg> Great
                             for Himachal circuits</p>
                     </div>
                     <a href="#booking-form" class="fleet-cta" data-car="Toyota Innova">Calculate Price</a>
@@ -1584,13 +2079,13 @@
                             <span>⛽ Diesel</span>
                         </div>
                         <div class="fleet-price">₹5000/day <small>or ₹28/km</small></div>
-                        <p><i class="fa-solid fa-people-group" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="2.6"/><circle cx="5.5" cy="9.5" r="2.2"/><circle cx="18.5" cy="9.5" r="2.2"/><path d="M7.5 20c0-2.8 2-4.7 4.5-4.7s4.5 1.9 4.5 4.7M1.5 20c0-2.4 1.6-4 3.7-4.4M18.8 15.6c2.1.4 3.7 2 3.7 4.4"/></svg>
                             Premium family travel</p>
-                        <p><i class="fa-solid fa-road" style="color:#2E7D32;width:16px; margin-right: 5px"></i> Extra
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21 9.5 3M19 21 14.5 3M12 6.5v2.5M12 11v2.5M12 15.5V18"/></svg> Extra
                             comfort for long drives</p>
-                        <p><i class="fa-solid fa-snowflake" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v18M4.2 7.5l15.6 9M19.8 7.5l-15.6 9M12 3 10 5M12 3l2 2M12 21l-2-2M12 21l2-2"/></svg>
                             Great for snow roads</p>
-                        <p><i class="fa-solid fa-mountain" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20 9.5 5l4.5 8.5L16.5 10 21 20H3z"/></svg>
                             Ideal for Spiti Valley</p>
                     </div>
                     <a href="#booking-form" class="fleet-cta" data-car="Innova Crysta">Calculate Price</a>
@@ -1611,13 +2106,13 @@
                             <span>⛽ Diesel</span>
                         </div>
                         <div class="fleet-price">₹6500/day <small>or ₹32/km</small></div>
-                        <p><i class="fa-solid fa-people-group" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="2.6"/><circle cx="5.5" cy="9.5" r="2.2"/><circle cx="18.5" cy="9.5" r="2.2"/><path d="M7.5 20c0-2.8 2-4.7 4.5-4.7s4.5 1.9 4.5 4.7M1.5 20c0-2.4 1.6-4 3.7-4.4M18.8 15.6c2.1.4 3.7 2 3.7 4.4"/></svg>
                             Perfect for group tours</p>
-                        <p><i class="fa-solid fa-mountain-sun" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="6" r="2.4"/><path d="M2.5 20 9.5 7l4 6 2.5-3 5.5 10h-19z"/></svg>
                             Ideal for Spiti Valley</p>
-                        <p><i class="fa-solid fa-mountain" style="color:#2E7D32;width:16px;"></i> Great for Kinnaur
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20 9.5 5l4.5 8.5L16.5 10 21 20H3z"/></svg> Great for Kinnaur
                             routes</p>
-                        <p><i class="fa-solid fa-road" style="color:#2E7D32;width:16px; margin-right: 5px"></i> Handles
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21 9.5 3M19 21 14.5 3M12 6.5v2.5M12 11v2.5M12 15.5V18"/></svg> Handles
                             mountain roads well</p>
                     </div>
                     <a href="#booking-form" class="fleet-cta" data-car="Traveller 12-Seater">Calculate Price</a>
@@ -1637,13 +2132,13 @@
                             <span>⛽ Diesel</span>
                         </div>
                         <div class="fleet-price">₹8000/day <small>or ₹38/km</small></div>
-                        <p><i class="fa-solid fa-people-group" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="2.6"/><circle cx="5.5" cy="9.5" r="2.2"/><circle cx="18.5" cy="9.5" r="2.2"/><path d="M7.5 20c0-2.8 2-4.7 4.5-4.7s4.5 1.9 4.5 4.7M1.5 20c0-2.4 1.6-4 3.7-4.4M18.8 15.6c2.1.4 3.7 2 3.7 4.4"/></svg>
                             Ideal for large groups</p>
-                        <p><i class="fa-solid fa-users" style="color:#2E7D32;width:16px; margin-right: 5px"></i> Perfect
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="16.8" cy="9" r="2.5"/><path d="M16.4 14.6c2.5.6 4.6 2.4 4.6 5.4"/></svg> Perfect
                             for family tours</p>
-                        <p><i class="fa-solid fa-road" style="color:#2E7D32;width:16px; margin-right: 5px"></i> Great
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21 9.5 3M19 21 14.5 3M12 6.5v2.5M12 11v2.5M12 15.5V18"/></svg> Great
                             for Himachal circuits</p>
-                        <p><i class="fa-solid fa-mountain" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20 9.5 5l4.5 8.5L16.5 10 21 20H3z"/></svg>
                             Comfortable on hill roads</p>
                     </div>
                     <a href="#booking-form" class="fleet-cta" data-car="Traveller 17-Seater">Calculate Price</a>
@@ -1662,13 +2157,13 @@
                             <span>⛽ Diesel</span>
                         </div>
                         <div class="fleet-price">₹12000/day <small>or ₹70/km</small></div>
-                        <p><i class="fa-solid fa-people-group" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="2.6"/><circle cx="5.5" cy="9.5" r="2.2"/><circle cx="18.5" cy="9.5" r="2.2"/><path d="M7.5 20c0-2.8 2-4.7 4.5-4.7s4.5 1.9 4.5 4.7M1.5 20c0-2.4 1.6-4 3.7-4.4M18.8 15.6c2.1.4 3.7 2 3.7 4.4"/></svg>
                             Premium group travel</p>
-                        <p><i class="fa-solid fa-road" style="color:#2E7D32;width:16px; margin-right: 5px"></i> Spacious
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21 9.5 3M19 21 14.5 3M12 6.5v2.5M12 11v2.5M12 15.5V18"/></svg> Spacious
                             for long journeys</p>
-                        <p><i class="fa-solid fa-mountain-sun" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="17" cy="6" r="2.4"/><path d="M2.5 20 9.5 7l4 6 2.5-3 5.5 10h-19z"/></svg>
                             Ideal for Himachal tours</p>
-                        <p><i class="fa-solid fa-mountain" style="color:#2E7D32;width:16px; margin-right: 5px"></i>
+                        <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 20 9.5 5l4.5 8.5L16.5 10 21 20H3z"/></svg>
                             Comfortable mountain travel</p>
                     </div>
                     <a href="#booking-form" class="fleet-cta" data-car="Urbania 17-Seater">Calculate Price</a>
@@ -1730,8 +2225,9 @@
                         <label for="calc-phone"
                             style="font-weight: 600; color: #333; display: block; margin-bottom: 5px;">Enter Your Phone
                             Number to Get Quote:</label>
-                        <input type="tel" id="calc-phone" placeholder="Your Phone Number (10-12 digits, e.g. 9805753890)"
-                            inputmode="numeric" pattern="[0-9]{10,12}" minlength="10" maxlength="12" title="Enter 10-12 digits"
+                        <input type="tel" id="calc-phone"
+                            placeholder="Your Phone Number (10-12 digits, e.g. 9805753890)" inputmode="numeric"
+                            pattern="[0-9]{10,12}" minlength="10" maxlength="12" title="Enter 10-12 digits"
                             style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;"
                             required>
                     </div>
@@ -1746,7 +2242,7 @@
 
 
         <!-- TESTIMONIAL SECTION -->
-        <section class="testimonial-section">
+        <section class="testimonial-section" id="reviews">
             <div class="section-title">
                 <p
                     style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-bottom: 5px;">
@@ -1755,24 +2251,29 @@
                 <p>Read genuine experiences from travelers who chose Himachal Cabs Online for their journeys across
                     Himachal Pradesh.</p>
             </div>
-            
+
             <div class="testimonial-slider-wrapper">
-                <button class="testimonial-arrow prev" id="prevTestimonial" aria-label="Previous Testimonial">&#10094;</button>
-                
+                <button class="testimonial-arrow prev" id="prevTestimonial"
+                    aria-label="Previous Testimonial">&#10094;</button>
+
                 <div class="testimonial-slider" id="testimonialSlider">
                     <!-- Testimonial 1 -->
                     <div class="testimonial-card active">
                         <div class="testimonial-avatar">
-                            <img src="/Images/user-male.png" alt="Customer Avatar" width="75" height="75" loading="lazy">
+                            <img src="/Images/user-male.png" alt="Customer Avatar" width="75" height="75"
+                                loading="lazy">
                         </div>
                         <div class="testimonial-content">
                             <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                            <p class="testimonial-text">"We had a pleasant and comfortable experience with Mr.Jayant Thakur
+                            <p class="testimonial-text">"We had a pleasant and comfortable experience with Mr.Jayant
+                                Thakur
                                 during our recent trip to Himachal Pradesh. Mr.Jayant Thakur gave us a perfectly planned
-                                itinerary for our trip and was always willing to help n guide us in the best possible way
+                                itinerary for our trip and was always willing to help n guide us in the best possible
+                                way
                                 through out the trip. He made sure to provide us with the best transportation with
                                 experienced
-                                and cooperative drivers, who made our trip more enjoyable.. Highly recommended for families
+                                and cooperative drivers, who made our trip more enjoyable.. Highly recommended for
+                                families
                                 visiting Himachal Pradesh."</p>
                             <h3 class="testimonial-name">Ramakrishna M</h3>
                             <span class="testimonial-role">Himachal Family Trip</span>
@@ -1782,13 +2283,16 @@
                     <!-- Testimonial 2 -->
                     <div class="testimonial-card">
                         <div class="testimonial-avatar">
-                            <img src="/Images/user-female.png" alt="Customer Avatar" width="75" height="75" loading="lazy">
+                            <img src="/Images/user-female.png" alt="Customer Avatar" width="75" height="75"
+                                loading="lazy">
                         </div>
                         <div class="testimonial-content">
                             <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
-                            <p class="testimonial-text">"The experience with Pawan Thakur has been excellent over the last
+                            <p class="testimonial-text">"The experience with Pawan Thakur has been excellent over the
+                                last
                                 13
-                                days. We had been to Chitkul and Spiti Valley - Pawan took us to all places of interest in
+                                days. We had been to Chitkul and Spiti Valley - Pawan took us to all places of interest
+                                in
                                 Spiti
                                 Valley without any time binding on us - we had a wonderful experience with him."</p>
                             <h3 class="testimonial-name">Manika Basu</h3>
@@ -1799,17 +2303,21 @@
                     <!-- Testimonial 3 -->
                     <div class="testimonial-card">
                         <div class="testimonial-avatar">
-                            <img src="/Images/user-male-2.png" alt="Customer Avatar" width="75" height="75" loading="lazy">
+                            <img src="/Images/user-male-2.png" alt="Customer Avatar" width="75" height="75"
+                                loading="lazy">
                         </div>
                         <div class="testimonial-content">
                             <div class="testimonial-stars">⭐⭐⭐⭐⭐</div>
                             <p class="testimonial-text">"Booked a trip to Shimla &amp; Manali - The team proposed a good
-                                itinerary based on my travel dates &amp; plan. We were also able to be flexible on the local
+                                itinerary based on my travel dates &amp; plan. We were also able to be flexible on the
+                                local
                                 sightseeing schedules. Driver was well versed with the area &amp; locations - Which is
                                 valuable
-                                as roads are difficult being hilly areas. Travel was made easier being driven around these
+                                as roads are difficult being hilly areas. Travel was made easier being driven around
+                                these
                                 areas
-                                which allowed us to enjoy the scenic routes &amp; nature. Would recommend people to consider
+                                which allowed us to enjoy the scenic routes &amp; nature. Would recommend people to
+                                consider
                                 if
                                 you're on a trip to North India."</p>
                             <h3 class="testimonial-name">Ramachandran N</h3>
@@ -1818,7 +2326,8 @@
                     </div>
                 </div>
 
-                <button class="testimonial-arrow next" id="nextTestimonial" aria-label="Next Testimonial">&#10095;</button>
+                <button class="testimonial-arrow next" id="nextTestimonial"
+                    aria-label="Next Testimonial">&#10095;</button>
             </div>
 
             <!-- Dots Pagination -->
@@ -1845,7 +2354,7 @@
 
 
         <!-- FAQ SECTION -->
-        <section class="faq-section">
+        <section class="faq-section" id="faq">
             <div class="section-title">
                 <h2>Frequently Asked Questions</h2>
                 <p>Checkout the most asked questions and their answers regarding our Himachal Taxi Service.</p>
@@ -1943,7 +2452,7 @@
                     carried more than 5,000 satisfied travelers across the mountains, backed by our satisfaction
                     guarantee. Join the thousands of happy travelers who've explored Himachal with us.
                 </p>
-                <a href="#taxiForm" class="cta-btn">Book Your Taxi Now</a>
+                <a href="#home" class="cta-btn">Book Your Taxi Now</a>
             </div>
 
         </section>
@@ -2006,7 +2515,6 @@
 
     <script src="main.js?v=2.2" defer></script>
 
-    <!-- Google Tag Manager (Optimized) -->
     <!-- Google Tag Manager (Optimized: loaded exclusively on user interaction for 0 TBT) -->
     <script>
         function loadGTM() {
@@ -2026,7 +2534,7 @@
         });
     </script>
     <!-- End Google Tag Manager -->
-    
+
     <!-- Dynamic Meta Description & Title for Ad Groups -->
     <!-- Dynamic Meta Description & Title for Ad Groups -->
     <script>
