@@ -430,7 +430,7 @@ if (toursContainer) {
           
           <div class="tour-price">${tour.price}</div>
           
-          <button class="tour-cta" onclick="scrollToBooking('${tour.title}')">
+          <button class="tour-cta" onclick="openQuoteModal('${tour.title}')">
             ${tour.ctaText}
           </button>
         </div>
@@ -599,4 +599,101 @@ if (siteHeader) {
     };
     window.addEventListener('scroll', updateHeaderState, { passive: true });
     updateHeaderState();
+}
+
+// 10. Quote popup modal (reuses hero form fields)
+const quoteModal = document.getElementById('quoteModal');
+const closeQuoteModalBtn = document.getElementById('closeQuoteModal');
+const quoteForm = document.getElementById('taxiFormModal');
+
+function openQuoteModal(interest) {
+    if (!quoteModal) return;
+    const interestInput = document.getElementById('q-interest');
+    if (interestInput) interestInput.value = interest || '';
+    closeMobileNav();
+    quoteModal.classList.add('show');
+    document.body.style.overflow = 'hidden';
+    const firstField = document.getElementById('q-name');
+    if (firstField) setTimeout(() => firstField.focus({ preventScroll: true }), 100);
+}
+
+function closeQuoteModal() {
+    if (!quoteModal) return;
+    quoteModal.classList.remove('show');
+    document.body.style.overflow = '';
+}
+
+if (quoteModal) {
+    if (closeQuoteModalBtn) closeQuoteModalBtn.addEventListener('click', closeQuoteModal);
+    quoteModal.addEventListener('click', (e) => {
+        if (e.target === quoteModal) closeQuoteModal();
+    });
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') closeQuoteModal();
+    });
+}
+
+// Any element with .js-quote-open opens the popup instead of scrolling
+document.querySelectorAll('.js-quote-open').forEach(el => {
+    el.addEventListener('click', (e) => {
+        e.preventDefault();
+        openQuoteModal(el.getAttribute('data-interest') || '');
+    });
+});
+
+// Modal phone: digits only, max 12
+const quotePhoneInput = document.getElementById('q-phone');
+if (quotePhoneInput) {
+    quotePhoneInput.addEventListener('input', () => {
+        quotePhoneInput.value = quotePhoneInput.value.replace(/\D/g, '').slice(0, 12);
+    });
+}
+
+// Modal form submit (mirrors hero form validation + endpoint)
+if (quoteForm) {
+    quoteForm.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        const submitBtn = document.getElementById('quoteSubmitBtn');
+        const phone = quoteForm.querySelector('#q-phone') ? quoteForm.querySelector('#q-phone').value.trim() : '';
+        if (!/^[0-9]{10,12}$/.test(phone)) {
+            alert("⚠️ Please enter a valid phone number (10-12 digits).");
+            return;
+        }
+
+        const originalText = submitBtn ? submitBtn.innerText : '';
+        if (submitBtn) {
+            submitBtn.innerText = "Sending Quote Request...";
+            submitBtn.disabled = true;
+        }
+
+        const formData = new FormData(quoteForm);
+
+        try {
+            const response = await fetch("api/submit.php", {
+                method: "POST",
+                body: formData,
+                headers: {
+                    "Accept": "application/json"
+                }
+            });
+            const data = await response.json();
+            if (response.ok && data.success) {
+                window.location.href = "/success.html";
+            } else {
+                alert("Error: " + (data.message || "Failed to send email. Please check your SMTP settings or call us directly."));
+                if (submitBtn) {
+                    submitBtn.innerText = originalText;
+                    submitBtn.disabled = false;
+                }
+            }
+        } catch (error) {
+            console.error("Submission error:", error);
+            alert("Network error or server misconfiguration. Please call us directly at +91 98057 53890.");
+            if (submitBtn) {
+                submitBtn.innerText = originalText;
+                submitBtn.disabled = false;
+            }
+        }
+    });
 }
