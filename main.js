@@ -161,7 +161,7 @@ if (bookEstimateBtn) {
             }
         } catch (error) {
             console.error("Submission error:", error);
-            alert("Network error or server misconfiguration. Please call us directly at +91 98057 53890.");
+            alert("Network error or server misconfiguration. Please call us directly at +91 93173 24669.");
             bookEstimateBtn.innerText = "Get Quote & Book Now";
             bookEstimateBtn.disabled = false;
         }
@@ -233,12 +233,23 @@ if (form) {
             }
         } catch (error) {
             console.error("Submission error:", error);
-            alert("Network error or server misconfiguration. Please call us directly at +91 98057 53890.");
+            alert("Network error or server misconfiguration. Please call us directly at +91 93173 24669.");
             submitBtn.innerText = originalText;
             submitBtn.disabled = false;
         }
     });
 }
+
+// Stamp every lead form with a render timestamp for the backend spam guard
+document.querySelectorAll('form[action*="submit.php"]').forEach(f => {
+    if (!f.querySelector('input[name="form-ts"]')) {
+        const ts = document.createElement('input');
+        ts.type = 'hidden';
+        ts.name = 'form-ts';
+        ts.value = String(Math.floor(Date.now() / 1000));
+        f.appendChild(ts);
+    }
+});
 
 // Restrict hero phone input to numbers only (max 12 digits)
 const heroPhoneInput = document.getElementById('phone');
@@ -259,11 +270,8 @@ const backToTopBtn = document.getElementById("backToTopBtn");
 
 // Show button when user scrolls down 200px
 window.onscroll = function () {
-    if (document.body.scrollTop > 200 || document.documentElement.scrollTop > 200) {
-        backToTopBtn.style.display = "block";
-    } else {
-        backToTopBtn.style.display = "none";
-    }
+    const showTop = document.body.scrollTop > 200 || document.documentElement.scrollTop > 200;
+    backToTopBtn.classList.toggle('show', showTop);
 };
 
 // Scroll to top when clicked
@@ -407,8 +415,8 @@ if (toursContainer) {
     // 3. Create Card HTML
     const cardHtml = `
       <div class="tour-card">
-        <div style="position: relative;">
-          <img src="${tour.image}" alt="${tour.title}" class="tour-image">
+        <div class="tour-media">
+          <img src="${tour.image}" alt="${tour.title}" class="tour-image" loading="lazy">
           <span class="tour-badge">${tour.badge}</span>
         </div>
         <div class="tour-content">
@@ -441,18 +449,23 @@ if (toursContainer) {
   });
 }
 
-// Scroll Function (Unchanged)
-function scrollToBooking(tourName) {
-  const bookingForm = document.getElementById('taxiForm');
-  const calcSection = document.getElementById('booking-form');
-  
-  if (bookingForm) {
-    bookingForm.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  } else if (calcSection) {
-    calcSection.scrollIntoView({ behavior: 'smooth', block: 'center' });
-  } else {
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  }
+// Tour scroll reveal (same no-JS-safe pattern as fleet)
+const tourCards = document.querySelectorAll('.tour-card');
+if ('IntersectionObserver' in window && tourCards.length) {
+    const tourObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                tourObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+
+    tourCards.forEach((el, i) => {
+        el.classList.add('reveal-init');
+        el.style.transitionDelay = ((i % 3) * 70) + 'ms';
+        tourObserver.observe(el);
+    });
 }
 
 // Testimonial Slider Logic
@@ -513,6 +526,52 @@ if (nextBtn && prevBtn && testimonialCards.length > 0) {
     startInterval();
 }
 
+// 6b. Hero destination chips: tapping a chip fills the quote form select
+document.querySelectorAll('.hero-chip').forEach(chip => {
+    chip.addEventListener('click', () => {
+        const dest = document.getElementById('destination');
+        if (dest) {
+            dest.value = chip.getAttribute('data-dest') || '';
+        }
+        document.querySelectorAll('.hero-chip').forEach(c => c.classList.toggle('active', c === chip));
+    });
+});
+
+// 6c. Fleet scroll reveal (transform/opacity only; hidden state set here so no-JS stays visible)
+const fleetCards = document.querySelectorAll('.fleet-card');
+if ('IntersectionObserver' in window && fleetCards.length) {
+    const fleetObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            if (entry.isIntersecting) {
+                entry.target.classList.add('in-view');
+                fleetObserver.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' });
+
+    fleetCards.forEach((el, i) => {
+        el.classList.add('reveal-init');
+        el.style.transitionDelay = ((i % 3) * 70) + 'ms';
+        fleetObserver.observe(el);
+    });
+}
+
+// Sticky quote bubble: dismiss for the session
+const stickyQuote = document.getElementById('stickyQuote');
+const stickyQuoteClose = document.getElementById('stickyQuoteClose');
+if (stickyQuote && stickyQuoteClose) {
+    try {
+        if (sessionStorage.getItem('stickyQuoteDismissed') === '1') {
+            stickyQuote.style.display = 'none';
+        }
+    } catch (err) { /* storage unavailable: leave bubble visible */ }
+    stickyQuoteClose.addEventListener('click', (e) => {
+        e.stopPropagation();
+        stickyQuote.style.display = 'none';
+        try { sessionStorage.setItem('stickyQuoteDismissed', '1'); } catch (err) { /* ignore */ }
+    });
+}
+
 // 7. Mobile Navbar Menu
 const navToggle = document.getElementById('navToggle');
 const mainNav = document.getElementById('mainNav');
@@ -567,7 +626,7 @@ if (navToggle && mainNav) {
 }
 
 // 8. Scrollspy: highlight active nav link while scrolling
-const spySections = ['home', 'why-us', 'fleet', 'tours', 'reviews', 'faq']
+const spySections = ['home', 'why-us', 'fleet', 'routes', 'tours', 'reviews', 'faq']
     .map(id => document.getElementById(id))
     .filter(Boolean);
 
@@ -633,10 +692,14 @@ if (quoteModal) {
     });
 }
 
-// Any element with .js-quote-open opens the popup instead of scrolling
+// Any element with .js-quote-open opens the popup instead of scrolling.
+// data-interest is recorded; data-dest preselects the modal destination.
 document.querySelectorAll('.js-quote-open').forEach(el => {
     el.addEventListener('click', (e) => {
         e.preventDefault();
+        const dest = el.getAttribute('data-dest');
+        const destSelect = document.getElementById('q-destination');
+        if (dest && destSelect) destSelect.value = dest;
         openQuoteModal(el.getAttribute('data-interest') || '');
     });
 });
@@ -689,7 +752,7 @@ if (quoteForm) {
             }
         } catch (error) {
             console.error("Submission error:", error);
-            alert("Network error or server misconfiguration. Please call us directly at +91 98057 53890.");
+            alert("Network error or server misconfiguration. Please call us directly at +91 93173 24669.");
             if (submitBtn) {
                 submitBtn.innerText = originalText;
                 submitBtn.disabled = false;

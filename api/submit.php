@@ -78,6 +78,36 @@ if (!$phone || !preg_match('/^[0-9]{10,12}$/', $phone)) {
 
 
 // --------------------------------------------------
+// SPAM GUARD (fail-open for genuine users)
+// --------------------------------------------------
+
+// Honeypot: bots fill this hidden field, humans never see it.
+$botField = trim($_POST['bot-field'] ?? '');
+if ($botField !== '') {
+    // Pretend success so bots learn nothing.
+    echo json_encode([
+        'success' => true,
+        'message' => 'Booking request sent successfully'
+    ]);
+
+    exit;
+}
+
+// Fill-time check: submitted faster than any human could manage.
+$formTs = intval($_POST['form-ts'] ?? 0);
+if ($formTs > 0 && (time() - $formTs) < 3) {
+    http_response_code(400);
+
+    echo json_encode([
+        'success' => false,
+        'message' => 'Please take a moment to fill the form and try again'
+    ]);
+
+    exit;
+}
+
+
+// --------------------------------------------------
 // CREATE EMAIL
 // --------------------------------------------------
 

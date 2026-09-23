@@ -43,12 +43,15 @@ if ($adgroup === 'himachal-taxi-service') {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
+    <!-- Preload LCP hero image -->
+    <link rel="preload" as="image" href="/Images/hero-bg.jpg" fetchpriority="high">
+
     <!-- Google Fonts (Non-blocking) -->
-    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" as="style"
+    <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" as="style"
         onload="this.onload=null;this.rel='stylesheet'">
 
     <noscript>
-        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Plus+Jakarta+Sans:wght@700;800&display=swap" rel="stylesheet">
+        <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" rel="stylesheet">
     </noscript>
 
     <!-- Inline Critical & Core CSS to Eliminate Render-Blocking Requests and Accelerate LCP Discovery -->
@@ -76,7 +79,7 @@ if ($adgroup === 'himachal-taxi-service') {
             --accent: #FFC107;
             --dark: #1a1a1a;
             --light: #ffffff;
-            --font-head: 'Plus Jakarta Sans', 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, Arial, sans-serif;
+            --font-head: 'Fraunces', Georgia, 'Times New Roman', serif;
         }
 
         /* Distinctive heading typeface (loads non-blocking, swaps in when ready) */
@@ -90,18 +93,16 @@ if ($adgroup === 'himachal-taxi-service') {
             letter-spacing: -0.01em;
         }
 
-        /* HERO SECTION */
+        /* HERO SECTION (redesigned) */
         .hero {
             position: relative;
             overflow: hidden;
-            min-height: 90vh;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 50px 20px;
-            text-align: center;
+            padding: 70px 20px 80px;
             color: white;
-            background: linear-gradient(135deg, #0d1b2a 0%, #1b4332 50%, #0f172a 100%);
+            background: #0d1b2a;
         }
 
         .hero-bg {
@@ -116,14 +117,47 @@ if ($adgroup === 'himachal-taxi-service') {
 
         
 
-        .hero-content {
-            position: relative;
-            z-index: 2;
+        .hero-overlay {
+            position: absolute;
+            inset: 0;
+            z-index: 1;
+            background:
+                radial-gradient(900px 400px at 85% 10%, rgba(255, 193, 7, 0.18), transparent 60%),
+                linear-gradient(100deg, rgba(13, 27, 42, 0.94) 20%, rgba(27, 67, 50, 0.88) 55%, rgba(13, 27, 42, 0.72) 100%);
         }
 
-        .hero-content {
+        .hero-inner {
             position: relative;
             z-index: 2;
+            width: 100%;
+            max-width: 1200px;
+            display: grid;
+            grid-template-columns: 1.05fr 0.95fr;
+            gap: 48px;
+            align-items: center;
+        }
+
+        .hero-eyebrow {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.82rem;
+            font-weight: 700;
+            letter-spacing: 0.4px;
+            color: #ffe9a8;
+            background: rgba(255, 193, 7, 0.14);
+            border: 1px solid rgba(255, 193, 7, 0.45);
+            padding: 8px 16px;
+            border-radius: 999px;
+            margin-bottom: 26px;
+        }
+
+        .hero-eyebrow-dot {
+            width: 8px;
+            height: 8px;
+            border-radius: 50%;
+            background: var(--accent);
+            box-shadow: 0 0 0 4px rgba(255, 193, 7, 0.25);
         }
 
         @media (max-width: 768px) {
@@ -141,9 +175,137 @@ if ($adgroup === 'himachal-taxi-service') {
             }
         }
 
-        .hero-content {
-            max-width: 800px;
-            width: 100%;
+        .hero-copy h1 {
+            font-size: 3rem;
+            font-weight: 900;
+            line-height: 1.12;
+            color: #ffffff;
+        }
+
+        .hero-copy h1 span {
+            color: var(--accent);
+        }
+
+        .hero-copy h1::after {
+            content: "";
+            display: block;
+            width: 72px;
+            height: 4px;
+            margin: 16px 0 0;
+            border-radius: 4px;
+            background: linear-gradient(90deg, var(--accent), #ffdf5d);
+        }
+
+        .hero-sub {
+            font-size: 1.12rem;
+            line-height: 1.7;
+            color: rgba(255, 255, 255, 0.85);
+            margin: 1.2rem 0 1.8rem;
+            max-width: 34rem;
+        }
+
+        .hero-stats {
+            display: flex;
+            gap: 28px;
+            margin-bottom: 1.8rem;
+        }
+
+        .hero-stat {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .hero-stat strong {
+            font-family: var(--font-head);
+            font-size: 1.6rem;
+            color: #ffffff;
+            line-height: 1.2;
+        }
+
+        .hero-stat span {
+            font-size: 0.82rem;
+            color: rgba(255, 255, 255, 0.7);
+        }
+
+        .hero-actions {
+            display: flex;
+            gap: 12px;
+            flex-wrap: wrap;
+            margin-bottom: 1.6rem;
+        }
+
+        .hero-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            padding: 13px 22px;
+            border-radius: 999px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            text-decoration: none;
+            transition: transform 0.25s ease, box-shadow 0.25s ease, background-color 0.25s ease;
+        }
+
+        .hero-btn svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .hero-btn-call {
+            background: linear-gradient(135deg, #FFC107, #FFB300);
+            color: #1a1a1a;
+            box-shadow: 0 6px 18px rgba(255, 179, 0, 0.35);
+        }
+
+        .hero-btn-call:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 10px 24px rgba(255, 179, 0, 0.45);
+        }
+
+        .hero-btn-wa {
+            border: 1.5px solid rgba(255, 255, 255, 0.5);
+            color: #ffffff;
+        }
+
+        .hero-btn-wa:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #ffffff;
+        }
+
+        .hero-chips {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            flex-wrap: wrap;
+        }
+
+        .hero-chips-label {
+            font-size: 0.82rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.65);
+        }
+
+        .hero-chip {
+            background: rgba(255, 255, 255, 0.1);
+            border: 1px solid rgba(255, 255, 255, 0.22);
+            color: #ffffff;
+            font-size: 0.82rem;
+            font-weight: 600;
+            padding: 7px 14px;
+            border-radius: 999px;
+            cursor: pointer;
+            transition: background-color 0.25s ease, border-color 0.25s ease, color 0.25s ease;
+        }
+
+        .hero-chip:hover {
+            background: rgba(255, 193, 7, 0.2);
+            border-color: var(--accent);
+        }
+
+        .hero-chip.active {
+            background: var(--accent);
+            border-color: var(--accent);
+            color: #1a1a1a;
         }
 
         h1 {
@@ -152,21 +314,62 @@ if ($adgroup === 'himachal-taxi-service') {
             line-height: 1.2;
         }
 
-        /* Amber accent bar under the hero heading */
-        .hero-content h1::after {
-            content: "";
-            display: block;
-            width: 72px;
-            height: 4px;
-            margin: 14px auto 0;
-            border-radius: 4px;
-            background: linear-gradient(90deg, var(--accent), #ffdf5d);
+        /* Hero quote form card */
+        .hero-form-card {
+            background: #ffffff;
+            border-radius: 20px;
+            padding: 28px 26px 24px;
+            box-shadow: 0 25px 60px rgba(0, 0, 0, 0.35);
+            color: var(--dark);
         }
 
-        .subhead {
-            font-size: 1.2rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
+        .hero-form-card h2 {
+            font-size: 1.45rem;
+            color: #1b4332;
+            margin-bottom: 4px;
+        }
+
+        .hero-form-card>p {
+            font-size: 0.88rem;
+            color: #666666;
+            margin-bottom: 18px;
+        }
+
+        .hero-form-card .booking-form {
+            box-shadow: none;
+            padding: 0;
+            margin: 0;
+            max-width: none;
+        }
+
+        .hero-form-note {
+            text-align: center;
+            font-size: 0.78rem;
+            color: #888888;
+            margin-top: 12px;
+        }
+
+        @media (max-width: 900px) {
+            .hero {
+                padding: 50px 16px 60px;
+            }
+
+            .hero-inner {
+                grid-template-columns: 1fr;
+                gap: 32px;
+            }
+
+            .hero-copy h1 {
+                font-size: 2.1rem;
+            }
+
+            .hero-stats {
+                gap: 18px;
+            }
+
+            .hero-stat strong {
+                font-size: 1.3rem;
+            }
         }
 
         /* BOOKING FORM */
@@ -219,13 +422,13 @@ if ($adgroup === 'himachal-taxi-service') {
             background: #ffca2c;
         }
 
-        /* FINAL CTA SECTION */
+        /* FINAL CTA SECTION (redesigned) */
         .final-cta-section {
             padding: 5rem 1rem;
-            background: #ffffff;
+            background:
+                radial-gradient(800px 380px at 50% 0%, rgba(255, 193, 7, 0.22), transparent 65%),
+                linear-gradient(180deg, #fffdf6 0%, #faf4e6 100%);
             text-align: center;
-            border-top: 1px solid #eaeaea;
-            border-bottom: 1px solid #eaeaea;
         }
 
         .final-cta-section .section-title p {
@@ -255,6 +458,90 @@ if ($adgroup === 'himachal-taxi-service') {
 
         .final-cta-section a.cta-btn:hover {
             background: #ffca2c;
+        }
+
+        .final-cta-stars {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            font-size: 0.88rem;
+            font-weight: 600;
+            color: rgba(255, 255, 255, 0.85);
+            background: rgba(255, 255, 255, 0.07);
+            border: 1px solid rgba(255, 255, 255, 0.14);
+            padding: 8px 16px;
+            border-radius: 999px;
+            margin-bottom: 18px;
+        }
+
+        .final-cta-stars .stars {
+            color: var(--accent);
+            letter-spacing: 2px;
+        }
+
+        .final-cta-container p.final-cta-stars {
+            margin-bottom: 18px !important;
+        }
+
+        /* Kicker restyled for the dark CTA card */
+        .final-cta-container .section-kicker {
+            background: rgba(255, 193, 7, 0.12);
+            border-color: rgba(255, 193, 7, 0.55);
+            color: #ffd54f;
+        }
+
+        .final-cta-container p.section-kicker {
+            margin-bottom: 20px !important;
+        }
+
+        .final-cta-buttons {
+            display: flex;
+            gap: 12px;
+            justify-content: center;
+            flex-wrap: wrap;
+            margin-bottom: 22px;
+        }
+
+        .final-cta-section a.final-cta-call {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: transparent;
+            color: #ffffff;
+            border: 1.5px solid rgba(255, 255, 255, 0.55);
+            box-shadow: none;
+            text-transform: none;
+            font-size: 1rem;
+        }
+
+        .final-cta-section a.final-cta-call:hover {
+            background: rgba(255, 255, 255, 0.12);
+            border-color: #ffffff;
+        }
+
+        .final-cta-call svg {
+            width: 16px;
+            height: 16px;
+        }
+
+        .final-cta-points {
+            display: flex;
+            gap: 18px;
+            justify-content: center;
+            flex-wrap: wrap;
+            font-size: 0.85rem;
+            color: rgba(255, 255, 255, 0.75);
+        }
+
+        .final-cta-points span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .final-cta-points .tick {
+            color: var(--accent);
+            font-weight: 800;
         }
 
         /* QUOTE POPUP MODAL (reuses hero form fields) */
@@ -358,10 +645,35 @@ if ($adgroup === 'himachal-taxi-service') {
             margin-bottom: 0.5rem;
         }
 
-        /* FLEET SECTION */
+        /* FLEET SECTION (redesigned) */
         .fleet-section {
-            padding: 4rem 1rem;
-            background: #f4f4f4;
+            padding: 5rem 1rem;
+            background: linear-gradient(180deg, #f8faf8 0%, #eef3ee 100%);
+        }
+
+        .section-kicker {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #7a5c00;
+            background: #FFF8E1;
+            border: 1px solid rgba(255, 193, 7, 0.55);
+            padding: 7px 16px;
+            border-radius: 999px;
+            margin-bottom: 18px;
+        }
+
+        /* Guard: .section-title p shorthand would otherwise zero the kicker margin */
+        .section-title > p.section-kicker,
+        .section-title > p.why-kicker {
+            margin-bottom: 18px;
+        }
+
+        #fleet .section-title {
+            max-width: 680px;
+            margin: 0 auto 3rem;
         }
 
         .section-title {
@@ -392,21 +704,35 @@ if ($adgroup === 'himachal-taxi-service') {
 
         .fleet-card {
             background: white;
-            border-radius: 12px;
+            border-radius: 20px;
             overflow: hidden;
+            border: 1px solid #ececec;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s;
             display: flex;
             flex-direction: column;
+            transition: transform 0.35s ease, box-shadow 0.35s ease, opacity 0.6s ease;
+        }
+
+        /* Scroll reveal: hidden state is applied by JS only, so no-JS visitors see cards normally */
+        .fleet-card.reveal-init {
+            opacity: 0;
+            transform: translateY(28px);
+        }
+
+        .fleet-card.in-view {
+            opacity: 1;
+            transform: none;
         }
 
         .fleet-card:hover {
-            transform: translateY(-5px);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(27, 67, 50, 0.16);
         }
 
+        /* Full-bleed photos across all cards */
         .fleet-img {
-            height: 250px;
-            background: #e8e8e8;
+            aspect-ratio: 3 / 2;
+            background: linear-gradient(180deg, #f7f5f0 0%, #efede6 100%);
             position: relative;
             overflow: hidden;
         }
@@ -415,7 +741,46 @@ if ($adgroup === 'himachal-taxi-service') {
             width: 100%;
             height: 100%;
             object-fit: cover;
+            object-position: center;
             display: block;
+            transition: transform 0.6s ease;
+        }
+
+        .fleet-card:hover .fleet-img img {
+            transform: scale(1.06);
+        }
+
+        /* Light sweep across the photo on hover */
+        .fleet-img::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -80%;
+            width: 60%;
+            background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.7s ease;
+            pointer-events: none;
+        }
+
+        .fleet-card:hover .fleet-img::after {
+            left: 130%;
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .fleet-card.reveal-init {
+                opacity: 1;
+                transform: none;
+            }
+
+            .fleet-img::after {
+                display: none;
+            }
+
+            .fleet-img img {
+                transition: none;
+            }
         }
 
         .fleet-badge {
@@ -451,25 +816,34 @@ if ($adgroup === 'himachal-taxi-service') {
 
         .fleet-specs {
             display: flex;
-            gap: 1rem;
-            font-size: 0.9rem;
+            gap: 8px;
+            flex-wrap: wrap;
+            font-size: 0.82rem;
             color: #555;
             margin-bottom: 1rem;
             justify-content: center;
         }
 
         .fleet-specs span {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 4px;
+            background: #f1f8f1;
+            color: #2e7d32;
+            font-weight: 600;
+            padding: 6px 12px;
+            border-radius: 999px;
         }
 
         .fleet-price {
-            font-size: 1.1rem;
+            font-size: 1.15rem;
             color: var(--primary);
-            font-weight: 700;
+            font-weight: 800;
             margin-bottom: 1rem;
             text-align: center;
+            background: #FFF8E1;
+            border-radius: 12px;
+            padding: 10px;
         }
 
         .fleet-price small {
@@ -479,15 +853,37 @@ if ($adgroup === 'himachal-taxi-service') {
         }
 
         .fleet-cta {
-            margin-top: auto;
-            padding: 1rem;
-            background: var(--primary);
-            color: white;
+            margin: auto 1.5rem 1.5rem;
+            padding: 0.95rem;
+            background: linear-gradient(135deg, #FFC107, #FFB300);
+            color: #1a1a1a;
             text-align: center;
             text-decoration: none;
-            border-radius: 0 0 12px 12px;
-            font-weight: 600;
+            border-radius: 12px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(255, 179, 0, 0.3);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
         }
+
+        .fleet-cta::after {
+            content: "→";
+            display: inline-block;
+            margin-left: 6px;
+            transition: transform 0.25s ease;
+        }
+
+        .fleet-cta:hover {
+            transform: translateY(-2px);
+            filter: brightness(1.04);
+            box-shadow: 0 8px 18px rgba(255, 179, 0, 0.4);
+        }
+
+        .fleet-cta:hover::after {
+            transform: translateX(4px);
+        }
+
+        /* Fleet stays vertical: mixed portrait/square/landscape sources
+           cannot fill a fixed horizontal photo slot without decapitation */
 
         /* CALCULATOR SECTION */
         .calculator-section {
@@ -515,88 +911,347 @@ if ($adgroup === 'himachal-taxi-service') {
             text-align: center;
         }
 
-        /* FAQ SECTION */
-        .faq-section {
-            padding: 4rem 1rem;
-            background: #f4f4f4;
+        /* POPULAR ROUTES */
+        .routes-section {
+            padding: 5rem 1rem;
+            background: #ffffff;
         }
 
-        .faq-container {
-            max-width: 1200px;
-            margin: 0 auto;
+        #routes .section-title {
+            max-width: 680px;
+            margin: 0 auto 3rem;
+        }
+
+        .routes-grid {
             display: grid;
-            grid-template-columns: repeat(2, 1fr);
-            gap: 1.5rem;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 20px;
+            max-width: 1100px;
+            margin: 0 auto;
         }
 
-        @media (max-width: 768px) {
-            .faq-container {
-                grid-template-columns: 1fr;
+        .route-card {
+            background: #ffffff;
+            border: 1px solid #ececec;
+            border-radius: 18px;
+            padding: 24px 22px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+            transition: transform 0.3s ease, box-shadow 0.3s ease, border-color 0.3s ease;
+        }
+
+        .route-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 16px 32px rgba(27, 67, 50, 0.12);
+            border-color: rgba(255, 193, 7, 0.6);
+        }
+
+        .route-path {
+            font-family: var(--font-head);
+            font-size: 1.25rem;
+            font-weight: 700;
+            color: #1b4332;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            flex-wrap: wrap;
+        }
+
+        .route-arrow {
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            width: 30px;
+            height: 30px;
+            border-radius: 50%;
+            background: var(--accent);
+            color: #1a1a1a;
+            font-size: 1rem;
+            font-weight: 800;
+            flex-shrink: 0;
+        }
+
+        .route-meta {
+            font-size: 0.85rem;
+            color: #666666;
+            margin: 0;
+        }
+
+        .route-btn {
+            margin-top: 6px;
+            padding: 12px;
+            background: transparent;
+            color: #1a1a1a;
+            border: 1.5px solid var(--accent);
+            border-radius: 12px;
+            font-weight: 700;
+            font-size: 0.95rem;
+            cursor: pointer;
+            transition: background-color 0.25s ease, transform 0.25s ease, box-shadow 0.25s ease;
+        }
+
+        .route-btn:hover {
+            background: linear-gradient(135deg, #FFC107, #FFB300);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(255, 179, 0, 0.35);
+        }
+
+        @media (max-width: 900px) {
+            .routes-grid {
+                grid-template-columns: repeat(2, 1fr);
             }
         }
 
+        @media (max-width: 600px) {
+            .routes-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .routes-section {
+                padding: 4rem 1rem;
+            }
+        }
+
+        /* FAQ SECTION (redesigned) */
+        .faq-section {
+            padding: 5rem 1rem;
+            background: #ffffff;
+        }
+
+        #faq .section-title {
+            max-width: 680px;
+            margin: 0 auto 2.5rem;
+        }
+
+        .faq-container {
+            max-width: 820px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 14px;
+        }
+
         .faq-item {
-            background: white;
-            margin-bottom: 1rem;
-            border-radius: 8px;
+            background: #ffffff;
+            border: 1px solid #e8e8e8;
+            border-radius: 16px;
             overflow: hidden;
+            transition: border-color 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .faq-item:hover {
+            border-color: #cfcfcf;
+        }
+
+        .faq-item.active {
+            border-color: rgba(255, 193, 7, 0.65);
+            box-shadow: 0 10px 26px rgba(27, 67, 50, 0.1);
         }
 
         .faq-question {
-            padding: 1.2rem;
+            padding: 1.1rem 1.25rem;
             cursor: pointer;
             font-weight: 600;
+            font-size: 1rem;
+            color: var(--dark);
             display: flex;
             justify-content: space-between;
             align-items: center;
-            background: white;
+            gap: 14px;
+            background: #ffffff;
+            transition: color 0.25s ease, background-color 0.25s ease;
+            user-select: none;
+        }
+
+        .faq-question:hover {
+            background: #fafdf9;
+        }
+
+        .faq-item.active .faq-question {
+            color: #1b4332;
         }
 
         .faq-question::after {
             content: '+';
-            font-size: 1.5rem;
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 1.3rem;
+            font-weight: 400;
+            line-height: 1;
             color: var(--primary);
+            background: #e8f5e9;
+            border-radius: 50%;
+            transition: transform 0.35s ease, background-color 0.3s ease, color 0.3s ease;
         }
 
         .faq-item.active .faq-question::after {
-            content: '-';
+            content: '+';
+            transform: rotate(45deg);
+            background: var(--accent);
+            color: #1a1a1a;
         }
 
         .faq-answer {
             max-height: 0;
             overflow: hidden;
-            transition: max-height 0.3s ease;
-            padding: 0 1.2rem;
-            background: #fafafa;
-            color: #555;
-            line-height: 1.6;
+            transition: max-height 0.4s ease, padding 0.3s ease;
+            padding: 0 1.25rem;
+            background: #ffffff;
+            color: #555555;
+            line-height: 1.7;
+            font-size: 0.95rem;
         }
 
         .faq-item.active .faq-answer {
-            padding: 1.2rem;
-            max-height: 200px;
+            padding: 0 1.25rem 1.25rem;
+            max-height: 500px;
         }
 
-        /* WHY CHOOSE US */
-        .why-us-grid {
+        /* WHY CHOOSE US (redesigned, scoped to #why-us) */
+        #why-us {
+            background: #ffffff;
+            padding: 80px 20px;
+        }
+
+        #why-us .section-title {
+            max-width: 720px;
+            margin: 0 auto 3rem;
+        }
+
+        .why-kicker {
+            display: inline-block;
+            font-size: 0.78rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: #7a5c00;
+            background: #FFF8E1;
+            border: 1px solid rgba(255, 193, 7, 0.55);
+            padding: 7px 16px;
+            border-radius: 999px;
+            margin-bottom: 18px;
+        }
+
+        #why-us .why-us-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 2rem;
+            grid-template-columns: repeat(4, 1fr);
+            gap: 20px;
             max-width: 1200px;
-            margin: 2rem auto;
+            margin: 0 auto;
         }
 
-        .why-card {
-            text-align: center;
-            padding: 2rem;
-            background: white;
-            border-radius: 12px;
-            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.05);
+        #why-us .why-card {
+            position: relative;
+            text-align: left;
+            margin: 0;
+            padding: 28px 24px;
+            background: #ffffff;
+            border: 1px solid #eeeeee;
+            border-radius: 18px;
+            box-shadow: 0 4px 14px rgba(0, 0, 0, 0.05);
+            overflow: hidden;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
         }
 
-        .why-icon {
-            font-size: 2.5rem;
-            margin-bottom: 1rem;
+        #why-us .why-card::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(90deg, var(--accent), #ffdf5d);
+            transform: scaleX(0);
+            transform-origin: left;
+            transition: transform 0.35s ease;
+        }
+
+        #why-us .why-card:hover {
+            transform: translateY(-6px);
+            box-shadow: 0 16px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        #why-us .why-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .why-card-top {
+            display: flex;
+            align-items: flex-start;
+            justify-content: space-between;
+            margin-bottom: 16px;
+        }
+
+        .why-icon-tile {
+            width: 52px;
+            height: 52px;
+            border-radius: 14px;
+            background: #e8f5e9;
+            display: inline-flex;
+            align-items: center;
+            justify-content: center;
+            transition: background-color 0.3s ease, transform 0.3s ease;
+        }
+
+        .why-icon-tile svg {
+            width: 26px;
+            height: 26px;
+            color: var(--primary);
+            transition: color 0.3s ease;
+        }
+
+        #why-us .why-card:hover .why-icon-tile {
+            background: var(--accent);
+            transform: scale(1.05);
+        }
+
+        #why-us .why-card:hover .why-icon-tile svg {
+            color: #1a1a1a;
+        }
+
+        .why-num {
+            font-family: var(--font-head);
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 1px;
+            color: #1a1a1a;
+            background: #FFF3C4;
+            border-radius: 999px;
+            padding: 5px 11px;
+        }
+
+        #why-us .why-card h3 {
+            font-size: 1.15rem;
+            color: #1b4332;
+            margin-bottom: 8px;
+        }
+
+        #why-us .why-card p {
+            font-size: 0.92rem;
+            color: #555555;
+            line-height: 1.65;
+        }
+
+        @media (max-width: 1000px) {
+            #why-us .why-us-grid {
+                grid-template-columns: repeat(2, 1fr);
+            }
+        }
+
+        @media (max-width: 600px) {
+            #why-us {
+                padding: 60px 16px;
+            }
+
+            #why-us .why-us-grid {
+                grid-template-columns: 1fr;
+            }
         }
 
         @media (max-width: 768px) {
@@ -921,6 +1576,10 @@ if ($adgroup === 'himachal-taxi-service') {
                 animation-delay: 0.28s;
             }
 
+            .main-nav.open a:nth-of-type(7) {
+                animation-delay: 0.33s;
+            }
+
             @keyframes navLinkIn {
                 from {
                     opacity: 0;
@@ -1095,8 +1754,13 @@ if ($adgroup === 'himachal-taxi-service') {
         /* ===== TOUR PACKAGES SECTION ===== */
 
         .tours-section {
-            padding: 80px 0;
-            background-color: #f9f9f9;
+            padding: 80px 20px;
+            background: linear-gradient(180deg, #fffdf6 0%, #f9f9f9 100%);
+        }
+
+        #tours .section-title {
+            max-width: 680px;
+            margin: 0 auto 3rem;
         }
 
         .tours-grid {
@@ -1110,17 +1774,65 @@ if ($adgroup === 'himachal-taxi-service') {
 
         .tour-card {
             background: #ffffff;
-            border-radius: 12px;
+            border-radius: 20px;
             overflow: hidden;
+            border: 1px solid #ececec;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.08);
-            transition: transform 0.3s ease, box-shadow 0.3s ease;
+            transition: transform 0.35s ease, box-shadow 0.35s ease, opacity 0.6s ease;
             display: flex;
             flex-direction: column;
         }
 
+        /* Scroll reveal: hidden state applied by JS only (no-JS safe) */
+        .tour-card.reveal-init {
+            opacity: 0;
+            transform: translateY(28px);
+        }
+
+        .tour-card.in-view {
+            opacity: 1;
+            transform: none;
+        }
+
         .tour-card:hover {
-            transform: translateY(-5px);
-            box-shadow: 0 12px 25px rgba(0, 0, 0, 0.15);
+            transform: translateY(-8px);
+            box-shadow: 0 20px 40px rgba(27, 67, 50, 0.16);
+        }
+
+        .tour-media {
+            position: relative;
+            overflow: hidden;
+            aspect-ratio: 16 / 10;
+            background: #e8e8e8;
+        }
+
+        .tour-media img.tour-image {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            transition: transform 0.6s ease;
+        }
+
+        .tour-card:hover .tour-media img.tour-image {
+            transform: scale(1.06);
+        }
+
+        /* Light sweep across the photo on hover */
+        .tour-media::after {
+            content: "";
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            left: -80%;
+            width: 60%;
+            background: linear-gradient(100deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+            transform: skewX(-20deg);
+            transition: left 0.7s ease;
+            pointer-events: none;
+        }
+
+        .tour-card:hover .tour-media::after {
+            left: 130%;
         }
 
         .tour-image {
@@ -1166,12 +1878,15 @@ if ($adgroup === 'himachal-taxi-service') {
         }
 
         .meta-item {
-            display: flex;
+            display: inline-flex;
             align-items: center;
             gap: 6px;
-            font-size: 0.9rem;
-            color: #444;
-            font-weight: 500;
+            font-size: 0.82rem;
+            color: #2e7d32;
+            font-weight: 600;
+            background: #f1f8f1;
+            padding: 6px 12px;
+            border-radius: 999px;
         }
 
         .meta-item svg {
@@ -1204,10 +1919,12 @@ if ($adgroup === 'himachal-taxi-service') {
         }
 
         .tour-price {
-            font-size: 1rem;
-            font-weight: 600;
-            color: #805c1b;
-            /* Dark Brown color */
+            font-size: 1.1rem;
+            font-weight: 800;
+            color: var(--primary);
+            background: #FFF8E1;
+            border-radius: 12px;
+            padding: 10px 14px;
             margin-bottom: 20px;
         }
 
@@ -1215,20 +1932,49 @@ if ($adgroup === 'himachal-taxi-service') {
             display: inline-block;
             width: 100%;
             text-align: center;
-            padding: 12px;
-            background: var(--primary);
-            color: white;
+            padding: 13px;
+            background: linear-gradient(135deg, #FFC107, #FFB300);
+            color: #1a1a1a;
             text-decoration: none;
-            border-radius: 8px;
-            font-weight: 500;
-            transition: background 0.3s ease;
+            border-radius: 12px;
+            font-weight: 700;
+            box-shadow: 0 4px 12px rgba(255, 179, 0, 0.3);
+            transition: transform 0.25s ease, box-shadow 0.25s ease, filter 0.25s ease;
             cursor: pointer;
             border: none;
             font-size: 1rem;
         }
 
+        .tour-cta::after {
+            content: "→";
+            display: inline-block;
+            margin-left: 6px;
+            transition: transform 0.25s ease;
+        }
+
         .tour-cta:hover {
-            background: #1e5c22;
+            transform: translateY(-2px);
+            filter: brightness(1.04);
+            box-shadow: 0 8px 18px rgba(255, 179, 0, 0.4);
+        }
+
+        .tour-cta:hover::after {
+            transform: translateX(4px);
+        }
+
+        @media (prefers-reduced-motion: reduce) {
+            .tour-card.reveal-init {
+                opacity: 1;
+                transform: none;
+            }
+
+            .tour-media::after {
+                display: none;
+            }
+
+            .tour-media img.tour-image {
+                transition: none;
+            }
         }
 
         /* Add to styles.css */
@@ -1367,6 +2113,19 @@ if ($adgroup === 'himachal-taxi-service') {
             box-shadow: 0 12px 35px rgba(0, 0, 0, 0.15);
         }
 
+        /* Oversized decorative quotation mark */
+        .testimonial-card::before {
+            content: "\201C";
+            position: absolute;
+            top: 6px;
+            left: 22px;
+            font-family: Georgia, serif;
+            font-size: 5rem;
+            line-height: 1;
+            color: rgba(255, 193, 7, 0.28);
+            pointer-events: none;
+        }
+
         .testimonial-arrow {
             position: absolute;
             top: 50%;
@@ -1383,7 +2142,7 @@ if ($adgroup === 'himachal-taxi-service') {
             align-items: center;
             justify-content: center;
             z-index: 10;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.15);
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
             transition: background 0.3s, transform 0.2s;
         }
 
@@ -1417,8 +2176,9 @@ if ($adgroup === 'himachal-taxi-service') {
         }
 
         .testimonial-dots .dot.active {
-            background: var(--primary);
-            transform: scale(1.2);
+            background: var(--accent);
+            width: 28px;
+            border-radius: 999px;
         }
 
         .testimonial-avatar {
@@ -1430,7 +2190,7 @@ if ($adgroup === 'himachal-taxi-service') {
             top: -37.5px;
             left: 50%;
             transform: translateX(-50%);
-            border: 4px solid white;
+            border: 4px solid var(--accent);
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
             overflow: hidden;
         }
@@ -1468,6 +2228,124 @@ if ($adgroup === 'himachal-taxi-service') {
             color: #222222;
         }
 
+        /* Sticky mobile quote bubble */
+        .sticky-action-bar {
+            display: none;
+        }
+
+        @media (max-width: 768px) {
+            /* Spacer lives on the dark footer so no white gap shows below it */
+            .site-footer {
+                padding-bottom: 104px;
+            }
+
+            .sticky-action-bar {
+                display: block;
+                position: fixed;
+                left: 50%;
+                transform: translateX(-50%);
+                width: min(62%, 330px);
+                bottom: calc(12px + env(safe-area-inset-bottom));
+                z-index: 900;
+            }
+
+            .sticky-quote {
+                display: flex;
+                align-items: center;
+                gap: 10px;
+                width: 100%;
+                text-align: left;
+                font-family: inherit;
+                background: rgba(255, 255, 255, 0.97);
+                backdrop-filter: blur(8px);
+                -webkit-backdrop-filter: blur(8px);
+                border: 1px solid #ececec;
+                border-radius: 20px;
+                box-shadow: 0 12px 30px rgba(0, 0, 0, 0.18);
+                padding: 10px 12px;
+                cursor: pointer;
+            }
+
+            .sticky-quote-icon {
+                width: 40px;
+                height: 40px;
+                flex-shrink: 0;
+                border-radius: 13px;
+                background: linear-gradient(135deg, #FFC107, #FFB300);
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+            }
+
+            .sticky-quote-icon svg {
+                width: 20px;
+                height: 20px;
+                color: #1a1a1a;
+            }
+
+            .sticky-quote-text {
+                flex: 1;
+                display: flex;
+                flex-direction: column;
+                gap: 0;
+                color: var(--dark);
+                min-width: 0;
+            }
+
+            .sticky-quote-text strong {
+                font-size: 0.85rem;
+                white-space: nowrap;
+            }
+
+            .sticky-quote-text small {
+                font-size: 0.7rem;
+                color: #666666;
+                white-space: nowrap;
+            }
+
+            .sticky-quote-arrow {
+                width: 34px;
+                height: 34px;
+                flex-shrink: 0;
+                border-radius: 50%;
+                background: #1b4332;
+                color: #ffffff;
+                display: inline-flex;
+                align-items: center;
+                justify-content: center;
+                font-size: 1rem;
+                font-weight: 800;
+            }
+
+            .sticky-quote-close {
+                position: absolute;
+                top: -10px;
+                right: -6px;
+                width: 26px;
+                height: 26px;
+                border-radius: 50%;
+                border: 1px solid #e0e0e0;
+                background: #ffffff;
+                color: #888888;
+                font-size: 0.95rem;
+                line-height: 1;
+                cursor: pointer;
+                box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+            }
+
+            /* Floats back to the left, clear of the centered bubble */
+            .float-contact-buttons {
+                left: 12px;
+                right: auto;
+                bottom: 100px;
+            }
+
+            #backToTopBtn {
+                bottom: 12px;
+                right: 12px;
+            }
+        }
+
         .float-contact-buttons {
             position: fixed;
             left: 20px;
@@ -1489,24 +2367,45 @@ if ($adgroup === 'himachal-taxi-service') {
             font-size: 1.6rem;
             text-decoration: none;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.35);
-            animation: bouncePulse 1.5s infinite ease-in-out;
-            transition: transform 0.5s ease, box-shadow 0.3s ease;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
             position: relative;
         }
 
         .float-contact-btn.whatsapp {
             background-color: #25D366;
-            animation-delay: 0s;
+        }
+
+        /* Soft attention ring on WhatsApp: plays 3 times, then rests */
+        .float-contact-btn.whatsapp::before {
+            content: "";
+            position: absolute;
+            inset: 0;
+            border-radius: 50%;
+            border: 2px solid #25D366;
+            animation: floatPing 2.6s ease-out 3;
+            pointer-events: none;
+        }
+
+        @keyframes floatPing {
+            0% {
+                transform: scale(1);
+                opacity: 0.8;
+            }
+
+            100% {
+                transform: scale(1.55);
+                opacity: 0;
+            }
         }
 
         .float-contact-btn.phone {
-            background-color: var(--accent);
-            animation-delay: .75s;
+            background: linear-gradient(135deg, #FFC107, #FFB300);
+            color: #1a1a1a;
         }
 
         .float-contact-btn:hover {
-            transform: scale(1.12);
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.45);
+            transform: translateY(-3px) scale(1.06);
+            box-shadow: 0 8px 22px rgba(0, 0, 0, 0.45);
         }
 
         .float-contact-btn .tooltip {
@@ -1515,7 +2414,7 @@ if ($adgroup === 'himachal-taxi-service') {
             background-color: #ffffff;
             color: #030303;
             text-align: center;
-            border-radius: 6px;
+            border-radius: 10px;
             padding: 5px 9px;
             position: absolute;
             left: 100%;
@@ -1547,10 +2446,6 @@ if ($adgroup === 'himachal-taxi-service') {
             transform: translateY(-50%) translateX(0);
         }
 
-        .float-contact-btn:hover {
-            animation-play-state: paused;
-        }
-
         @media (max-width: 768px) {
             .float-contact-btn {
                 width: 50px;
@@ -1564,21 +2459,41 @@ if ($adgroup === 'himachal-taxi-service') {
         }
 
         #backToTopBtn {
-            display: none;
+            display: flex;
             position: fixed;
             bottom: 20px;
             right: 20px;
             z-index: 99;
             border: none;
             outline: none;
-            background-color: #333;
+            background: linear-gradient(135deg, #2E7D32, #1b5e20);
             color: white;
             cursor: pointer;
-            padding: 11px 13px;
+            width: 46px;
+            height: 46px;
+            padding: 0;
+            align-items: center;
+            justify-content: center;
             border-radius: 50%;
             font-size: 18px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.3);
-            transition: background-color 0.3s, transform 0.3s;
+            box-shadow: 0 4px 12px rgba(27, 67, 50, 0.4);
+            opacity: 0;
+            visibility: hidden;
+            pointer-events: none;
+            transform: translateY(10px);
+            transition: opacity 0.3s ease, visibility 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        #backToTopBtn.show {
+            opacity: 1;
+            visibility: visible;
+            pointer-events: auto;
+            transform: none;
+        }
+
+        #backToTopBtn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 18px rgba(27, 67, 50, 0.5);
         }
 
         /* ===== TRUST SECTION ===== */
@@ -1696,6 +2611,143 @@ if ($adgroup === 'himachal-taxi-service') {
             text-decoration: underline;
         }
 
+        .trust-card__icon svg {
+            width: 26px;
+            height: 26px;
+            color: var(--accent);
+        }
+
+        /* ===== FOOTER COLUMNS ===== */
+        .footer-grid {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 40px 20px 8px;
+            display: grid;
+            grid-template-columns: 1.2fr 1fr 1fr;
+            gap: 32px;
+            text-align: left;
+        }
+
+        .footer-brand {
+            font-family: var(--font-head);
+            font-size: 1.25rem;
+            font-weight: 800;
+            color: #ffffff;
+            margin-bottom: 10px;
+        }
+
+        .footer-brand span {
+            color: var(--accent);
+        }
+
+        .footer-col p {
+            font-size: 0.88rem;
+            color: rgba(255, 255, 255, 0.65);
+            line-height: 1.7;
+            margin: 0;
+        }
+
+        .footer-heading {
+            font-size: 0.8rem;
+            font-weight: 800;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin-bottom: 14px;
+        }
+
+        .footer-links {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-links a {
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.25s ease, padding-left 0.25s ease;
+        }
+
+        .footer-links a:hover {
+            color: var(--accent);
+            padding-left: 4px;
+        }
+
+        .footer-contact {
+            list-style: none;
+            padding: 0;
+            margin: 0;
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .footer-contact a {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            color: rgba(255, 255, 255, 0.7);
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.25s ease;
+        }
+
+        .footer-contact a:hover {
+            color: var(--accent);
+        }
+
+        .footer-contact svg {
+            width: 15px;
+            height: 15px;
+            flex-shrink: 0;
+        }
+
+        .footer-bottom {
+            max-width: 1200px;
+            margin: 24px auto 0;
+            padding: 18px 20px 8px;
+            border-top: 1px solid rgba(255, 255, 255, 0.12);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            gap: 12px;
+            flex-wrap: wrap;
+        }
+
+        .footer-bottom p {
+            margin: 0;
+            font-size: 13px;
+            color: rgba(255, 255, 255, 0.55);
+        }
+
+        .footer-bottom a {
+            color: rgba(255, 255, 255, 0.85);
+            text-decoration: none;
+            transition: color 0.3s ease;
+        }
+
+        .footer-bottom a:hover {
+            color: var(--accent);
+            text-decoration: underline;
+        }
+
+        @media (max-width: 768px) {
+            .footer-grid {
+                grid-template-columns: 1fr;
+                gap: 26px;
+                padding: 32px 20px 4px;
+            }
+
+            .footer-bottom {
+                flex-direction: column;
+                text-align: center;
+            }
+        }
+
         .final-cta-container {
             max-width: 1100px;
             margin: 0 auto;
@@ -1791,12 +2843,6 @@ if ($adgroup === 'himachal-taxi-service') {
             .footer-content p {
                 font-size: 12px;
             }
-
-            .subhead {
-            font-size: 1rem;
-            margin-bottom: 2rem;
-            opacity: 0.9;
-        }
         }
 
         /* ===== DARK MODE SUPPORT ===== */
@@ -1834,12 +2880,12 @@ if ($adgroup === 'himachal-taxi-service') {
     <!-- TOP UTILITY STRIP (desktop only) -->
     <div class="top-strip">
         <div class="top-strip-inner">
-            <a href="tel:+919805753890"><svg
+            <a href="tel:+919317324669"><svg
                     style="width:12px;height:12px;fill:currentColor;vertical-align:middle;"
                     viewBox="0 0 512 512">
                     <path
                         d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 333.4 178.6 277.7 144 207.3L193.3 167c13.7-11.1 18.4-30 11.6-46.3l-40-96z" />
-                </svg> +91 98057 53890</a>
+                </svg> +91 93173 24669</a>
             <a href="mailto:himachalcabsonline01@gmail.com"><svg
                     style="width:12px;height:12px;fill:currentColor;vertical-align:middle;"
                     viewBox="0 0 512 512">
@@ -1878,6 +2924,12 @@ if ($adgroup === 'himachal-taxi-service') {
                         <circle cx="7.5" cy="17.5" r="1.3" />
                         <circle cx="16.5" cy="17.5" r="1.3" />
                     </svg>Fleet</a>
+                <a href="#routes"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <circle cx="6" cy="19" r="2.2" />
+                        <circle cx="18" cy="5" r="2.2" />
+                        <path d="M8.2 19H15a3 3 0 0 0 0-6H9a3 3 0 0 1 0-6h4.8" stroke-dasharray="2.5 2.5" />
+                    </svg>Routes</a>
                 <a href="#reviews"><svg class="nav-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor"
                         stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path
@@ -1892,13 +2944,6 @@ if ($adgroup === 'himachal-taxi-service') {
                         stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v8a1.5 1.5 0 0 1-1.5 1.5H9l-5 4.5z" />
                     </svg>FAQ</a>
-                <a href="#home" class="nav-cta nav-cta-menu">Book Your Taxi Now</a>
-                <a href="tel:+919805753890" class="mobile-menu-call"><svg class="nav-ico" viewBox="0 0 24 24"
-                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
-                        stroke-linejoin="round" aria-hidden="true">
-                        <path
-                            d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2z" />
-                    </svg>+91 98057 53890</a>
             </nav>
             <div class="header-actions">
                 <a href="#home" class="nav-cta nav-cta-desktop">Book Now</a>
@@ -1917,70 +2962,108 @@ if ($adgroup === 'himachal-taxi-service') {
 
         <!-- HERO SECTION -->
         <header class="hero" id="home">
-            <div class="hero-content">
-                <!-- <h1 style="color: var(--accent);">Himachal Cabs
-                    Online</h1> -->
-                <h1 style="color: var(--accent);">Himachal Taxi Service for Transfers, Sightseeing & Tours</h1>
-                <p class="subhead">
-                    Himachal Cabs Online is a local taxi service for private travel across Himachal Pradesh. Book
-                    one-way transfers, sightseeing cabs or multi-day taxi trips with experienced local drivers and
-                    choose from sedans, SUVs and larger vehicles for your journey.
-                </p>
-
-
-                <form id="taxiForm" class="booking-form" action="api/submit.php" method="POST">
-                    <input type="hidden" name="bot-field">
-
-                    <div class="form-group">
-                        <label for="name">Your Name</label>
-                        <input type="text" id="name" name="name" placeholder="Your Name" required>
+            <img class="hero-bg" src="/Images/hero-bg.jpg" alt="Himalayan mountains in Himachal Pradesh"
+                fetchpriority="high" loading="eager">
+            <div class="hero-overlay" aria-hidden="true"></div>
+            <div class="hero-inner">
+                <div class="hero-copy">
+                    <p class="hero-eyebrow"><span class="hero-eyebrow-dot"></span>Trusted Himachal Taxi Service ·
+                        4.8★ Rated</p>
+                    <h1>Himachal Taxi Service for <span>Transfers, Sightseeing &amp; Tours</span></h1>
+                    <p class="hero-sub">
+                        Himachal Cabs Online is a local taxi service for private travel across Himachal Pradesh. Book
+                        one-way transfers, sightseeing cabs or multi-day taxi trips with experienced local drivers and
+                        choose from sedans, SUVs and larger vehicles for your journey.
+                    </p>
+                    <div class="hero-stats">
+                        <div class="hero-stat"><strong>5,000+</strong><span>Happy Travelers</span></div>
+                        <div class="hero-stat"><strong>8+ Years</strong><span>Hill Driving Experience</span></div>
+                        <div class="hero-stat"><strong>24/7</strong><span>On-trip Support</span></div>
                     </div>
-
-                    <div class="form-group">
-                        <label for="phone">Phone Number</label>
-                        <input type="tel" id="phone" name="phone" placeholder="Your Phone Number (10-12 digits)" inputmode="numeric"
-                            pattern="[0-9]{10,12}" minlength="10" maxlength="12" title="Enter 10-12 digits" required>
+                    <div class="hero-actions">
+                        <a class="hero-btn hero-btn-call" href="tel:+919317324669"><svg viewBox="0 0 24 24"
+                                fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                                stroke-linejoin="round" aria-hidden="true">
+                                <path
+                                    d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2z" />
+                            </svg>Call +91 93173 24669</a>
+                        <a class="hero-btn hero-btn-wa" href="https://wa.me/919317324669" target="_blank"
+                            rel="noopener"><svg viewBox="0 0 448 512" fill="currentColor" aria-hidden="true">
+                                <path
+                                    d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157zm-157 341.6c-33.2 0-65.7-8.9-94-25.7l-6.7-4-69.8 18.3L72 359.2l-4.4-7c-18.5-29.4-28.2-63.3-28.2-98.2 0-101.7 82.8-184.5 184.6-184.5 49.3 0 95.6 19.2 130.4 54.1 34.8 34.8 56.2 81.2 56.1 130.5 0 101.8-84.9 184.6-186.6 184.6zm101.2-138.2c-5.5-2.8-32.8-16.2-37.9-18-5.1-1.9-8.8-2.8-12.5 2.8-3.7 5.6-14.3 18-17.6 21.8-3.2 3.7-6.5 4.2-12 1.4-32.6-16.3-54-29.1-75.5-66-5.7-9.8 5.7-9.1 16.3-30.3 1.8-3.7.9-6.9-.5-9.7-1.4-2.8-12.5-30.1-17.1-41.2-4.5-10.8-9.1-9.3-12.5-9.5-3.2-.2-6.9-.2-10.6-.2-3.7 0-9.7 1.4-14.8 6.9-5.1 5.6-19.4 19-19.4 46.3 0 27.3 19.9 53.7 22.6 57.4 2.8 3.7 39.1 59.7 94.8 83.8 35.2 15.2 49 16.5 66.6 13.9 10.7-1.6 32.8-13.4 37.4-26.4 4.6-13 4.6-24.1 3.2-26.4-1.3-2.5-5-3.9-10.5-6.6z" />
+                            </svg>WhatsApp Us</a>
                     </div>
-
-                    <div class="form-group">
-                        <label for="email">Email Address (Optional)</label>
-                        <input type="email" id="email" name="email" placeholder="Your Email Address">
+                    <div class="hero-chips">
+                        <span class="hero-chips-label">Popular:</span>
+                        <button type="button" class="hero-chip" data-dest="Shimla">Shimla</button>
+                        <button type="button" class="hero-chip" data-dest="Manali">Manali</button>
+                        <button type="button" class="hero-chip" data-dest="Dharamshala">Dharamshala</button>
+                        <button type="button" class="hero-chip" data-dest="Dalhousie">Dalhousie</button>
+                        <button type="button" class="hero-chip" data-dest="Kasol">Kasol</button>
+                        <button type="button" class="hero-chip" data-dest="Spiti">Spiti</button>
                     </div>
+                </div>
+                <div class="hero-form-card">
+                    <h2>Get Your Free Quote</h2>
+                    <p>Transparent pricing · No hidden charges</p>
+                    <form id="taxiForm" class="booking-form" action="api/submit.php" method="POST">
+                        <input type="hidden" name="bot-field">
 
-                    <div class="form-group">
-                        <label for="destination">Where are you going?</label>
-                        <select id="destination" name="destination" required>
-                            <option value="" disabled selected>Select Destination</option>
-                            <option value="Shimla">Shimla</option>
-                            <option value="Manali">Manali</option>
-                            <option value="Dharamshala">Dharamshala</option>
-                            <option value="Dalhousie">Dalhousie</option>
-                            <option value="Kasol">Kasol</option>
-                            <option value="Spiti">Spiti</option>
-                            <option value="Kinnaur">Kinnaur</option>
-                            <option value="Other">Other (Custom Tour)</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label for="name">Your Name</label>
+                            <input type="text" id="name" name="name" placeholder="Your Name" required>
+                        </div>
 
-                    <div class="form-group">
-                        <label for="type">Select Vehicle</label>
-                        <select id="type" name="vehicle-type" required>
-                            <option value="" disabled selected>Select Vehicle Type</option>
-                            <option value="Sedan">Sedan (2-4 seater)</option>
-                            <option value="SUV">SUV (4-7 seater)</option>
-                            <option value="Traveller">Traveller 8+ Seater</option>
-                            <option value="Not Sure">Not Sure</option>
-                        </select>
-                    </div>
+                        <div class="form-group">
+                            <label for="phone">Phone Number</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Your Phone Number (10-12 digits)"
+                                inputmode="numeric" pattern="[0-9]{10,12}" minlength="10" maxlength="12"
+                                title="Enter 10-12 digits" required>
+                        </div>
 
-                    <button type="submit" class="cta-btn" id="submitBtn">Get Free Quote Now</button>
-                </form>
+                        <div class="form-group">
+                            <label for="email">Email Address (Optional)</label>
+                            <input type="email" id="email" name="email" placeholder="Your Email Address">
+                        </div>
+
+                        <div class="form-group">
+                            <label for="destination">Where are you going?</label>
+                            <select id="destination" name="destination" required>
+                                <option value="" disabled selected>Select Destination</option>
+                                <option value="Shimla">Shimla</option>
+                                <option value="Manali">Manali</option>
+                                <option value="Dharamshala">Dharamshala</option>
+                                <option value="Dalhousie">Dalhousie</option>
+                                <option value="Kasol">Kasol</option>
+                                <option value="Spiti">Spiti</option>
+                                <option value="Kinnaur">Kinnaur</option>
+                                <option value="Other">Other (Custom Tour)</option>
+                            </select>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="type">Select Vehicle</label>
+                            <select id="type" name="vehicle-type" required>
+                                <option value="" disabled selected>Select Vehicle Type</option>
+                                <option value="Sedan">Sedan (2-4 seater)</option>
+                                <option value="SUV">SUV (4-7 seater)</option>
+                                <option value="Traveller">Traveller 8+ Seater</option>
+                                <option value="Not Sure">Not Sure</option>
+                            </select>
+                        </div>
+
+                        <button type="submit" class="cta-btn" id="submitBtn">Get Free Quote Now</button>
+                    </form>
+                    <p class="hero-form-note">Your details are safe with us and used only for your tour planning.
+                    </p>
+                </div>
             </div>
         </header>
 
         <!-- WHY CHOOSE US -->
         <section class="trust-section" id="why-us">
             <div class="section-title">
+                <p class="why-kicker">Why ride with us</p>
                 <h2>Why Travelers Trust Himachal Cabs Online</h2>
                 <p>Looking for a dependable taxi service in Himachal Pradesh? Our experienced local drivers and flexible
                     travel options make every journey comfortable and hassle-free — from Shimla and Manali to
@@ -1988,25 +3071,54 @@ if ($adgroup === 'himachal-taxi-service') {
             </div>
             <div class="why-us-grid">
                 <div class="why-card">
-                    <div class="why-icon">🏔️</div>
+                    <div class="why-card-top">
+                        <span class="why-icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M3 20 9.5 5l4.5 8.5L16.5 10 21 20H3z" />
+                            </svg></span>
+                        <span class="why-num">01</span>
+                    </div>
                     <h3>Mountain Experts</h3>
                     <p>Our experienced drivers know Himachal Pradesh’s winding roads, steep ghats, and challenging
                         mountain routes, helping you travel safely and comfortably.</p>
                 </div>
                 <div class="why-card">
-                    <div class="why-icon">🛡️</div>
+                    <div class="why-card-top">
+                        <span class="why-icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M12 3l7 2.8v5.4c0 4.4-2.9 8.3-7 9.8-4.1-1.5-7-5.4-7-9.8V5.8z" />
+                                <path d="M9.3 11.8l2 2 3.4-3.8" />
+                            </svg></span>
+                        <span class="why-num">02</span>
+                    </div>
                     <h3>Safety First</h3>
                     <p>Our taxis are well-maintained, AC-checked, and equipped with essential safety and travel
                         amenities, including first-aid kits.</p>
                 </div>
                 <div class="why-card">
-                    <div class="why-icon">💰</div>
+                    <div class="why-card-top">
+                        <span class="why-icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M3.5 12V4.5A1.5 1.5 0 0 1 5 3h7.5L21 11.5 12.5 20z" />
+                                <circle cx="8.5" cy="8.5" r="1.6" />
+                            </svg></span>
+                        <span class="why-num">03</span>
+                    </div>
                     <h3>No Hidden Costs</h3>
                     <p>Get clear, upfront pricing with no hidden charges. Any applicable tolls, parking fees, or other
                         additional costs are communicated clearly.</p>
                 </div>
                 <div class="why-card">
-                    <div class="why-icon">🌙</div>
+                    <div class="why-card-top">
+                        <span class="why-icon-tile"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path d="M4 13a8 8 0 0 1 16 0" />
+                                <rect x="2.5" y="13" width="4.5" height="7" rx="2" />
+                                <rect x="17" y="13" width="4.5" height="7" rx="2" />
+                                <path d="M19.5 20a4.5 4.5 0 0 1-4.5 3.5H12" />
+                            </svg></span>
+                        <span class="why-num">04</span>
+                    </div>
                     <h3>24/7 Support</h3>
                     <p>Need assistance during your journey? Our support team is available 24/7, and in case of a vehicle
                         breakdown, we work to arrange a replacement swiftly.</p>
@@ -2017,6 +3129,7 @@ if ($adgroup === 'himachal-taxi-service') {
         <!-- FLEET & PRICING -->
         <section class="fleet-section" id="fleet">
             <div class="section-title">
+                <p class="section-kicker">Our fleet</p>
                 <h2>Our Fleet & Transparent Pricing</h2>
                 <p>Choose the right vehicle for your Himachal journey with comfortable options for every group size,
                     route, and budget.</p>
@@ -2060,7 +3173,7 @@ if ($adgroup === 'himachal-taxi-service') {
                 <!-- Car 2: Sedan -->
                 <div class="fleet-card">
                     <div class="fleet-img">
-                        <img src="/Images/Dzire.webp" alt="Swift Dzire Taxi" width="300" height="250" loading="lazy">
+                        <img src="/Images/Dzire.jpg" alt="Swift Dzire Taxi" width="300" height="250" loading="lazy">
                         <span class="fleet-badge">Popular</span>
                     </div>
                     <div class="fleet-details">
@@ -2220,13 +3333,13 @@ if ($adgroup === 'himachal-taxi-service') {
                         <span class="fleet-badge">Large Group</span>
                     </div>
                     <div class="fleet-details">
-                        <h3 class="fleet-name">Traveller 17-Seater</h3>
+                        <h3 class="fleet-name">Traveller 16-Seater</h3>
                         <div class="fleet-specs">
-                            <span>👥 17+1 Seats</span>
+                            <span>👥 16+1 Seats</span>
                             <span>💺 Relaxed</span>
                             <span>⛽ Diesel</span>
                         </div>
-                        <div class="fleet-price">₹8000/day <small>or ₹38/km</small></div>
+                        <div class="fleet-price">₹7500/day <small>or ₹38/km</small></div>
                         <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="2.6"/><circle cx="5.5" cy="9.5" r="2.2"/><circle cx="18.5" cy="9.5" r="2.2"/><path d="M7.5 20c0-2.8 2-4.7 4.5-4.7s4.5 1.9 4.5 4.7M1.5 20c0-2.4 1.6-4 3.7-4.4M18.8 15.6c2.1.4 3.7 2 3.7 4.4"/></svg>
                             Ideal for large groups</p>
                         <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="9" cy="8" r="3.2"/><path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5"/><circle cx="16.8" cy="9" r="2.5"/><path d="M16.4 14.6c2.5.6 4.6 2.4 4.6 5.4"/></svg> Perfect
@@ -2245,13 +3358,13 @@ if ($adgroup === 'himachal-taxi-service') {
                         <span class="fleet-badge">Luxury</span>
                     </div>
                     <div class="fleet-details">
-                        <h3 class="fleet-name">Urbania 17-Seater</h3>
+                        <h3 class="fleet-name">Urbania 16-Seater</h3>
                         <div class="fleet-specs">
-                            <span>👥 17+1 Seats</span>
+                            <span>👥 16+1 Seats</span>
                             <span>❄️ Fully AC</span>
                             <span>⛽ Diesel</span>
                         </div>
-                        <div class="fleet-price">₹12000/day <small>or ₹70/km</small></div>
+                        <div class="fleet-price">₹10000/day <small>or ₹70/km</small></div>
                         <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="12" cy="7.5" r="2.6"/><circle cx="5.5" cy="9.5" r="2.2"/><circle cx="18.5" cy="9.5" r="2.2"/><path d="M7.5 20c0-2.8 2-4.7 4.5-4.7s4.5 1.9 4.5 4.7M1.5 20c0-2.4 1.6-4 3.7-4.4M18.8 15.6c2.1.4 3.7 2 3.7 4.4"/></svg>
                             Premium group travel</p>
                         <p><svg class="feat-ico" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21 9.5 3M19 21 14.5 3M12 6.5v2.5M12 11v2.5M12 15.5V18"/></svg> Spacious
@@ -2262,6 +3375,84 @@ if ($adgroup === 'himachal-taxi-service') {
                             Comfortable mountain travel</p>
                     </div>
                     <a href="#booking-form" class="fleet-cta" data-car="Urbania 17-Seater">Calculate Price</a>
+                </div>
+            </div>
+        </section>
+
+        <!-- POPULAR ROUTES -->
+        <section class="routes-section" id="routes">
+            <div class="section-title">
+                <p class="section-kicker">Popular routes</p>
+                <h2>Taxi Routes Travelers Love</h2>
+                <p>One-way &amp; round trips on our most-booked routes. Tap any route for a fixed quote — no hidden
+                    charges.</p>
+            </div>
+            <div class="routes-grid">
+                <div class="route-card">
+                    <div class="route-path"><span>Delhi</span><span class="route-arrow">→</span><span>Shimla</span>
+                    </div>
+                    <p class="route-meta">One-way &amp; round trip · Sedan · SUV · Traveller</p>
+                    <button class="route-btn js-quote-open" data-dest="Shimla" data-interest="Route: Delhi - Shimla">Get
+                        Fixed Price</button>
+                </div>
+                <div class="route-card">
+                    <div class="route-path"><span>Chandigarh</span><span class="route-arrow">→</span><span>Manali</span>
+                    </div>
+                    <p class="route-meta">One-way &amp; round trip · Sedan · SUV · Traveller</p>
+                    <button class="route-btn js-quote-open" data-dest="Manali"
+                        data-interest="Route: Chandigarh - Manali">Get Fixed Price</button>
+                </div>
+                <div class="route-card">
+                    <div class="route-path"><span>Delhi</span><span class="route-arrow">→</span><span>Manali</span>
+                    </div>
+                    <p class="route-meta">One-way &amp; round trip · Sedan · SUV · Traveller</p>
+                    <button class="route-btn js-quote-open" data-dest="Manali" data-interest="Route: Delhi - Manali">Get
+                        Fixed Price</button>
+                </div>
+                <div class="route-card">
+                    <div class="route-path"><span>Chandigarh</span><span class="route-arrow">→</span><span>Shimla</span>
+                    </div>
+                    <p class="route-meta">One-way &amp; round trip · Sedan · SUV · Traveller</p>
+                    <button class="route-btn js-quote-open" data-dest="Shimla"
+                        data-interest="Route: Chandigarh - Shimla">Get Fixed Price</button>
+                </div>
+                <div class="route-card">
+                    <div class="route-path"><span>Amritsar</span><span
+                            class="route-arrow">→</span><span>Dharamshala</span>
+                    </div>
+                    <p class="route-meta">One-way &amp; round trip · Sedan · SUV · Traveller</p>
+                    <button class="route-btn js-quote-open" data-dest="Dharamshala"
+                        data-interest="Route: Amritsar - Dharamshala">Get Fixed Price</button>
+                </div>
+                <div class="route-card">
+                    <div class="route-path"><span>Chandigarh</span><span
+                            class="route-arrow">→</span><span>Dalhousie</span>
+                    </div>
+                    <p class="route-meta">One-way &amp; round trip · Sedan · SUV · Traveller</p>
+                    <button class="route-btn js-quote-open" data-dest="Dalhousie"
+                        data-interest="Route: Chandigarh - Dalhousie">Get Fixed Price</button>
+                </div>
+                <div class="route-card">
+                    <div class="route-path"><span>Shimla</span><span class="route-arrow">→</span><span>Manali</span>
+                    </div>
+                    <p class="route-meta">One-way &amp; round trip · Sedan · SUV · Traveller</p>
+                    <button class="route-btn js-quote-open" data-dest="Manali"
+                        data-interest="Route: Shimla - Manali">Get Fixed Price</button>
+                </div>
+                <div class="route-card">
+                    <div class="route-path"><span>Chandigarh</span><span
+                            class="route-arrow">→</span><span>Dharamshala</span>
+                    </div>
+                    <p class="route-meta">One-way &amp; round trip · Sedan · SUV · Traveller</p>
+                    <button class="route-btn js-quote-open" data-dest="Dharamshala"
+                        data-interest="Route: Chandigarh - Dharamshala">Get Fixed Price</button>
+                </div>
+                <div class="route-card">
+                    <div class="route-path"><span>Chandigarh</span><span class="route-arrow">→</span><span>Jibhi</span>
+                    </div>
+                    <p class="route-meta">One-way &amp; round trip · Sedan · SUV · Traveller</p>
+                    <button class="route-btn js-quote-open" data-dest="Jibhi"
+                        data-interest="Route: Chandigarh - Jibhi">Get Fixed Price</button>
                 </div>
             </div>
         </section>
@@ -2320,7 +3511,7 @@ if ($adgroup === 'himachal-taxi-service') {
                         <label for="calc-phone"
                             style="font-weight: 600; color: #333; display: block; margin-bottom: 5px;">Enter Your Phone
                             Number to Get Quote:</label>
-                        <input type="tel" id="calc-phone" placeholder="Your Phone Number (10-12 digits, e.g. 9805753890)"
+                        <input type="tel" id="calc-phone" placeholder="Your Phone Number (10-12 digits, e.g. 9317324669)"
                             inputmode="numeric" pattern="[0-9]{10,12}" minlength="10" maxlength="12" title="Enter 10-12 digits"
                             style="width: 100%; padding: 12px; border: 1px solid #ddd; border-radius: 6px; font-size: 1rem;"
                             required>
@@ -2335,12 +3526,25 @@ if ($adgroup === 'himachal-taxi-service') {
         </div>
 
 
+        <!-- TOUR PACKAGES SECTION -->
+        <section class="tours-section" id="tours">
+            <div class="section-title">
+                <p class="section-kicker">Tour packages</p>
+                <h2>Popular Himachal Tour Packages</h2>
+                <p>Checkout our pre-planned taxi tour itineraries of Himachal. These itineraries are fully customizable.
+                </p>
+            </div>
+
+            <!-- This grid will be populated by JS -->
+            <div class="tours-grid" id="toursContainer">
+                <!-- Cards will be injected here automatically -->
+            </div>
+        </section>
+
         <!-- TESTIMONIAL SECTION -->
         <section class="testimonial-section" id="reviews">
             <div class="section-title">
-                <p
-                    style="text-transform: uppercase; letter-spacing: 1px; font-size: 0.85rem; color: var(--primary); font-weight: 700; margin-bottom: 5px;">
-                    Testimonial</p>
+                <p class="section-kicker">Reviews</p>
                 <h2>What Our Travelers Say</h2>
                 <p>Read genuine experiences from travelers who chose Himachal Cabs Online for their journeys across
                     Himachal Pradesh.</p>
@@ -2419,24 +3623,11 @@ if ($adgroup === 'himachal-taxi-service') {
             </div>
         </section>
 
-        <!-- TOUR PACKAGES SECTION -->
-        <section class="tours-section" id="tours">
-            <div class="section-title">
-                <h2>Popular Himachal Tour Packages</h2>
-                <p>Checkout our pre-planned taxi tour itineraries of Himachal. These itineraries are fully customizable.
-                </p>
-            </div>
-
-            <!-- This grid will be populated by JS -->
-            <div class="tours-grid" id="toursContainer">
-                <!-- Cards will be injected here automatically -->
-            </div>
-        </section>
-
 
         <!-- FAQ SECTION -->
         <section class="faq-section" id="faq">
             <div class="section-title">
+                <p class="section-kicker">FAQ</p>
                 <h2>Frequently Asked Questions</h2>
                 <p>Checkout the most asked questions and their answers regarding our Himachal Taxi Service.</p>
             </div>
@@ -2495,9 +3686,24 @@ if ($adgroup === 'himachal-taxi-service') {
             </div>
         </section>
 
+        <!-- Sticky mobile quote bubble -->
+        <div class="sticky-action-bar" id="stickyQuote">
+            <button class="sticky-quote js-quote-open" data-interest="Sticky bubble" type="button">
+                <span class="sticky-quote-icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                        stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                        <path d="M3.5 12V4.5A1.5 1.5 0 0 1 5 3h7.5L21 11.5 12.5 20z" />
+                        <circle cx="8.5" cy="8.5" r="1.6" />
+                    </svg></span>
+                <span class="sticky-quote-text"><strong>Get Free Quote</strong><small>Himachal taxi ·
+                        30 sec</small></span>
+                <span class="sticky-quote-arrow">→</span>
+            </button>
+            <button class="sticky-quote-close" id="stickyQuoteClose" aria-label="Dismiss">×</button>
+        </div>
+
         <!-- Floating Left Contact Buttons -->
         <div class="float-contact-buttons">
-            <a href="https://wa.me/919805753890" class="float-contact-btn whatsapp" target="_blank"
+            <a href="https://wa.me/919317324669" class="float-contact-btn whatsapp" target="_blank"
                 aria-label="Chat on WhatsApp">
                 <svg style="width:26px;height:26px;fill:currentColor;" viewBox="0 0 448 512">
                     <path
@@ -2505,7 +3711,7 @@ if ($adgroup === 'himachal-taxi-service') {
                 </svg>
                 <span class="tooltip">WhatsApp</span>
             </a>
-            <a href="tel:+919805753890" class="float-contact-btn phone" aria-label="Call Us">
+            <a href="tel:+919317324669" class="float-contact-btn phone" aria-label="Call Us">
                 <svg style="width:24px;height:24px;fill:currentColor;" viewBox="0 0 512 512">
                     <path
                         d="M164.9 24.6c-7.7-18.6-28-28.5-47.4-23.2l-88 24C12.1 30.2 0 46 0 64C0 311.4 200.6 512 448 512c18 0 33.8-12.1 38.6-29.5l24-88c5.3-19.4-4.6-39.7-23.2-47.4l-96-40c-16.3-6.8-35.2-2.1-46.3 11.6L304.7 368C234.3 333.4 178.6 277.7 144 207.3L193.3 167c13.7-11.1 18.4-30 11.6-46.3l-40-96z" />
@@ -2525,7 +3731,9 @@ if ($adgroup === 'himachal-taxi-service') {
         <!-- Final CTA Section -->
         <section class="final-cta-section">
             <div class="final-cta-container">
+                <p class="section-kicker">Shimla · Manali · Dharamshala · Dalhousie · Spiti</p>
                 <h2>More Than <span style="color:var(--accent);">5,000</span> People Have Explored Himachal With Us</h2>
+                <p class="final-cta-stars"><span class="stars">★★★★★</span>4.8 rated · 200+ Google reviews</p>
                 <p>
                     Planning a trip to Himachal? We're a complete Himachal taxi service providers covering all your
                     transportation needs — including our popular Shimla taxi service and Manali taxi service, plus
@@ -2533,7 +3741,20 @@ if ($adgroup === 'himachal-taxi-service') {
                     carried more than 5,000 satisfied travelers across the mountains, backed by our satisfaction
                     guarantee. Join the thousands of happy travelers who've explored Himachal with us.
                 </p>
-                <a href="#home" class="cta-btn js-quote-open" data-interest="Final CTA">Book Your Taxi Now</a>
+                <div class="final-cta-buttons">
+                    <a href="#home" class="cta-btn js-quote-open" data-interest="Final CTA">Book Your Taxi Now</a>
+                    <a href="tel:+919317324669" class="cta-btn final-cta-call"><svg viewBox="0 0 24 24" fill="none"
+                            stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"
+                            aria-hidden="true">
+                            <path
+                                d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2z" />
+                        </svg>+91 93173 24669</a>
+                </div>
+                <div class="final-cta-points">
+                    <span><span class="tick">✓</span>Experienced hill drivers</span>
+                    <span><span class="tick">✓</span>Sedans, SUVs &amp; Travellers</span>
+                    <span><span class="tick">✓</span>Upfront fixed pricing</span>
+                </div>
             </div>
 
         </section>
@@ -2577,6 +3798,7 @@ if ($adgroup === 'himachal-taxi-service') {
                             <option value="Kasol">Kasol</option>
                             <option value="Spiti">Spiti</option>
                             <option value="Kinnaur">Kinnaur</option>
+                            <option value="Jibhi">Jibhi (Tirthan Valley)</option>
                             <option value="Other">Other (Custom Tour)</option>
                         </select>
                     </div>
@@ -2606,7 +3828,11 @@ if ($adgroup === 'himachal-taxi-service') {
             <div class="trust-container">
                 <!-- Badge 1: Himachal Tourism -->
                 <div class="trust-card">
-                    <div class="trust-card__icon">🏛️</div>
+                    <div class="trust-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M3 9.5 12 4l9 5.5" />
+                            <path d="M5 10v9M19 10v9M9 13.5V17M12 13.5V17M15 13.5V17M2.5 20.5h19" />
+                        </svg></div>
                     <div class="trust-card__content">
                         <h3 class="trust-card__title">Himachal Tourism</h3>
                         <p class="trust-card__subtitle">Registered Transporters</p>
@@ -2615,7 +3841,10 @@ if ($adgroup === 'himachal-taxi-service') {
 
                 <!-- Badge 3: Google Reviews -->
                 <div class="trust-card">
-                    <div class="trust-card__icon">⭐</div>
+                    <div class="trust-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <path d="M12 3.6l2.6 5.2 5.7.8-4.1 4 1 5.7-5.2-2.7-5.2 2.7 1-5.7-4.1-4 5.7-.8z" />
+                        </svg></div>
                     <div class="trust-card__content">
                         <h3 class="trust-card__title">200+ Reviews</h3>
                         <p class="trust-card__subtitle">4.8★ Positive Rating</p>
@@ -2624,7 +3853,11 @@ if ($adgroup === 'himachal-taxi-service') {
 
                 <!-- Badge 4: Years in Business -->
                 <div class="trust-card">
-                    <div class="trust-card__icon">📅</div>
+                    <div class="trust-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <rect x="3.5" y="5" width="17" height="15.5" rx="2" />
+                            <path d="M3.5 10h17M8 3v4M16 3v4" />
+                        </svg></div>
                     <div class="trust-card__content">
                         <h3 class="trust-card__title">8+ Years in Market</h3>
                         <p class="trust-card__subtitle">Proven Track Record</p>
@@ -2633,7 +3866,13 @@ if ($adgroup === 'himachal-taxi-service') {
 
                 <!-- Badge 5: Happy Travelers -->
                 <div class="trust-card">
-                    <div class="trust-card__icon">👥</div>
+                    <div class="trust-card__icon"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                            stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                            <circle cx="9" cy="8" r="3.2" />
+                            <path d="M3 20c0-3.3 2.7-5.5 6-5.5s6 2.2 6 5.5" />
+                            <circle cx="16.8" cy="9" r="2.5" />
+                            <path d="M16.4 14.6c2.5.6 4.6 2.4 4.6 5.4" />
+                        </svg></div>
                     <div class="trust-card__content">
                         <h3 class="trust-card__title">5,000+</h3>
                         <p class="trust-card__subtitle">Community of Explorers</p>
@@ -2642,20 +3881,59 @@ if ($adgroup === 'himachal-taxi-service') {
             </div>
         </div>
 
-        <!-- Original Footer Content -->
-        <div class="footer-content">
+        <!-- Footer Columns -->
+        <div class="footer-grid">
+            <div class="footer-col">
+                <div class="footer-brand">Himachal Cabs <span>Online</span></div>
+                <p>Local taxi service for private travel across Himachal Pradesh — one-way transfers, sightseeing cabs
+                    and multi-day trips with experienced hill drivers.</p>
+            </div>
+            <div class="footer-col">
+                <div class="footer-heading">Explore</div>
+                <ul class="footer-links">
+                    <li>→ <a href="#why-us">Why Us</a></li>
+                    <li>→ <a href="#fleet">Our Fleet</a></li>
+                    <li>→ <a href="#routes">Popular Routes</a></li>
+                    <li>→ <a href="#tours">Tour Packages</a></li>
+                    <li>→ <a href="#reviews">Reviews</a></li>
+                    <li>→ <a href="#faq">FAQ</a></li>
+                </ul>
+            </div>
+            <div class="footer-col">
+                <div class="footer-heading">Contact</div>
+                <ul class="footer-contact">
+                    <li><a href="tel:+919317324669"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor"
+                                stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+                                <path
+                                    d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2z" />
+                            </svg>+91 93173 24669</a></li>
+                    <li><a href="mailto:himachalcabsonline01@gmail.com"><svg viewBox="0 0 24 24" fill="none"
+                                stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"
+                                aria-hidden="true">
+                                <rect x="3" y="5" width="18" height="14" rx="2" />
+                                <path d="M3.5 7l8.5 6 8.5-6" />
+                            </svg>himachalcabsonline01@gmail.com</a></li>
+                    <li><a href="https://wa.me/919317324669" target="_blank" rel="noopener"><svg viewBox="0 0 448 512"
+                                fill="currentColor" aria-hidden="true">
+                                <path
+                                    d="M380.9 97.1C339 55.1 283.2 32 223.9 32c-122.4 0-222 99.6-222 222 0 39.1 10.2 77.3 29.6 111L0 480l117.7-30.9c32.4 17.7 68.9 27 106.1 27h.1c122.3 0 224.1-99.6 224.1-222 0-59.3-25.2-115-67.1-157z" />
+                            </svg>Chat on WhatsApp</a></li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- Bottom Bar -->
+        <div class="footer-bottom">
             <p>&copy; <span id="current-year"></span> Himachal Cabs Online - A Unit of <a
                     href="https://uranoteholidays.com" target="_blank"
                     style="text-decoration: none; font-weight: bold; color: var(--accent);">Uranote Holidays.</a> All
                 rights reserved.</p>
-            <p><a href="/privacy-policy.html" style="color: var(--light); text-decoration: underline;">Privacy
-                    Policy</a></p>
+            <p><a href="/privacy-policy.html">Privacy Policy</a></p>
         </div>
     </footer>
 
-    <script src="main.js?v=2.3" defer></script>
+    <script src="main.js?v=3.0" defer></script>
 
-    <!-- Google Tag Manager (Optimized) -->
     <!-- Google Tag Manager (Optimized: loaded exclusively on user interaction for 0 TBT) -->
     <script>
         function loadGTM() {
