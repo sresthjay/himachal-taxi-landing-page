@@ -1580,6 +1580,14 @@ if ($adgroup === 'himachal-taxi-service') {
                 animation-delay: 0.33s;
             }
 
+            .main-nav.open a:nth-of-type(8) {
+                animation-delay: 0.38s;
+            }
+
+            .main-nav.open a:nth-of-type(9) {
+                animation-delay: 0.43s;
+            }
+
             @keyframes navLinkIn {
                 from {
                     opacity: 0;
@@ -2944,6 +2952,13 @@ if ($adgroup === 'himachal-taxi-service') {
                         stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
                         <path d="M4 5.5A1.5 1.5 0 0 1 5.5 4h13A1.5 1.5 0 0 1 20 5.5v8a1.5 1.5 0 0 1-1.5 1.5H9l-5 4.5z" />
                     </svg>FAQ</a>
+                <a href="#taxiForm" class="nav-cta nav-cta-menu">Book Your Taxi Now</a>
+                <a href="tel:+919317324669" class="mobile-menu-call"><svg class="nav-ico" viewBox="0 0 24 24"
+                        fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round"
+                        stroke-linejoin="round" aria-hidden="true">
+                        <path
+                            d="M22 16.9v3a2 2 0 0 1-2.2 2 19.8 19.8 0 0 1-8.6-3.1 19.5 19.5 0 0 1-6-6A19.8 19.8 0 0 1 2.1 4.2 2 2 0 0 1 4.1 2h3a2 2 0 0 1 2 1.7c.1.9.3 1.8.6 2.7a2 2 0 0 1-.4 2.1L8.1 9.7a16 16 0 0 0 6 6l1.2-1.2a2 2 0 0 1 2.1-.4c.9.3 1.8.5 2.7.6a2 2 0 0 1 1.9 2z" />
+                    </svg>+91 93173 24669</a>
             </nav>
             <div class="header-actions">
                 <a href="#home" class="nav-cta nav-cta-desktop">Book Now</a>
@@ -3224,7 +3239,7 @@ if ($adgroup === 'himachal-taxi-service') {
                 <!-- Car 3: SUV -->
                 <div class="fleet-card">
                     <div class="fleet-img">
-                        <img src="/Images/ertiga.webp" alt="Suzuki Ertiga Taxi" width="300" height="250" loading="lazy">
+                        <img src="/Images/ertiga.jpg" alt="Suzuki Ertiga Taxi" width="300" height="250" loading="lazy">
                         <span class="fleet-badge">Suitable for Hills</span>
                     </div>
                     <div class="fleet-details">
@@ -3328,7 +3343,7 @@ if ($adgroup === 'himachal-taxi-service') {
 
                 <div class="fleet-card">
                     <div class="fleet-img">
-                        <img src="/Images/Traveller 17 Seater.webp" alt="Traveller 17 Seater" width="300" height="250"
+                        <img src="/Images/Traveller 17 Seater.jpg" alt="Traveller 17 Seater" width="300" height="250"
                             loading="lazy">
                         <span class="fleet-badge">Large Group</span>
                     </div>
@@ -3354,7 +3369,7 @@ if ($adgroup === 'himachal-taxi-service') {
 
                 <div class="fleet-card">
                     <div class="fleet-img">
-                        <img src="/Images/Urbania.webp" alt="Urbania 17 Seater" width="300" height="250" loading="lazy">
+                        <img src="/Images/Urbania.jpg" alt="Urbania 17 Seater" width="300" height="250" loading="lazy">
                         <span class="fleet-badge">Luxury</span>
                     </div>
                     <div class="fleet-details">
