@@ -268,19 +268,15 @@ if (yearSpan) {
 // 6. Get to top button
 const backToTopBtn = document.getElementById("backToTopBtn");
 
-// Show button when user scrolls down 200px
-window.onscroll = function () {
-    const showTop = document.body.scrollTop > 200 || document.documentElement.scrollTop > 200;
-    backToTopBtn.classList.toggle('show', showTop);
-};
-
 // Scroll to top when clicked
-backToTopBtn.addEventListener("click", function () {
-    window.scrollTo({
-        top: 0,
-        behavior: "smooth" // Uses the smooth scrolling you already set in CSS
+if (backToTopBtn) {
+    backToTopBtn.addEventListener("click", function () {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth" // Uses the smooth scrolling you already set in CSS
+        });
     });
-});
+}
 
 // TOUR DATA
 const toursData = [
@@ -650,15 +646,25 @@ if (spySections.length && mainNav) {
     spySections.forEach(section => spyObserver.observe(section));
 }
 
-// 9. Header "scrolled" state: shrink + elevate header after scrolling
+// 9. Scroll-driven UI in one rAF-throttled handler (header state + back-to-top)
 const siteHeader = document.querySelector('.site-header');
-if (siteHeader) {
-    const updateHeaderState = () => {
-        siteHeader.classList.toggle('scrolled', window.scrollY > 10);
-    };
-    window.addEventListener('scroll', updateHeaderState, { passive: true });
-    updateHeaderState();
+let scrollTicking = false;
+function updateOnScroll() {
+    scrollTicking = false;
+    const y = window.scrollY || document.documentElement.scrollTop;
+    if (siteHeader) siteHeader.classList.toggle('scrolled', y > 10);
+    if (backToTopBtn) {
+        backToTopBtn.classList.toggle('show',
+            document.body.scrollTop > 200 || document.documentElement.scrollTop > 200);
+    }
 }
+window.addEventListener('scroll', () => {
+    if (!scrollTicking) {
+        scrollTicking = true;
+        requestAnimationFrame(updateOnScroll);
+    }
+}, { passive: true });
+updateOnScroll();
 
 // 10. Quote popup modal (reuses hero form fields)
 const quoteModal = document.getElementById('quoteModal');
