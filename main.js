@@ -646,25 +646,25 @@ if (spySections.length && mainNav) {
     spySections.forEach(section => spyObserver.observe(section));
 }
 
-// 9. Scroll-driven UI in one rAF-throttled handler (header state + back-to-top)
+// 9. Scroll-driven UI in one rAF-throttled handler (header state + back-to-top).
+// NOTE: the initial paint passes 0 WITHOUT reading scrollY, because reading
+// scroll position before first layout forces a full-page reflow.
 const siteHeader = document.querySelector('.site-header');
 let scrollTicking = false;
-function updateOnScroll() {
+function updateOnScroll(y) {
     scrollTicking = false;
-    const y = window.scrollY || document.documentElement.scrollTop;
     if (siteHeader) siteHeader.classList.toggle('scrolled', y > 10);
-    if (backToTopBtn) {
-        backToTopBtn.classList.toggle('show',
-            document.body.scrollTop > 200 || document.documentElement.scrollTop > 200);
-    }
+    if (backToTopBtn) backToTopBtn.classList.toggle('show', y > 200);
 }
 window.addEventListener('scroll', () => {
     if (!scrollTicking) {
         scrollTicking = true;
-        requestAnimationFrame(updateOnScroll);
+        requestAnimationFrame(() => {
+            updateOnScroll(window.scrollY || document.documentElement.scrollTop);
+        });
     }
 }, { passive: true });
-updateOnScroll();
+updateOnScroll(0);
 
 // 10. Quote popup modal (reuses hero form fields)
 const quoteModal = document.getElementById('quoteModal');

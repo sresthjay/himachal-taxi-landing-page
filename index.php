@@ -43,14 +43,10 @@ if ($adgroup === 'himachal-taxi-service') {
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link rel="preconnect" href="https://cdnjs.cloudflare.com">
 
-    <!-- Preload LCP hero image -->
+    <!-- Preload LCP hero image + heading font (body font swaps lazily, low shift risk) -->
     <link rel="preload" as="image" href="/Images/hero-bg.jpg" fetchpriority="high">
-
-    <!-- Preload heading + body fonts so first paint already uses them (no swap shift) -->
     <link rel="preload" as="font" type="font/woff2" crossorigin
         href="https://fonts.gstatic.com/s/fraunces/v38/6NU78FyLNQOQZAnv9bYEvDiIdE9Ea92uemAk_WBq8U_9v0c2Wa0KxC9TeA.woff2">
-    <link rel="preload" as="font" type="font/woff2" crossorigin
-        href="https://fonts.gstatic.com/s/inter/v20/UcC73FwrK3iLTeHuS_nVMrMxCp50SjIa1ZL7.woff2">
 
     <!-- Google Fonts (Non-blocking) -->
     <link rel="preload" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&family=Fraunces:opsz,wght@9..144,700;9..144,900&display=swap" as="style"
@@ -3972,7 +3968,7 @@ if ($adgroup === 'himachal-taxi-service') {
         </div>
     </footer>
 
-    <script src="main.js?v=3.1" defer></script>
+    <script src="main.js?v=3.2" defer></script>
 
     <!-- Google Tag Manager (Optimized: loaded exclusively on user interaction for 0 TBT) -->
     <script>
