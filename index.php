@@ -1,4 +1,9 @@
 <?php
+// Let edge caches serve this GET page briefly. POST traffic and /api/* are
+// never cached by CDNs, and each ?adgroup= URL caches under its own key.
+if (($_SERVER['REQUEST_METHOD'] ?? 'GET') === 'GET') {
+    header('Cache-Control: public, max-age=300, s-maxage=600, stale-while-revalidate=60');
+}
 $adgroup = isset($_GET['adgroup']) ? trim($_GET['adgroup']) : '';
 $title = 'Himachal Cabs Online | Manali, Shimla & Dharamshala Taxi Services';
 $description = 'Book reliable Himachal taxi services with local drivers. Get one-way cabs, round trips & sightseeing taxi in Manali, Shimla, Dharamshala and beyond.';
