@@ -390,10 +390,11 @@ const toursData = [
   }
 ];
 
-// RENDER TOURS
+// RENDER TOURS (deferred until idle: card construction stays off the critical path)
 const toursContainer = document.getElementById('toursContainer');
 
-if (toursContainer) {
+function renderTours() {
+  if (!toursContainer) return;
   toursData.forEach(tour => {
     // 1. Create Place Tags (Existing logic)
     const placesHtml = tour.places.map(place => 
@@ -443,10 +444,9 @@ if (toursContainer) {
 
     toursContainer.innerHTML += cardHtml;
   });
-}
 
-// Tour scroll reveal (same no-JS-safe pattern as fleet)
-const tourCards = document.querySelectorAll('.tour-card');
+  // Tour scroll reveal (same no-JS-safe pattern as fleet)
+  const tourCards = toursContainer.querySelectorAll('.tour-card');
 if ('IntersectionObserver' in window && tourCards.length) {
     const tourObserver = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -462,6 +462,13 @@ if ('IntersectionObserver' in window && tourCards.length) {
         el.style.transitionDelay = ((i % 3) * 70) + 'ms';
         tourObserver.observe(el);
     });
+}
+}
+
+if ('requestIdleCallback' in window) {
+    requestIdleCallback(renderTours, { timeout: 2000 });
+} else {
+    setTimeout(renderTours, 0);
 }
 
 // Testimonial Slider Logic
