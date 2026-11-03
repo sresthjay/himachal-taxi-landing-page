@@ -6,6 +6,21 @@ const calcFormStep = document.getElementById('calcFormStep');
 const calcResultStep = document.getElementById('calcResultStep');
 const backToCalcBtn = document.getElementById('backToCalcBtn');
 
+// Phone inputs allow digits, spaces, and an optional leading + (10-16 characters).
+function sanitizePhone(value) {
+    let cleaned = value.replace(/[^\d+ ]/g, '').replace(/^\s+/, '');
+    // Keep a plus sign only at the start of the number.
+    return cleaned.replace(/(?!^)\+/g, '').slice(0, 16);
+}
+
+function isValidPhone(value) {
+    const phone = value.trim();
+    if (phone.length < 10 || phone.length > 16) return false;
+    if (!/^\+?[0-9 ]+$/.test(phone)) return false;
+    const digits = phone.replace(/\D/g, '');
+    return digits.length >= 10 && digits.length <= 12;
+}
+
 fleetButtons.forEach(btn => {
     btn.addEventListener('click', (e) => {
         const carName = btn.getAttribute('data-car');
@@ -83,17 +98,17 @@ if (calcBtn) {
             maximumFractionDigits: 0
         }).format(total);
 
-        resultDiv.style.background = '#e8f5e9';
-        resultDiv.style.color = '#2e7d32';
+        resultDiv.style.background = '#FFF6DF';
+        resultDiv.style.color = '#111111';
         resultDiv.innerHTML = `
-            <div style="font-size: 1.05rem; margin-bottom: 3px; font-weight: 600; color: #1b4332;">Here is the estimated rate based on your journey details:</div>
-            <div style="font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; color: #2e7d32;">${formattedTotal}</div>
+            <div style="font-size: 1.05rem; margin-bottom: 3px; font-weight: 600; color: #111111;">Here is the estimated rate based on your journey details:</div>
+            <div style="font-size: 2.2rem; font-weight: 800; margin-bottom: 8px; color: #111111;">${formattedTotal}</div>
             <div style="font-size: 0.85rem; color: #555; line-height: 1.5; margin-bottom: 12px;">
                 <strong>Car:</strong> ${carName}<br>
                 <strong>Route:</strong> ${pickup} to ${drop} (${km} km, ${days} Day/s)<br>
                 <em>*Includes DA. Taxes, Tolls & Parking extra.</em>
             </div>
-            <div style="font-size: 0.75rem; color: #666; line-height: 1.4; border-top: 1px dashed #c8e6c9; padding-top: 10px; text-align: left;">
+            <div style="font-size: 0.75rem; color: #666; line-height: 1.4; border-top: 1px dashed #F3D48A; padding-top: 10px; text-align: left;">
                 *The displayed fare is an estimate and may vary based on the travel date, season, time of day or night, traffic conditions, route, and other applicable charges. The final fare will be confirmed at the time of booking.
             </div>
         `;
@@ -110,8 +125,8 @@ if (bookEstimateBtn) {
         const phoneInput = document.getElementById('calc-phone');
         const phone = phoneInput ? phoneInput.value.trim() : '';
 
-        if (!/^[0-9]{10,12}$/.test(phone)) {
-            alert("⚠️ Please enter a valid phone number (10-12 digits).");
+        if (!isValidPhone(phone)) {
+            alert("⚠️ Please enter a valid phone number (10-12 digits; + and spaces allowed).");
             return;
         }
 
@@ -168,11 +183,11 @@ if (bookEstimateBtn) {
     });
 }
 
-// Restrict phone input to numbers only (max 12 digits)
+// Allow digits, a leading +, and spaces (max 16 characters)
 const calcPhoneInput = document.getElementById('calc-phone');
 if (calcPhoneInput) {
     calcPhoneInput.addEventListener('input', () => {
-        calcPhoneInput.value = calcPhoneInput.value.replace(/\D/g, '').slice(0, 12);
+        calcPhoneInput.value = sanitizePhone(calcPhoneInput.value);
     });
 }
 
@@ -206,8 +221,8 @@ if (form) {
         submitBtn.disabled = true;
 
         const heroPhone = form.querySelector('#phone') ? form.querySelector('#phone').value.trim() : '';
-        if (!/^[0-9]{10,12}$/.test(heroPhone)) {
-            alert("⚠️ Please enter a valid phone number (10-12 digits).");
+        if (!isValidPhone(heroPhone)) {
+            alert("⚠️ Please enter a valid phone number (10-12 digits; + and spaces allowed).");
             submitBtn.innerText = originalText;
             submitBtn.disabled = false;
             return;
@@ -251,11 +266,11 @@ document.querySelectorAll('form[action*="submit.php"]').forEach(f => {
     }
 });
 
-// Restrict hero phone input to numbers only (max 12 digits)
+// Allow digits, a leading +, and spaces (max 16 characters)
 const heroPhoneInput = document.getElementById('phone');
 if (heroPhoneInput) {
     heroPhoneInput.addEventListener('input', () => {
-        heroPhoneInput.value = heroPhoneInput.value.replace(/\D/g, '').slice(0, 12);
+        heroPhoneInput.value = sanitizePhone(heroPhoneInput.value);
     });
 }
 
@@ -404,7 +419,7 @@ function renderTours() {
     // 2. CREATE FEATURES LIST (New Logic)
     const featuresHtml = tour.features.map(feat => 
       `<li style="margin-bottom: 8px; font-size: 0.95rem; color: #444; display: flex; align-items: start; gap: 8px;">
-         <svg style="width:16px;height:16px;fill:#2E7D32;flex-shrink:0;margin-top:3px;" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
+         <svg style="width:16px;height:16px;fill:#111111;flex-shrink:0;margin-top:3px;" viewBox="0 0 512 512"><path d="M256 512A256 256 0 1 0 256 0a256 256 0 1 0 0 512zM369 209L241 337c-9.4 9.4-24.6 9.4-33.9 0l-64-64c-9.4-9.4-9.4-24.6 0-33.9s24.6-9.4 33.9 0l47 47L335 175c9.4-9.4 24.6-9.4 33.9 0s9.4 24.6 0 33.9z"/></svg>
          <span>${feat}</span>
        </li>`
     ).join('');
@@ -717,11 +732,11 @@ document.querySelectorAll('.js-quote-open').forEach(el => {
     });
 });
 
-// Modal phone: digits only, max 12
+// Modal phone: digits, a leading +, and spaces (max 16 characters)
 const quotePhoneInput = document.getElementById('q-phone');
 if (quotePhoneInput) {
     quotePhoneInput.addEventListener('input', () => {
-        quotePhoneInput.value = quotePhoneInput.value.replace(/\D/g, '').slice(0, 12);
+        quotePhoneInput.value = sanitizePhone(quotePhoneInput.value);
     });
 }
 
@@ -732,8 +747,8 @@ if (quoteForm) {
 
         const submitBtn = document.getElementById('quoteSubmitBtn');
         const phone = quoteForm.querySelector('#q-phone') ? quoteForm.querySelector('#q-phone').value.trim() : '';
-        if (!/^[0-9]{10,12}$/.test(phone)) {
-            alert("⚠️ Please enter a valid phone number (10-12 digits).");
+        if (!isValidPhone(phone)) {
+            alert("⚠️ Please enter a valid phone number (10-12 digits; + and spaces allowed).");
             return;
         }
 

@@ -65,16 +65,27 @@ $estimated   = trim($_POST['estimated_cost'] ?? '');
 // BASIC VALIDATION
 // --------------------------------------------------
 
-if (!$phone || !preg_match('/^[0-9]{10,12}$/', $phone)) {
+$phoneDigits = preg_replace('/\D/', '', $phone);
+if (
+    !$phone
+    || strlen($phone) < 10
+    || strlen($phone) > 16
+    || !preg_match('/^\+?[0-9 ]+$/', $phone)
+    || strlen($phoneDigits) < 10
+    || strlen($phoneDigits) > 12
+) {
     http_response_code(400);
 
     echo json_encode([
         'success' => false,
-        'message' => 'Please enter a valid phone number (10-12 digits)'
+        'message' => 'Please enter a valid phone number (10-12 digits; + and spaces allowed)'
     ]);
 
     exit;
 }
+
+// Browsers expect tel: links without visual separators.
+$phoneLink = str_replace(' ', '', $phone);
 
 
 // --------------------------------------------------
@@ -166,7 +177,7 @@ try {
 
             <tr>
                 <td><strong>Phone</strong></td>
-                <td><a href="tel:' . htmlspecialchars($phone) . '">' . htmlspecialchars($phone) . '</a></td>
+                <td><a href="tel:' . htmlspecialchars($phoneLink) . '">' . htmlspecialchars($phone) . '</a></td>
             </tr>
 
             <tr>
@@ -224,7 +235,7 @@ try {
 
             <tr>
                 <td><strong>Phone</strong></td>
-                <td><a href="tel:' . htmlspecialchars($phone) . '">' . htmlspecialchars($phone) . '</a></td>
+                <td><a href="tel:' . htmlspecialchars($phoneLink) . '">' . htmlspecialchars($phone) . '</a></td>
             </tr>
 
             <tr>
